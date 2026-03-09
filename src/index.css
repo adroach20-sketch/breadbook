@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/* BreadBook Color Palette — CSS custom properties for easy dark mode toggle later */
+@theme {
+  --color-crust: #8B5E3C;
+  --color-crust-light: #A3764E;
+  --color-crust-dark: #6E4A2F;
+  --color-dough: #F5ECD7;
+  --color-wheat: #D4A96A;
+  --color-crumb: #FBF7F0;
+  --color-char: #2C1A0E;
+  --color-ash: #5C4033;
+  --color-steam: #FFFFFF;
+
+  /* Font families */
+  --font-heading: 'Lora', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-crumb);
+  color: var(--color-char);
+  margin: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
