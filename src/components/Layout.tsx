@@ -4,7 +4,13 @@ import { useAuth } from '../lib/auth'
 const navItems = [
   { path: '/', label: 'Home', icon: '🏠' },
   { path: '/recipes', label: 'Recipes', icon: '📖' },
+  { path: '/journal', label: 'Journal', icon: '📔' },
 ]
+
+function isNavActive(itemPath: string, currentPath: string) {
+  if (itemPath === '/') return currentPath === '/'
+  return currentPath.startsWith(itemPath)
+}
 
 export function Layout() {
   const { user, signOut } = useAuth()
@@ -24,7 +30,7 @@ export function Layout() {
               key={item.path}
               to={item.path}
               className={`hover:text-wheat transition-colors ${
-                location.pathname === item.path ? 'text-wheat' : ''
+                isNavActive(item.path, location.pathname) ? 'text-wheat' : ''
               }`}
             >
               {item.label}
@@ -69,7 +75,7 @@ export function Layout() {
             key={item.path}
             to={item.path}
             className={`flex-1 flex flex-col items-center py-2 text-xs transition-colors ${
-              location.pathname === item.path
+              isNavActive(item.path, location.pathname)
                 ? 'text-crust font-medium'
                 : 'text-ash'
             }`}

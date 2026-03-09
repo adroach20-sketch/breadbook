@@ -8,6 +8,9 @@ import { RecipeDetail } from './pages/RecipeDetail'
 import { Login } from './pages/Login'
 import { SignUp } from './pages/SignUp'
 import { BakeMode } from './features/bake-mode/BakeMode'
+import { JournalList } from './features/journal/JournalList'
+import { JournalForm } from './features/journal/JournalForm'
+import { JournalDetail } from './features/journal/JournalDetail'
 
 export default function App() {
   return (
@@ -29,6 +32,10 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/recipes" element={<Recipes />} />
             <Route path="/recipes/:id" element={<RecipeDetail />} />
+            <Route path="/journal" element={<JournalList />} />
+            <Route path="/journal/new" element={<JournalForm />} />
+            <Route path="/journal/:id" element={<JournalDetail />} />
+            <Route path="/journal/:id/edit" element={<JournalForm />} />
           </Route>
 
           {/* Bake mode — full screen, no nav (but still protected) */}

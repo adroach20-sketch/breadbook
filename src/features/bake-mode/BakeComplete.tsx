@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 interface BakeCompleteProps {
   recipeTitle: string
   recipeId: string
+  sessionId?: string
 }
 
-export function BakeComplete({ recipeTitle, recipeId }: BakeCompleteProps) {
+export function BakeComplete({ recipeTitle, recipeId, sessionId }: BakeCompleteProps) {
   return (
     <div className="min-h-screen bg-dough flex items-center justify-center px-6">
       <div className="text-center max-w-sm">
@@ -17,6 +18,12 @@ export function BakeComplete({ recipeTitle, recipeId }: BakeCompleteProps) {
         </p>
 
         <div className="space-y-3">
+          <Link
+            to={`/journal/new?recipe=${recipeId}${sessionId ? `&session=${sessionId}` : ''}`}
+            className="block bg-wheat text-char py-3 rounded-xl font-medium hover:bg-wheat/80 transition-colors text-center"
+          >
+            📔 Log Your Bake
+          </Link>
           <Link
             to={`/recipes/${recipeId}`}
             className="block bg-crust text-steam py-3 rounded-xl font-medium hover:bg-crust-dark transition-colors"

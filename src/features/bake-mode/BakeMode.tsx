@@ -157,7 +157,7 @@ export function BakeMode() {
   }
 
   if (isComplete) {
-    return <BakeComplete recipeTitle={recipe.title} recipeId={recipe.id} />
+    return <BakeComplete recipeTitle={recipe.title} recipeId={recipe.id} sessionId={sessionId || undefined} />
   }
 
   const steps = recipe.steps

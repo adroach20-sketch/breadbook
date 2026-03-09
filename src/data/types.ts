@@ -66,3 +66,21 @@ export interface Recipe {
   is_breadbook_original: boolean
   source_credit: string | null
 }
+
+export interface BakeLog {
+  id: string
+  user_id: string
+  recipe_id: string
+  bake_session_id: string | null
+  rating: number
+  crumb_notes: string | null
+  crust_notes: string | null
+  flavor_notes: string | null
+  what_went_well: string | null
+  what_to_change: string | null
+  photo_urls: string[]
+  created_at: string
+  updated_at: string
+  // Joined from select queries
+  recipes?: { title: string }
+}
