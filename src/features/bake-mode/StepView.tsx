@@ -5,9 +5,10 @@ interface StepViewProps {
   step: RecipeStep
   stepIndex: number
   totalSteps: number
+  recipeId: string
 }
 
-export function StepView({ step, stepIndex, totalSteps }: StepViewProps) {
+export function StepView({ step, stepIndex, totalSteps, recipeId }: StepViewProps) {
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-6 py-8 max-w-lg mx-auto w-full">
       {/* Step type badge */}
@@ -33,7 +34,7 @@ export function StepView({ step, stepIndex, totalSteps }: StepViewProps) {
 
       {/* Timer */}
       <div className="w-full max-w-xs">
-        <Timer minutes={step.timer_minutes} label={step.timer_label} />
+        <Timer minutes={step.timer_minutes} label={step.timer_label} storageKey={`breadbook-timer-${recipeId}-${stepIndex}`} />
       </div>
 
       {/* Step counter */}

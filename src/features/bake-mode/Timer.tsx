@@ -14,10 +14,11 @@ function formatTime(seconds: number): string {
 interface TimerProps {
   minutes: number | null
   label: string | null
+  storageKey?: string
 }
 
-export function Timer({ minutes, label }: TimerProps) {
-  const { remainingSeconds, isRunning, isComplete, start, pause, reset, hasTimer } = useTimer(minutes)
+export function Timer({ minutes, label, storageKey }: TimerProps) {
+  const { remainingSeconds, isRunning, isComplete, start, pause, reset, hasTimer } = useTimer(minutes, storageKey)
 
   if (!hasTimer) return null
 

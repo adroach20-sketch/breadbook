@@ -115,6 +115,12 @@ export function BakeMode() {
   const handleComplete = async () => {
     setIsComplete(true)
     localStorage.removeItem(BAKE_SESSION_KEY)
+    // Clean up any persisted timer states for this recipe
+    if (recipe) {
+      for (let i = 0; i < recipe.steps.length; i++) {
+        localStorage.removeItem(`breadbook-timer-${recipe.id}-${i}`)
+      }
+    }
     wakeLock.release()
 
     if (sessionId) {
@@ -189,7 +195,7 @@ export function BakeMode() {
       </div>
 
       {/* Step content */}
-      <StepView step={step} stepIndex={currentStep} totalSteps={steps.length} />
+      <StepView step={step} stepIndex={currentStep} totalSteps={steps.length} recipeId={recipe.id} />
 
       {/* Navigation */}
       <div className="flex gap-3 px-6 pb-8 pt-4 flex-shrink-0 max-w-lg mx-auto w-full">
