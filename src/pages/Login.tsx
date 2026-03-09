@@ -19,7 +19,11 @@ export function Login() {
     setLoading(false)
 
     if (error) {
-      setError(error)
+      if (error.includes('Invalid login credentials')) {
+        setError("Email or password doesn't match. Need an account? Sign up below.")
+      } else {
+        setError(error)
+      }
     } else {
       navigate('/')
     }

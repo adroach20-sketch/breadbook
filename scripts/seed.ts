@@ -49,60 +49,58 @@ async function seed() {
 
   let userId: string
 
-  // Try signing up first
-  const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+  // Try signing in first (account may already exist from a previous run)
+  const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
     email: seedEmail!,
     password: seedPassword!,
-    options: {
-      data: { username: 'BreadBook' },
-    },
   })
 
-  if (signUpError && signUpError.message.includes('already registered')) {
-    // Account exists, sign in instead
-    console.log('   Account already exists, signing in...')
-    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+  if (!signInError && signInData.user) {
+    console.log('   Account already exists, signed in.')
+    userId = signInData.user.id
+  } else {
+    // Account doesn't exist, create it
+    console.log('   Creating new account...')
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
       email: seedEmail!,
       password: seedPassword!,
+      options: {
+        data: { username: 'BreadBook' },
+      },
     })
-    if (signInError) {
-      console.error('   Failed to sign in:', signInError.message)
+
+    if (signUpError) {
+      console.error('   Failed to create account:', signUpError.message)
       process.exit(1)
     }
-    userId = signInData.user!.id
-  } else if (signUpError) {
-    console.error('   Failed to create account:', signUpError.message)
-    process.exit(1)
-  } else {
     userId = signUpData.user!.id
   }
 
   console.log(`   ✓ @BreadBook account ready (${userId})\n`)
 
-  // Step 2: Check for existing recipes
+  // Step 2: Check for existing recipes by title (since IDs are auto-generated)
   console.log('2. Checking for existing BreadBook Originals...')
   const { data: existingRecipes } = await supabase
     .from('recipes')
-    .select('id')
+    .select('title')
     .eq('is_breadbook_original', true)
 
-  const existingIds = new Set((existingRecipes || []).map((r: { id: string }) => r.id))
+  const existingTitles = new Set((existingRecipes || []).map((r: { title: string }) => r.title))
 
-  // Step 3: Insert recipes
+  // Step 3: Insert recipes (let Supabase generate UUIDs)
   console.log(`3. Seeding ${breadbookOriginals.length} recipes...\n`)
 
   let inserted = 0
   let skipped = 0
 
   for (const recipe of breadbookOriginals) {
-    if (existingIds.has(recipe.id)) {
+    if (existingTitles.has(recipe.title)) {
       console.log(`   ⏭  ${recipe.title} (already exists)`)
       skipped++
       continue
     }
 
     const { error } = await supabase.from('recipes').insert({
-      id: recipe.id,
       user_id: userId,
       title: recipe.title,
       description: recipe.description,

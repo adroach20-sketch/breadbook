@@ -82,6 +82,7 @@ export function SignUp() {
               minLength={6}
               className="w-full px-3 py-2 border border-dough rounded-lg focus:outline-none focus:ring-2 focus:ring-crust/50 bg-crumb"
               placeholder="At least 6 characters"
+              autoComplete="new-password"
             />
           </div>
 
