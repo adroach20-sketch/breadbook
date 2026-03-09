@@ -30,7 +30,7 @@ export function RecipeDetail() {
       if (!error && data) {
         setRecipe(data as Recipe)
       } else {
-        // Fall back to local data
+        if (error) console.warn('Failed to load recipe from Supabase:', error.message)
         const local = breadbookOriginals.find((r) => r.id === id)
         setRecipe(local || null)
       }
@@ -41,8 +41,24 @@ export function RecipeDetail() {
 
   if (loading) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-6">
-        <p className="text-ash">Loading recipe...</p>
+      <div className="max-w-2xl mx-auto px-4 py-6 animate-pulse">
+        <div className="h-4 bg-dough rounded w-24 mb-4" />
+        <div className="h-7 bg-dough rounded w-3/4 mb-3" />
+        <div className="flex gap-2 mb-3">
+          <div className="h-5 bg-dough rounded-full w-28" />
+          <div className="h-5 bg-dough rounded-full w-20" />
+          <div className="h-5 bg-dough rounded-full w-16" />
+        </div>
+        <div className="h-4 bg-dough rounded w-full mb-2" />
+        <div className="h-4 bg-dough rounded w-2/3 mb-6" />
+        <div className="bg-steam rounded-xl p-4 border border-dough/50 mb-6">
+          <div className="h-5 bg-dough rounded w-24 mb-3" />
+          <div className="space-y-2">
+            <div className="h-4 bg-dough rounded w-full" />
+            <div className="h-4 bg-dough rounded w-full" />
+            <div className="h-4 bg-dough rounded w-3/4" />
+          </div>
+        </div>
       </div>
     )
   }

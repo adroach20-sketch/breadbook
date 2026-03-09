@@ -75,6 +75,26 @@ export function useTimer(totalMinutes: number | null, storageKey?: string) {
       persistTimer(null)
       setState({ remainingSeconds: 0, isRunning: false, isComplete: true })
 
+      // Sound alert — three short beeps using Web Audio API
+      try {
+        const ctx = new AudioContext()
+        for (let i = 0; i < 3; i++) {
+          const osc = ctx.createOscillator()
+          const gain = ctx.createGain()
+          osc.connect(gain)
+          gain.connect(ctx.destination)
+          osc.frequency.value = 880
+          gain.gain.value = 0.3
+          osc.start(ctx.currentTime + i * 0.25)
+          osc.stop(ctx.currentTime + i * 0.25 + 0.15)
+        }
+      } catch { /* audio not available */ }
+
+      // Vibrate if supported
+      if ('vibrate' in navigator) {
+        navigator.vibrate([200, 100, 200, 100, 200])
+      }
+
       // Browser notification
       if ('Notification' in window && Notification.permission === 'granted') {
         new Notification('BreadBook Timer', {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { RecipeCard } from '../components/RecipeCard'
+import { RecipeCardSkeleton } from '../components/RecipeCardSkeleton'
 import { breadbookOriginals } from '../data/originals'
 import { supabase } from '../lib/supabase'
 import type { Recipe } from '../data/types'
@@ -22,6 +23,7 @@ const categoryGroups: Record<string, string[]> = {
 export function Recipes() {
   const [recipes, setRecipes] = useState<Recipe[]>(breadbookOriginals)
   const [activeTab, setActiveTab] = useState('all')
+  const [loading, setLoading] = useState(true)
 
   // Try to load from Supabase, fall back to local data
   useEffect(() => {
@@ -32,10 +34,12 @@ export function Recipes() {
         .eq('is_public', true)
         .order('created_at', { ascending: true })
 
-      if (!error && data && data.length > 0) {
+      if (error) {
+        console.warn('Failed to load recipes from Supabase:', error.message)
+      } else if (data && data.length > 0) {
         setRecipes(data as Recipe[])
       }
-      // If Supabase fails or is empty, keep using local originals
+      setLoading(false)
     }
     loadRecipes()
   }, [])
@@ -68,7 +72,13 @@ export function Recipes() {
       </div>
 
       {/* Recipe grid */}
-      {filtered.length === 0 ? (
+      {loading ? (
+        <div className="grid gap-4 sm:grid-cols-2">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <RecipeCardSkeleton key={i} />
+          ))}
+        </div>
+      ) : filtered.length === 0 ? (
         <div className="text-center py-12">
           <span className="text-4xl mb-3 block">🍞</span>
           <p className="text-ash">No recipes in this category yet.</p>
