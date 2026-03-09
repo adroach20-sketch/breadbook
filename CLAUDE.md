@@ -30,27 +30,41 @@ A sourdough lifestyle app. Users browse curated recipes (BreadBook Originals), f
 | Ash | #5C4033 | `text-ash`, `bg-ash` |
 | Steam | #FFFFFF | `text-steam`, `bg-steam` |
 
-## Current Status (v0.1)
-Building core MVP: auth, recipe display, guided bake mode.
+## Current Status
+Building Phase 1 (Core MVP). See `ROADMAP.md` for the full build plan and status tracking.
 
-### What's in v0.1
-- Supabase auth (email/password)
+### What's Built
+- Project scaffold, Tailwind, routing, auth (email/password)
 - BreadBook Originals (~10 seeded recipes)
-- Recipe list with category tabs
-- Recipe detail with baker's % toggle
-- Guided Bake Mode with timers, notifications, wake lock
+- Recipe list with category tabs + detail with baker's % toggle
+- Guided Bake Mode (step view, timers, notifications, wake lock, session persistence)
 
-### What's deferred
-- Starter Tracker (v0.2)
-- Schedule Planner (v0.2)
-- Recipe builder/editor
-- Recipe import (Claude API)
-- Community features
+### What's Next (Phase 1 remaining)
+- BreadBook Academy (inline knowledge cards)
+- Modular Recipe Builder (create/edit, drag-to-reorder, hydration calc, batch scaler)
+- Recipe Fork & Customize
+- Expand Originals to 30+
+- Recipe Explorer with search & filters
+- Recipe Import (text paste + URL via Claude API)
+- In-Bake Logging (fold timestamps, rise check-ins, dough observations, off-plan events)
+- Live Schedule Adjustment
 - Dark mode
+- Welcome screen on first login
+
+### Phase 2: Starter Tracker, Feeding Plans, Schedule Planner, Bake Journal, Loaf Troubleshooter
+### Phase 3: Community (recipe sharing, bake feed, profiles, challenges)
 
 ## Database
-Tables are defined in `supabase/migrations/001_initial_schema.sql`.
-v0.1 tables: profiles, recipes, bake_sessions.
+Current tables in `supabase/migrations/001_initial_schema.sql`: profiles, recipes, bake_sessions.
+Future tables needed: starters, starter_logs, starter_schedules, bake_logs, bake_schedules, bake_event_logs, troubleshoot_sessions, recipe_likes, recipe_saves.
+
+## Key Architecture Notes
+- **Academy cards are inline components**, not a separate page. Content keyed by `academy_key` in a local TS file. Build once, use everywhere.
+- **Recipe import always lands in the Modular Builder for review** — never auto-saves.
+- **In-bake logging is passive, not intrusive** — log widgets are compact, secondary to step/timer.
+- **Recipe fork lineage** — always show "Based on [Original] by [Baker]" on forked recipes.
+- **Troubleshooter + in-bake log data connection** is a first-class architectural concern.
+- **Live schedule adjustment** uses warm, reassuring language ("We've updated your schedule, you're still on track").
 
 ## Tone of Voice
 Warm, knowledgeable, encouraging. Like a friend who bakes good bread. Not precious or overly technical. Celebrate every bake, even the ugly ones.
