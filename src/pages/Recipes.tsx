@@ -25,25 +25,35 @@ export function Recipes() {
   const [activeTab, setActiveTab] = useState('all')
   const [loading, setLoading] = useState(true)
 
-  // Merge Supabase recipes with local originals (local always included)
+  // Merge Supabase recipes with local originals, preserving originals.ts order
   useEffect(() => {
     async function loadRecipes() {
       const { data, error } = await supabase
         .from('recipes')
         .select('*')
         .eq('is_public', true)
-        .order('created_at', { ascending: true })
 
       if (error) {
         console.warn('Failed to load recipes from Supabase:', error.message)
       } else if (data && data.length > 0) {
-        // Supabase recipes take priority; add any local originals not in Supabase
-        const supabaseIds = new Set(data.map((r: Recipe) => r.id))
-        const supabaseTitles = new Set(data.map((r: Recipe) => r.title))
-        const missingLocals = breadbookOriginals.filter(
-          (r) => !supabaseIds.has(r.id) && !supabaseTitles.has(r.title)
+        // Build a lookup from Supabase by title (Supabase IDs differ from local IDs)
+        const supabaseByTitle = new Map<string, Recipe>()
+        for (const r of data as Recipe[]) {
+          supabaseByTitle.set(r.title, r)
+        }
+
+        // Walk local originals in order — use Supabase version if available, else local
+        const merged: Recipe[] = breadbookOriginals.map(
+          (local) => supabaseByTitle.get(local.title) ?? local
         )
-        setRecipes([...missingLocals, ...(data as Recipe[])])
+
+        // Append any Supabase-only recipes (user-created, not in originals.ts)
+        const localTitles = new Set(breadbookOriginals.map((r) => r.title))
+        for (const r of data as Recipe[]) {
+          if (!localTitles.has(r.title)) merged.push(r)
+        }
+
+        setRecipes(merged)
       }
       setLoading(false)
     }
