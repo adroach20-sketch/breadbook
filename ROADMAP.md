@@ -50,6 +50,7 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [ ] Create/edit recipe form
 - [ ] Drag-to-reorder step list
 - [ ] Step type toggles (add/remove steps like autolyse, lamination, cold proof)
+- [ ] **Phase grouping for bulk ferment:** Bulk fermentation should be a "phase" that contains sub-steps (stretch & folds, lamination, rest). Users toggle "Add stretch & folds" and the Builder inserts them inside the bulk phase automatically — no need to understand the folds-during-bulk convention. The phase renders as a visual group in bake mode. This is the #1 UX decision for the Builder — beginners (mom, brother) shouldn't have to learn recipe structure conventions.
 - [ ] Academy cards expand inline when a step is added
 - [ ] Method pickers for fold method, shaping method, scoring pattern
 - [ ] Hydration calculator — adjusting hydration % recalculates water amount live

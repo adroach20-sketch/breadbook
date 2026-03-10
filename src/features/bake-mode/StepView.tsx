@@ -1,4 +1,5 @@
 import type { RecipeStep } from '../../data/types'
+import { AcademyCard } from '../../components/AcademyCard'
 import { Timer } from './Timer'
 
 interface StepViewProps {
@@ -6,9 +7,10 @@ interface StepViewProps {
   stepIndex: number
   totalSteps: number
   recipeId: string
+  showAcademy?: boolean
 }
 
-export function StepView({ step, stepIndex, totalSteps, recipeId }: StepViewProps) {
+export function StepView({ step, stepIndex, totalSteps, recipeId, showAcademy = true }: StepViewProps) {
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-6 py-8 max-w-lg mx-auto w-full">
       {/* Step type badge */}
@@ -28,9 +30,12 @@ export function StepView({ step, stepIndex, totalSteps, recipeId }: StepViewProp
       )}
 
       {/* Instructions */}
-      <p className="text-ash text-center leading-relaxed mb-8 text-lg">
+      <p className="text-ash text-center leading-relaxed mb-4 text-lg">
         {step.instruction}
       </p>
+
+      {/* Academy card — compact "learn more" link, only on first occurrence */}
+      {showAcademy && <AcademyCard academyKey={step.academy_key} variant="compact" />}
 
       {/* Timer */}
       <div className="w-full max-w-xs">

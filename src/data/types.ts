@@ -67,6 +67,17 @@ export interface Recipe {
   source_credit: string | null
 }
 
+export interface AcademyCard {
+  key: string
+  title: string
+  summary: string
+  explanation: string
+  tips: string[]
+  interactions: string[]
+  whenToSkip?: string
+  showByDefault: boolean
+}
+
 export interface BakeLog {
   id: string
   user_id: string

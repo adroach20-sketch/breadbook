@@ -1,4 +1,5 @@
 import type { RecipeStep } from '../data/types'
+import { AcademyCard } from './AcademyCard'
 
 function formatTime(minutes: number): string {
   if (minutes >= 60) {
@@ -10,6 +11,16 @@ function formatTime(minutes: number): string {
 }
 
 export function StepList({ steps }: { steps: RecipeStep[] }) {
+  // Only show Academy card on the first occurrence of each academy_key
+  const firstAcademyIndex = new Set<string>()
+  const showAcademyAt = new Set<number>()
+  steps.forEach((step, idx) => {
+    if (step.academy_key && !firstAcademyIndex.has(step.academy_key)) {
+      firstAcademyIndex.add(step.academy_key)
+      showAcademyAt.add(idx)
+    }
+  })
+
   return (
     <div>
       <h2 className="font-heading text-lg font-semibold text-char mb-3">Steps</h2>
@@ -33,6 +44,9 @@ export function StepList({ steps }: { steps: RecipeStep[] }) {
                 <div className="mt-1.5 inline-flex items-center gap-1 text-xs text-crust bg-dough/50 px-2 py-1 rounded">
                   ⏱ {step.timer_label || formatTime(step.timer_minutes)}
                 </div>
+              )}
+              {showAcademyAt.has(idx) && (
+                <AcademyCard academyKey={step.academy_key} variant="full" />
               )}
             </div>
           </li>

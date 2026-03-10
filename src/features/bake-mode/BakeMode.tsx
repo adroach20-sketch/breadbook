@@ -164,6 +164,17 @@ export function BakeMode() {
   const step = steps[currentStep]
   const isLastStep = currentStep === steps.length - 1
 
+  // Only show Academy card on the first step with each academy_key
+  const firstAcademyStepIndex = new Map<string, number>()
+  steps.forEach((s, i) => {
+    if (s.academy_key && !firstAcademyStepIndex.has(s.academy_key)) {
+      firstAcademyStepIndex.set(s.academy_key, i)
+    }
+  })
+  const showAcademy = step.academy_key
+    ? firstAcademyStepIndex.get(step.academy_key) === currentStep
+    : false
+
   return (
     <div className="min-h-screen bg-crumb flex flex-col">
       {/* Top bar */}
@@ -195,7 +206,7 @@ export function BakeMode() {
       </div>
 
       {/* Step content */}
-      <StepView step={step} stepIndex={currentStep} totalSteps={steps.length} recipeId={recipe.id} />
+      <StepView step={step} stepIndex={currentStep} totalSteps={steps.length} recipeId={recipe.id} showAcademy={showAcademy} />
 
       {/* Navigation */}
       <div className="flex gap-3 px-6 pb-8 pt-4 flex-shrink-0 max-w-lg mx-auto w-full">

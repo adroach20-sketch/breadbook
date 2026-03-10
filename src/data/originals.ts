@@ -39,29 +39,29 @@ export const breadbookOriginals: Recipe[] = [
         timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
       },
       {
-        id: 'ccl-s3', order: 3, type: 'bulk_ferment', title: 'Bulk Fermentation',
-        instruction: 'Cover and let the dough ferment at room temperature (72–78°F). The dough should rise 50–75% and feel puffy and airy. Perform stretch and folds during the first 2 hours.',
-        timer_minutes: 300, timer_label: 'Bulk ferment (5 hrs)', is_optional: false, academy_key: 'bulk_ferment',
-      },
-      {
-        id: 'ccl-s4', order: 4, type: 'stretch_fold', title: 'Stretch & Fold — Set 1',
-        instruction: 'Wet your hands. Grab one side of the dough, stretch it up, and fold it over to the other side. Rotate the bowl 90° and repeat 4 times (one full round).',
+        id: 'ccl-s3', order: 3, type: 'stretch_fold', title: 'Stretch & Fold — Set 1',
+        instruction: 'Bulk fermentation starts now. Your first job is a set of stretch and folds. Wet your hands, grab one side of the dough, stretch it up, and fold it over to the other side. Rotate the bowl 90° and repeat 4 times (one full round). Cover and rest.',
         timer_minutes: 30, timer_label: 'Rest before next set', is_optional: false, academy_key: 'stretch_fold',
       },
       {
-        id: 'ccl-s5', order: 5, type: 'stretch_fold', title: 'Stretch & Fold — Set 2',
+        id: 'ccl-s4', order: 4, type: 'stretch_fold', title: 'Stretch & Fold — Set 2',
         instruction: 'Repeat the same stretch and fold sequence. The dough should feel slightly tighter than before.',
         timer_minutes: 30, timer_label: 'Rest before next set', is_optional: false, academy_key: 'stretch_fold',
       },
       {
-        id: 'ccl-s6', order: 6, type: 'stretch_fold', title: 'Stretch & Fold — Set 3',
+        id: 'ccl-s5', order: 5, type: 'stretch_fold', title: 'Stretch & Fold — Set 3',
         instruction: 'Third set of stretch and folds. The dough should be noticeably smoother and hold its shape better.',
         timer_minutes: 30, timer_label: 'Rest before next set', is_optional: false, academy_key: 'stretch_fold',
       },
       {
-        id: 'ccl-s7', order: 7, type: 'stretch_fold', title: 'Stretch & Fold — Set 4',
-        instruction: 'Final set. The dough should be smooth, slightly domed, and jiggly when you shake the bowl. Let it rest undisturbed for the remaining bulk time.',
+        id: 'ccl-s6', order: 6, type: 'stretch_fold', title: 'Stretch & Fold — Set 4',
+        instruction: 'Final set. The dough should feel noticeably stronger and more elastic than when you started. You\'re done folding.',
         timer_minutes: null, timer_label: null, is_optional: false, academy_key: 'stretch_fold',
+      },
+      {
+        id: 'ccl-s7', order: 7, type: 'bulk_ferment', title: 'Bulk Ferment — Rest',
+        instruction: 'Hands off! Leave the dough covered at room temperature (72–78°F) for the remaining bulk time. The dough should rise 50–75% total and feel puffy, airy, and slightly domed on top. Don\'t rush this — trust the dough, not the clock.',
+        timer_minutes: 180, timer_label: 'Bulk rest (3 hrs)', is_optional: false, academy_key: 'bulk_ferment',
       },
       {
         id: 'ccl-s8', order: 8, type: 'shape', title: 'Pre-Shape',
@@ -75,7 +75,7 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'ccl-s10', order: 10, type: 'cold_proof', title: 'Cold Proof',
-        instruction: 'Cover the banneton and place in the fridge. Cold proofing develops flavor and makes scoring easier.',
+        instruction: 'Cover the banneton tightly and place in the fridge. Go to bed — this bakes tomorrow morning. The long, cold rest develops flavor and makes scoring much easier.',
         timer_minutes: 720, timer_label: 'Cold proof (8–14 hrs)', is_optional: false, academy_key: 'cold_proof',
       },
       {
@@ -141,47 +141,62 @@ export const breadbookOriginals: Recipe[] = [
         timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
       },
       {
-        id: 'wws-s3', order: 3, type: 'stretch_fold', title: 'Stretch & Fold — 4 Sets',
-        instruction: 'Perform 4 sets of stretch and folds, 30 minutes apart. Whole wheat dough benefits from gentle handling.',
-        timer_minutes: 30, timer_label: 'Between sets', is_optional: false, academy_key: 'stretch_fold',
+        id: 'wws-s3', order: 3, type: 'stretch_fold', title: 'Stretch & Fold — Set 1',
+        instruction: 'Bulk fermentation starts now. Wet your hands and do a full round of stretch and folds — stretch one side up and over, rotate 90°, repeat 4 times. Whole wheat dough benefits from gentle handling. Cover and rest.',
+        timer_minutes: 30, timer_label: 'Rest before next set', is_optional: false, academy_key: 'stretch_fold',
       },
       {
-        id: 'wws-s4', order: 4, type: 'bulk_ferment', title: 'Bulk Fermentation',
-        instruction: 'After the last fold, let the dough ferment undisturbed. Whole wheat ferments faster — watch for 50–75% rise.',
-        timer_minutes: 240, timer_label: 'Bulk ferment (4 hrs)', is_optional: false, academy_key: 'bulk_ferment',
+        id: 'wws-s4', order: 4, type: 'stretch_fold', title: 'Stretch & Fold — Set 2',
+        instruction: 'Second set of stretch and folds. The dough should feel slightly tighter than before.',
+        timer_minutes: 30, timer_label: 'Rest before next set', is_optional: false, academy_key: 'stretch_fold',
       },
       {
-        id: 'wws-s5', order: 5, type: 'shape', title: 'Pre-Shape & Final Shape',
+        id: 'wws-s5', order: 5, type: 'stretch_fold', title: 'Stretch & Fold — Set 3',
+        instruction: 'Third set. The dough should be smoother and hold its shape better.',
+        timer_minutes: 30, timer_label: 'Rest before next set', is_optional: false, academy_key: 'stretch_fold',
+      },
+      {
+        id: 'wws-s6', order: 6, type: 'stretch_fold', title: 'Stretch & Fold — Set 4',
+        instruction: 'Final set. The dough should feel strong and elastic. You\'re done folding.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: 'stretch_fold',
+      },
+      {
+        id: 'wws-s7', order: 7, type: 'bulk_ferment', title: 'Bulk Ferment — Rest',
+        instruction: 'Hands off! Let the dough ferment undisturbed at room temperature. Whole wheat ferments faster than white flour — watch for 50–75% rise. The dough should feel puffy and airy.',
+        timer_minutes: 150, timer_label: 'Bulk rest (2.5 hrs)', is_optional: false, academy_key: 'bulk_ferment',
+      },
+      {
+        id: 'wws-s8', order: 8, type: 'shape', title: 'Pre-Shape & Final Shape',
         instruction: 'Pre-shape into a round, bench rest 20 min. Final shape and place in floured banneton seam-side up.',
         timer_minutes: 20, timer_label: 'Bench rest', is_optional: false, academy_key: 'shape',
       },
       {
-        id: 'wws-s6', order: 6, type: 'cold_proof', title: 'Cold Proof',
-        instruction: 'Cover and refrigerate overnight.',
+        id: 'wws-s9', order: 9, type: 'cold_proof', title: 'Cold Proof',
+        instruction: 'Cover and refrigerate overnight. Go to bed — this bakes tomorrow morning.',
         timer_minutes: 600, timer_label: 'Cold proof (8–12 hrs)', is_optional: false, academy_key: 'cold_proof',
       },
       {
-        id: 'wws-s7', order: 7, type: 'preheat', title: 'Preheat Oven',
+        id: 'wws-s10', order: 10, type: 'preheat', title: 'Preheat Oven',
         instruction: 'Preheat oven with Dutch oven inside to 500°F (260°C).',
         timer_minutes: 30, timer_label: 'Preheat', is_optional: false, academy_key: 'preheat',
       },
       {
-        id: 'wws-s8', order: 8, type: 'score', title: 'Score',
+        id: 'wws-s11', order: 11, type: 'score', title: 'Score',
         instruction: 'Turn out onto parchment. Score with a simple cross or single slash.',
         timer_minutes: null, timer_label: null, is_optional: false, academy_key: 'score',
       },
       {
-        id: 'wws-s9', order: 9, type: 'bake', title: 'Bake — Covered',
+        id: 'wws-s12', order: 12, type: 'bake', title: 'Bake — Covered',
         instruction: 'Bake covered at 450°F (230°C).',
         timer_minutes: 20, timer_label: 'Covered bake', is_optional: false, academy_key: 'bake',
       },
       {
-        id: 'wws-s10', order: 10, type: 'bake', title: 'Bake — Uncovered',
+        id: 'wws-s13', order: 13, type: 'bake', title: 'Bake — Uncovered',
         instruction: 'Remove lid and bake until deep brown.',
         timer_minutes: 25, timer_label: 'Uncovered bake', is_optional: false, academy_key: 'bake',
       },
       {
-        id: 'wws-s11', order: 11, type: 'cool', title: 'Cool',
+        id: 'wws-s14', order: 14, type: 'cool', title: 'Cool',
         instruction: 'Cool on a wire rack for at least 1 hour before slicing.',
         timer_minutes: 60, timer_label: 'Cooling', is_optional: false, academy_key: null,
       },
@@ -219,42 +234,57 @@ export const breadbookOriginals: Recipe[] = [
         timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
       },
       {
-        id: 'rf-s2', order: 2, type: 'stretch_fold', title: 'Stretch & Fold — 3 Sets',
-        instruction: 'Perform 3 sets of stretch and folds, 30 minutes apart. The dough will become smooth and elastic.',
-        timer_minutes: 30, timer_label: 'Between sets', is_optional: false, academy_key: 'stretch_fold',
+        id: 'rf-s2', order: 2, type: 'stretch_fold', title: 'Stretch & Fold — Set 1',
+        instruction: 'Bulk fermentation starts now. Wet your hands and do a full round of stretch and folds — stretch one side up and over, rotate 90°, repeat 4 times. Cover and rest.',
+        timer_minutes: 30, timer_label: 'Rest before next set', is_optional: false, academy_key: 'stretch_fold',
       },
       {
-        id: 'rf-s3', order: 3, type: 'bulk_ferment', title: 'Bulk Fermentation',
-        instruction: 'Cover and let rise at room temperature until doubled and bubbly.',
-        timer_minutes: 300, timer_label: 'Bulk ferment (4–6 hrs)', is_optional: false, academy_key: 'bulk_ferment',
+        id: 'rf-s3', order: 3, type: 'stretch_fold', title: 'Stretch & Fold — Set 2',
+        instruction: 'Second set. The dough should feel smoother and more elastic.',
+        timer_minutes: 30, timer_label: 'Rest before next set', is_optional: false, academy_key: 'stretch_fold',
       },
       {
-        id: 'rf-s4', order: 4, type: 'custom', title: 'Oil the Pan & Stretch',
-        instruction: 'Pour remaining olive oil into a sheet pan (9x13 or quarter sheet). Gently turn the dough into the pan. Stretch it toward the edges — it\'s OK if it doesn\'t reach. Cover and rest 30 minutes, then stretch again. It should fill the pan.',
+        id: 'rf-s4', order: 4, type: 'stretch_fold', title: 'Stretch & Fold — Set 3',
+        instruction: 'Final set. The dough should be noticeably stronger and hold together well. You\'re done folding.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: 'stretch_fold',
+      },
+      {
+        id: 'rf-s5', order: 5, type: 'bulk_ferment', title: 'Bulk Ferment — Rest',
+        instruction: 'Cover and let the dough rise undisturbed at room temperature until doubled and bubbly.',
+        timer_minutes: 210, timer_label: 'Bulk rest (3–4 hrs)', is_optional: false, academy_key: 'bulk_ferment',
+      },
+      {
+        id: 'rf-s6', order: 6, type: 'custom', title: 'Oil the Pan & First Stretch',
+        instruction: 'Pour remaining olive oil into a sheet pan (9x13 or quarter sheet). Gently turn the dough into the pan. Stretch it toward the edges — it\'s OK if it doesn\'t reach all the way. Cover and let it rest.',
         timer_minutes: 30, timer_label: 'Pan rest', is_optional: false, academy_key: null,
       },
       {
-        id: 'rf-s5', order: 5, type: 'proof', title: 'Final Proof',
+        id: 'rf-s7', order: 7, type: 'custom', title: 'Second Stretch',
+        instruction: 'The dough has relaxed and should stretch easily now. Gently pull it to fill the pan completely.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+      },
+      {
+        id: 'rf-s8', order: 8, type: 'proof', title: 'Final Proof',
         instruction: 'Cover and let proof in the pan until puffy and jiggly, about 45 minutes.',
         timer_minutes: 45, timer_label: 'Final proof', is_optional: false, academy_key: 'proof',
       },
       {
-        id: 'rf-s6', order: 6, type: 'preheat', title: 'Preheat Oven',
+        id: 'rf-s9', order: 9, type: 'preheat', title: 'Preheat Oven',
         instruction: 'Preheat oven to 425°F (220°C).',
         timer_minutes: 20, timer_label: 'Preheat', is_optional: false, academy_key: 'preheat',
       },
       {
-        id: 'rf-s7', order: 7, type: 'custom', title: 'Dimple & Top',
+        id: 'rf-s10', order: 10, type: 'custom', title: 'Dimple & Top',
         instruction: 'Oil your fingers and press deep dimples all over the dough. Scatter rosemary and flaky salt across the top. Drizzle with a bit more olive oil.',
         timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
       },
       {
-        id: 'rf-s8', order: 8, type: 'bake', title: 'Bake',
+        id: 'rf-s11', order: 11, type: 'bake', title: 'Bake',
         instruction: 'Bake until golden brown on top and crispy on the bottom.',
         timer_minutes: 25, timer_label: 'Bake', is_optional: false, academy_key: 'bake',
       },
       {
-        id: 'rf-s9', order: 9, type: 'cool', title: 'Cool',
+        id: 'rf-s12', order: 12, type: 'cool', title: 'Cool',
         instruction: 'Let cool in the pan for 5 minutes, then transfer to a wire rack. Best eaten warm.',
         timer_minutes: 5, timer_label: 'Cool in pan', is_optional: false, academy_key: null,
       },
@@ -321,8 +351,8 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'spd-s8', order: 8, type: 'bake', title: 'Bake',
-        instruction: 'Slide pizza onto the stone/steel. Bake until the crust is puffed and charred in spots.',
-        timer_minutes: 8, timer_label: 'Bake', is_optional: false, academy_key: 'bake',
+        instruction: 'Slide pizza onto the stone/steel. Bake until the crust is puffed and charred in spots. Repeat for each pizza — stretch, top, and bake one at a time.',
+        timer_minutes: 8, timer_label: 'Per pizza', is_optional: false, academy_key: 'bake',
       },
     ],
   },
@@ -371,7 +401,7 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'sp-s4', order: 4, type: 'bake', title: 'Cook Pancakes',
-        instruction: 'Pour ~¼ cup batter per pancake. Cook until bubbles form on the surface and edges look set, then flip. Cook another 1–2 minutes until golden.',
+        instruction: 'Pour ~¼ cup batter per pancake. Cook until bubbles form on the surface and edges look set, then flip. Cook another 1–2 minutes until golden. Repeat for all pancakes before moving on.',
         timer_minutes: 3, timer_label: 'Per pancake (first side)', is_optional: false, academy_key: null,
       },
       {
@@ -533,7 +563,7 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'st-s4', order: 4, type: 'bake', title: 'Cook',
-        instruction: 'Heat a dry cast iron skillet or griddle over medium-high heat. Cook each tortilla about 45 seconds per side — you want brown spots and puffing. Stack in a clean towel to keep warm.',
+        instruction: 'Heat a dry cast iron skillet or griddle over medium-high heat. Cook each tortilla about 45 seconds per side — you want brown spots and puffing. Cook all 8 tortillas, stacking them in a clean towel to keep warm as you go.',
         timer_minutes: 1, timer_label: 'Per tortilla', is_optional: false, academy_key: null,
       },
     ],
@@ -599,7 +629,7 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'scr-s6', order: 6, type: 'proof', title: 'Morning Warm-Up',
-        instruction: 'Remove from fridge in the morning. Let sit at room temperature while the oven preheats — they should puff up noticeably.',
+        instruction: 'Remove the rolls from the fridge. Let them sit at room temperature — they should puff up noticeably. You\'ll preheat the oven in the next step while these warm up.',
         timer_minutes: 45, timer_label: 'Warm up', is_optional: false, academy_key: 'proof',
       },
       {
@@ -672,7 +702,7 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'sb-s6', order: 6, type: 'custom', title: 'Boil Bagels',
-        instruction: 'Drop bagels into boiling water, 2–3 at a time. Boil 45 seconds per side. Remove with a slotted spoon and place on a parchment-lined baking sheet. Immediately add toppings while still wet.',
+        instruction: 'Drop 2–3 bagels into boiling water. Boil 45 seconds per side. Remove with a slotted spoon, place on a parchment-lined baking sheet, and add toppings immediately while still wet. Repeat for each batch — boil, top, then start the next batch.',
         timer_minutes: 2, timer_label: 'Per batch', is_optional: false, academy_key: null,
       },
       {
