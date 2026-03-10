@@ -42,6 +42,9 @@ Live at **breadbook.app** and **breadbook.onrender.com**. See `ROADMAP.md` for t
 - Dark mode (CSS variable swap, system/light/dark toggle, persisted to localStorage)
 - BreadBook Academy (13 inline knowledge cards, accordion UI, full + compact variants, deduplication across repeated step types)
 - Recipe step restructure: bulk ferment split into active folds + passive rest phase for all Originals
+- In-Bake Logging MVP: S&F fold tracker (mark done + auto-advance), bulk ferment rise check-ins (pill buttons), room temp capture (one-time, header badge), all events dual-stored (localStorage + Supabase sync)
+- Per-step ingredient checklists with tap-to-check UI + inline amounts in instruction text
+- External recipe support: Alexandra Cooks "Artisan Sourdough Made Simple" added as first recipe with `source_credit`
 
 ### What's Next
 - Modular Recipe Builder (create/edit, drag-to-reorder, hydration calc, batch scaler) — phase grouping for bulk ferment is the key UX decision
@@ -49,7 +52,7 @@ Live at **breadbook.app** and **breadbook.onrender.com**. See `ROADMAP.md` for t
 - Expand Originals to 30+
 - Recipe Explorer with search & filters
 - Recipe Import (text paste + URL via Claude API)
-- In-Bake Logging (fold timestamps, rise check-ins, dough observations, off-plan events)
+- In-Bake Logging Phase 2 (dough observations, shaping/proofing logging, off-plan events)
 - Live Schedule Adjustment
 - Welcome screen on first login
 
@@ -57,7 +60,7 @@ Live at **breadbook.app** and **breadbook.onrender.com**. See `ROADMAP.md` for t
 ### Phase 3: Community (recipe sharing, bake feed, profiles, challenges)
 
 ## Database
-Tables in `supabase/migrations/`: profiles, recipes, bake_sessions (001), bake_logs (002).
+Tables in `supabase/migrations/`: profiles, recipes, bake_sessions (001), bake_logs (002), bake_event_logs (003).
 Storage bucket: `breadbook-photos` (public read, authenticated upload).
 Future tables needed: starters, starter_logs, starter_schedules, bake_schedules, bake_event_logs, troubleshoot_sessions, recipe_likes, recipe_saves.
 

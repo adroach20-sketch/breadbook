@@ -28,7 +28,7 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [x] Seed script (`scripts/seed.ts`) — creates account + seeds Originals
 - [ ] Expand `profiles` table: add `bio`, `starter_name` fields
 - [ ] Expand `recipes` table: add `forked_from`, `version`, `fold_method`, `shaping_method`, `base_servings`, `yield_loaves` columns
-- [ ] `bake_event_logs` table with RLS (in-bake capture)
+- [x] `bake_event_logs` table with RLS (in-bake capture)
 - [ ] `bake_schedules` table with RLS
 - [x] Supabase Storage bucket: `breadbook-photos` (public read, authenticated upload)
 - [ ] Enable Realtime on `bake_event_logs`
@@ -130,16 +130,16 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [ ] Prompt to open Bake Journal on completion
 
 ### 1.11 In-Bake Logging
-- [ ] Log view panel (captured data for current bake)
-- [ ] **Stretch & Fold steps:**
-  - [ ] Large "Done" tap button — records timestamp
-  - [ ] Log of previous sets with timestamps
-  - [ ] Live "time since last fold" counter
-- [ ] **Bulk Ferment step:**
-  - [ ] Rise check-in button with quick-tap options: 25% / 50% / 75% / Doubled / More than doubled
-  - [ ] Room temperature log (pre-filled from schedule planner if used)
+- [x] Log view panel (captured data for current bake)
+- [x] **Stretch & Fold steps:**
+  - [x] Large "Done" tap button — records timestamp
+  - [x] Log of previous sets with timestamps
+  - [x] Live "time since last fold" counter
+- [x] **Bulk Ferment step:**
+  - [x] Rise check-in button with quick-tap options: 25% / 50% / 75% / Doubled / Not sure
+  - [x] Room temperature capture (one-time per bake, shown in header badge)
   - [ ] Dough observation quick-taps — Feel: Tight / Springy / Slack / Sticky / Smooth / Jiggly — Smell: Mild / Yeasty / Tangy / Alcoholy
-  - [ ] All observations timestamped automatically
+  - [x] All observations timestamped automatically
 - [ ] **Shaping step:**
   - [ ] Log shaping method used (if different from planned)
   - [ ] Dough feel at shaping: Good tension / Tore a bit / Very sticky / Couldn't build tension
@@ -150,8 +150,10 @@ The foundation. Everything here ships before BreadBook is "v1."
   - [ ] Quick options: Running late / Running early / Dough not ready / Got interrupted / Temperature changed
   - [ ] Free text field for notes
   - [ ] Triggers live schedule recalculation
-- [ ] All log data saved to `bake_event_logs` table
-- [ ] Log widgets are compact and secondary to step/timer — never block progress
+- [x] All log data saved to `bake_event_logs` table (localStorage primary + Supabase sync)
+- [x] Log widgets are compact and secondary to step/timer — never block progress
+- [x] Per-step ingredient checklists with tap-to-check UI (`ingredient_ids` on steps, `StepIngredients` component)
+- [x] Inline ingredient amounts in step instruction text for all Originals
 
 ### 1.12 Live Schedule Adjustment
 - [ ] When off-plan event logged or rise check-in suggests ahead/behind schedule:
@@ -303,7 +305,7 @@ This is the spec's recommended sequence. Items within a phase can shift, but the
 9. Recipe Fork & Customize flow
 10. Recipe Import (text paste → URL import)
 11. ~~Guided Bake Mode (step view + timers)~~ ✅
-12. In-Bake Logging (per-step-type log widgets)
+12. ~~In-Bake Logging (per-step-type log widgets — MVP: fold tracker, rise check-in, room temp, ingredient checklists)~~ ✅
 13. Live Schedule Adjustment
 14. Starter Tracker (feeding log, dashboard, chart)
 15. Starter Feeding Plan (schedules, reminders, bake-linked feeds)
