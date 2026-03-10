@@ -76,7 +76,15 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [ ] All Originals built with Academy keys assigned, accurate timers, and baker's percentages
 - [ ] `source_credit` field populated where inspired by known sources (Tartine, King Arthur, The Perfect Loaf)
 
-### 1.8 Recipe Explorer & Search
+### 1.8 Recipe Favorites
+- [ ] `recipe_saves` table (user_id + recipe_id, unique constraint, RLS)
+- [ ] Heart/bookmark icon on recipe cards and recipe detail page
+- [ ] Toggle favorite via Supabase insert/delete
+- [ ] "Favorites" filter tab on recipe list (alongside category tabs)
+- [ ] Favorites sort to top of default recipe list view
+- [ ] Optimistic UI (instant heart toggle, revert on error)
+
+### 1.9 Recipe Explorer & Search
 - [x] Recipe list with category filter tabs (basic version)
 - [ ] Explore tab with curated editorial sections:
   - [ ] BreadBook Originals (anchor section, always visible)
@@ -101,7 +109,7 @@ The foundation. Everything here ships before BreadBook is "v1."
   - [ ] "Your starter is active — ready to bake!" (fed 2–6hrs ago)
   - [ ] "Got discard? Here are 5 things you can make right now" (fed yesterday, hasn't baked)
 
-### 1.9 Recipe Import
+### 1.10 Recipe Import
 - [ ] "Import Recipe" button in recipe library (next to "New Recipe")
 - [ ] Import options UI: Paste Text · Import from URL · Scan Photo (grayed out, "Coming soon")
 - [ ] **Tier 1 — Text Paste:**
@@ -117,7 +125,7 @@ The foundation. Everything here ships before BreadBook is "v1."
   - [ ] "Imported from [source]" display on recipe card
 - [ ] `VITE_ANTHROPIC_API_KEY` added to `.env.example`
 
-### 1.10 Guided Bake Mode
+### 1.11 Guided Bake Mode
 - [x] Full-screen, distraction-free UI
 - [x] One step at a time with step number and progress bar
 - [x] Countdown timers with labels
@@ -129,7 +137,7 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [ ] Two-panel concept (mobile: swipe between step view and log view)
 - [ ] Prompt to open Bake Journal on completion
 
-### 1.11 In-Bake Logging
+### 1.12 In-Bake Logging
 - [x] Log view panel (captured data for current bake)
 - [x] **Stretch & Fold steps:**
   - [x] Large "Done" tap button — records timestamp
@@ -155,7 +163,7 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [x] Per-step ingredient checklists with tap-to-check UI (`ingredient_ids` on steps, `StepIngredients` component)
 - [x] Inline ingredient amounts in step instruction text for all Originals
 
-### 1.12 Live Schedule Adjustment
+### 1.13 Live Schedule Adjustment
 - [ ] When off-plan event logged or rise check-in suggests ahead/behind schedule:
   - [ ] Recalculate remaining timeline in real time
   - [ ] Display warm, reassuring message (e.g., "We've updated your schedule, you're still on track")

@@ -72,5 +72,19 @@ Future tables needed: starters, starter_logs, starter_schedules, bake_schedules,
 - **Troubleshooter + in-bake log data connection** is a first-class architectural concern.
 - **Live schedule adjustment** uses warm, reassuring language ("We've updated your schedule, you're still on track").
 
+## Quality Standards — Non-Negotiable
+
+This is a live product with real users. Every feature must be built as if it ships tomorrow:
+
+- **No placeholder UI.** Every component must be polished, responsive, and feel native on mobile. Skeleton loaders for loading states. Warm, helpful empty states — never just "No results."
+- **No shortcuts in data handling.** Optimistic UI must handle error recovery gracefully. Loading, error, and empty states are first-class concerns, not afterthoughts.
+- **Accessibility is required.** Focus rings, aria labels, keyboard navigation, screen reader support on all interactive elements.
+- **Performance is required.** Debounce search inputs. Lazy load heavy panels. Paginate or virtualize long lists. Don't load data you don't need yet.
+- **Dark mode must work perfectly** on every new component — bakers bake early morning and late night.
+- **Mobile-first means mobile-first.** Large tap targets (44px minimum). One-thumb operation where possible. No hover-dependent interactions. Test mental model on a phone screen before building.
+- **Empty states and edge cases define product quality.** What happens with zero data? What happens with one item? What happens with 500? Handle all three.
+- **Warm, not corporate.** Error messages, empty states, confirmations — all should sound like a friend who bakes, not a software system. Match the tone of voice below.
+- **Always choose the right way over the easy way.** If there's a shortcut that sacrifices UX, data integrity, or accessibility — don't take it.
+
 ## Tone of Voice
 Warm, knowledgeable, encouraging. Like a friend who bakes good bread. Not precious or overly technical. Celebrate every bake, even the ugly ones.

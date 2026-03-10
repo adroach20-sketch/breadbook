@@ -7,8 +7,10 @@ const themeNext = { system: 'light', light: 'dark', dark: 'system' } as const
 
 const navItems = [
   { path: '/', label: 'Home', icon: '🏠' },
-  { path: '/recipes', label: 'Recipes', icon: '📖' },
+  { path: '/recipes', label: 'Explore', icon: '🔍' },
+  { path: '/schedule', label: 'Schedule', icon: '📅' },
   { path: '/journal', label: 'Journal', icon: '📔' },
+  { path: '/community', label: 'Community', icon: '🤝' },
 ]
 
 function isNavActive(itemPath: string, currentPath: string) {
@@ -49,6 +51,11 @@ export function Layout() {
           >
             {themeIcons[themeMode]}
           </button>
+          {user && (
+            <Link to="/profile/edit" className="text-sm text-dough/70 hover:text-steam transition-colors">
+              Profile
+            </Link>
+          )}
           {user && (
             <button
               onClick={signOut}

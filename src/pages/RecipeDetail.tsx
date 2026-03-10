@@ -2,9 +2,11 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { IngredientList } from '../components/IngredientList'
 import { StepList } from '../components/StepList'
+import { FavoriteButton } from '../components/FavoriteButton'
 import { breadbookOriginals } from '../data/originals'
 import { supabase } from '../lib/supabase'
 import type { Recipe } from '../data/types'
+import { LikeButton } from '../features/community/LikeButton'
 
 const fermentLabels: Record<string, string> = {
   long_ferment: 'Long Ferment',
@@ -66,7 +68,7 @@ export function RecipeDetail() {
   if (!recipe) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-12 text-center">
-        <span className="text-4xl mb-3 block">🤔</span>
+        <span className="text-4xl mb-3 block">{'\u{1F914}'}</span>
         <p className="text-ash mb-4">Recipe not found.</p>
         <Link to="/recipes" className="text-crust font-medium hover:underline">
           Back to recipes
@@ -79,16 +81,19 @@ export function RecipeDetail() {
     <div className="max-w-2xl mx-auto px-4 py-6">
       {/* Back link */}
       <Link to="/recipes" className="text-sm text-crust hover:underline mb-4 inline-block">
-        ← All Recipes
+        {'\u2190'} All Recipes
       </Link>
 
       {/* Header */}
       <div className="mb-6">
-        <h1 className="font-heading text-2xl font-bold text-char mb-2">{recipe.title}</h1>
+        <div className="flex items-start justify-between gap-2">
+          <h1 className="font-heading text-2xl font-bold text-char mb-2">{recipe.title}</h1>
+          <FavoriteButton recipeId={recipe.id} size="md" showCount />
+        </div>
         <div className="flex flex-wrap items-center gap-2 mb-3">
           {recipe.is_breadbook_original && (
             <span className="text-xs bg-crust/10 text-crust px-2 py-0.5 rounded-full font-medium">
-              🍞 BreadBook Original
+              {'\u{1F35E}'} BreadBook Original
             </span>
           )}
           <span className="text-xs bg-dough text-ash px-2 py-0.5 rounded-full">
@@ -102,6 +107,7 @@ export function RecipeDetail() {
           <span className="text-xs bg-dough text-ash px-2 py-0.5 rounded-full">
             {recipe.yield_amount}
           </span>
+          <LikeButton recipeId={recipe.id} />
         </div>
         <p className="text-ash leading-relaxed">{recipe.description}</p>
         {recipe.source_credit && (

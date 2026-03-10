@@ -96,3 +96,116 @@ export interface BakeLog {
   // Joined from select queries
   recipes?: { title: string }
 }
+
+// ─────────────────────────────────────────────
+// Starter Tracker types (Features 2.1 & 2.2)
+// ─────────────────────────────────────────────
+
+export type StarterActivityLevel = 'dormant' | 'waking_up' | 'active' | 'peak' | 'past_peak'
+
+export type StarterHealthStatus = 'green' | 'yellow' | 'red'
+
+export type StarterScheduleType = 'repeating' | 'bake_linked'
+
+export interface Starter {
+  id: string
+  user_id: string
+  name: string
+  flour_type: string
+  hydration_ratio: number
+  notes: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface StarterLog {
+  id: string
+  starter_id: string
+  user_id: string
+  fed_at: string
+  water_g: number | null
+  flour_g: number | null
+  temperature_f: number | null
+  peak_rise_pct: number | null
+  peak_rise_minutes: number | null
+  notes: string | null
+  photo_url: string | null
+  is_quick_log: boolean
+  created_at: string
+}
+
+export interface StarterSchedule {
+  id: string
+  starter_id: string
+  user_id: string
+  schedule_type: StarterScheduleType
+  interval_hours: number
+  preferred_times: string[] // HH:MM format
+  bake_recipe_id: string | null
+  bake_target_time: string | null
+  is_active: boolean
+  created_at: string
+  updated_at: string
+}
+
+export const ACTIVITY_THRESHOLDS = {
+  DORMANT_AFTER_HOURS: 12,
+  WAKING_UP_HOURS: 2,
+  ACTIVE_HOURS: 5,
+  PEAK_HOURS: 8,
+  PAST_PEAK_HOURS: 12,
+  DEFAULT_PEAK_HOURS: 6,
+  REFERENCE_TEMP_F: 75,
+  TEMP_ADJUSTMENT_PER_5F: 1,
+} as const
+
+export const activityLabels: Record<StarterActivityLevel, { label: string; emoji: string }> = {
+  dormant: { label: 'Dormant', emoji: 'ZZZ' },
+  waking_up: { label: 'Waking Up', emoji: 'sunrise' },
+  active: { label: 'Active', emoji: 'bubbles' },
+  peak: { label: 'Peak', emoji: 'volcano' },
+  past_peak: { label: 'Past Peak', emoji: 'down' },
+}
+
+export const healthStatusColors: Record<StarterHealthStatus, { label: string; bgClass: string; textClass: string }> = {
+  green: { label: 'On schedule', bgClass: 'bg-green-100', textClass: 'text-green-700' },
+  yellow: { label: 'Feed soon', bgClass: 'bg-amber-100', textClass: 'text-amber-700' },
+  red: { label: 'Overdue', bgClass: 'bg-red-100', textClass: 'text-red-700' },
+}
+
+// ─────────────────────────────────────────────
+// Smart Schedule Planner types (Feature 2.3)
+// ─────────────────────────────────────────────
+
+export type StarterStatus = 'peak' | 'recently_fed' | 'fed_but_fallen' | 'dormant'
+
+export type ScheduleCategory = 'starter_prep' | 'dough_work' | 'proofing' | 'baking' | 'cooling'
+
+export interface ScheduleStep {
+  id: string
+  order: number
+  title: string
+  description: string
+  startTime: string         // ISO string
+  endTime: string           // ISO string
+  durationMinutes: number
+  category: ScheduleCategory
+  isActive: boolean         // Active (hands-on) vs passive (waiting)
+  recipeStepId: string | null  // Links back to original recipe step, null for starter feeds
+}
+
+export interface SavedSchedule {
+  id: string
+  user_id: string
+  recipe_id: string
+  recipe_title: string
+  target_eat_time: string
+  starter_name: string | null
+  starter_status: StarterStatus
+  room_temp_f: number
+  fridge_available: boolean
+  schedule_steps: ScheduleStep[]
+  warnings: string[]
+  created_at: string
+  updated_at: string
+}

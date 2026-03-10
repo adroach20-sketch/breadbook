@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase'
 export interface BakeEvent {
   stepIndex: number
   stepType: string
-  eventType: 'fold_done' | 'rise_check' | 'room_temp'
+  eventType: 'fold_done' | 'rise_check' | 'room_temp' | 'dough_feel' | 'dough_smell' | 'shaping_method' | 'shaping_feel' | 'fridge_in' | 'poke_test' | 'off_plan'
   eventValue: string | null
   timestamp: number
 }

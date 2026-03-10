@@ -6,6 +6,10 @@ import { FoldTracker } from './FoldTracker'
 import { RiseCheckIn } from './RiseCheckIn'
 import { RoomTempInput } from './RoomTempInput'
 import { StepIngredients } from './StepIngredients'
+import { DoughObservation } from './DoughObservation'
+import { ShapingLog } from './ShapingLog'
+import { ProofingLog } from './ProofingLog'
+import { OffPlanSheet } from './OffPlanSheet'
 
 interface StepViewProps {
   step: RecipeStep
@@ -22,6 +26,20 @@ interface StepViewProps {
   roomTemp?: string | null
   onRoomTemp?: (value: string) => void
   onAdvance?: () => void
+  // Phase 2 in-bake logging
+  doughFeelLog?: BakeEvent[]
+  doughSmellLog?: BakeEvent[]
+  onDoughFeel?: (value: string) => void
+  onDoughSmell?: (value: string) => void
+  shapingMethodLog?: BakeEvent[]
+  shapingFeelLog?: BakeEvent[]
+  onShapingMethod?: (value: string) => void
+  onShapingFeel?: (value: string) => void
+  fridgeLog?: BakeEvent[]
+  pokeLog?: BakeEvent[]
+  onFridgeIn?: () => void
+  onPokeTest?: (value: string) => void
+  onOffPlan?: (reason: string, note?: string) => void
 }
 
 export function StepView({
@@ -38,9 +56,24 @@ export function StepView({
   roomTemp,
   onRoomTemp,
   onAdvance,
+  doughFeelLog = [],
+  doughSmellLog = [],
+  onDoughFeel,
+  onDoughSmell,
+  shapingMethodLog = [],
+  shapingFeelLog = [],
+  onShapingMethod,
+  onShapingFeel,
+  fridgeLog = [],
+  pokeLog = [],
+  onFridgeIn,
+  onPokeTest,
+  onOffPlan,
 }: StepViewProps) {
   const isStretchFold = step.type === 'stretch_fold'
   const isBulkFerment = step.type === 'bulk_ferment'
+  const isShape = step.type === 'shape'
+  const isProof = step.type === 'proof' || step.type === 'cold_proof'
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-6 py-8 max-w-lg mx-auto w-full">
@@ -82,7 +115,7 @@ export function StepView({
       </div>
 
       {/* In-bake logging widgets — below timer, above step counter */}
-      <div className="mt-4 w-full flex justify-center">
+      <div className="mt-4 w-full flex flex-col items-center gap-4">
         {isStretchFold && onFoldDone && onAdvance && (
           <FoldTracker onFoldDone={onFoldDone} foldLog={foldLog} onAdvance={onAdvance} />
         )}
@@ -90,12 +123,43 @@ export function StepView({
         {isBulkFerment && onRiseCheck && (
           <RiseCheckIn onRiseCheck={onRiseCheck} riseLog={riseLog} />
         )}
+
+        {isBulkFerment && onDoughFeel && onDoughSmell && (
+          <DoughObservation
+            onDoughFeel={onDoughFeel}
+            onDoughSmell={onDoughSmell}
+            feelLog={doughFeelLog}
+            smellLog={doughSmellLog}
+          />
+        )}
+
+        {isShape && onShapingMethod && onShapingFeel && (
+          <ShapingLog
+            onShapingMethod={onShapingMethod}
+            onShapingFeel={onShapingFeel}
+            methodLog={shapingMethodLog}
+            feelLog={shapingFeelLog}
+          />
+        )}
+
+        {isProof && onFridgeIn && onPokeTest && (
+          <ProofingLog
+            stepType={step.type as 'proof' | 'cold_proof'}
+            onFridgeIn={onFridgeIn}
+            onPokeTest={onPokeTest}
+            fridgeLog={fridgeLog}
+            pokeLog={pokeLog}
+          />
+        )}
       </div>
 
       {/* Step counter */}
       <p className="text-xs text-ash mt-6">
         Step {stepIndex + 1} of {totalSteps}
       </p>
+
+      {/* Off-plan button — always visible */}
+      {onOffPlan && <OffPlanSheet onOffPlan={onOffPlan} />}
     </div>
   )
 }

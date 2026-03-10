@@ -37,6 +37,12 @@ export function BakeMode() {
   const riseLog = getEventsByType('rise_check')
   const roomTempEvent = events.find((e) => e.eventType === 'room_temp')
   const roomTemp = roomTempEvent?.eventValue ?? null
+  const doughFeelLog = getEventsByType('dough_feel')
+  const doughSmellLog = getEventsByType('dough_smell')
+  const shapingMethodLog = getEventsByType('shaping_method')
+  const shapingFeelLog = getEventsByType('shaping_feel')
+  const fridgeLog = getEventsByType('fridge_in')
+  const pokeLog = getEventsByType('poke_test')
 
   const handleFoldDone = useCallback(
     (stepIndex: number) => {
@@ -55,6 +61,56 @@ export function BakeMode() {
   const handleRoomTemp = useCallback(
     (stepIndex: number, value: string) => {
       logEvent({ stepIndex, stepType: 'stretch_fold', eventType: 'room_temp', eventValue: value })
+    },
+    [logEvent]
+  )
+
+  const handleDoughFeel = useCallback(
+    (stepIndex: number, value: string) => {
+      logEvent({ stepIndex, stepType: 'bulk_ferment', eventType: 'dough_feel', eventValue: value })
+    },
+    [logEvent]
+  )
+
+  const handleDoughSmell = useCallback(
+    (stepIndex: number, value: string) => {
+      logEvent({ stepIndex, stepType: 'bulk_ferment', eventType: 'dough_smell', eventValue: value })
+    },
+    [logEvent]
+  )
+
+  const handleShapingMethod = useCallback(
+    (stepIndex: number, value: string) => {
+      logEvent({ stepIndex, stepType: 'shape', eventType: 'shaping_method', eventValue: value })
+    },
+    [logEvent]
+  )
+
+  const handleShapingFeel = useCallback(
+    (stepIndex: number, value: string) => {
+      logEvent({ stepIndex, stepType: 'shape', eventType: 'shaping_feel', eventValue: value })
+    },
+    [logEvent]
+  )
+
+  const handleFridgeIn = useCallback(
+    (stepIndex: number) => {
+      logEvent({ stepIndex, stepType: 'cold_proof', eventType: 'fridge_in', eventValue: null })
+    },
+    [logEvent]
+  )
+
+  const handlePokeTest = useCallback(
+    (stepIndex: number, value: string, stepType: string = 'proof') => {
+      logEvent({ stepIndex, stepType, eventType: 'poke_test', eventValue: value })
+    },
+    [logEvent]
+  )
+
+  const handleOffPlan = useCallback(
+    (stepIndex: number, reason: string, note?: string, stepType: string = 'custom') => {
+      const value = JSON.stringify({ reason, ...(note ? { note } : {}) })
+      logEvent({ stepIndex, stepType, eventType: 'off_plan', eventValue: value })
     },
     [logEvent]
   )
@@ -262,6 +318,19 @@ export function BakeMode() {
         roomTemp={roomTemp}
         onRoomTemp={(value) => handleRoomTemp(currentStep, value)}
         onAdvance={handleAdvanceStep}
+        doughFeelLog={doughFeelLog}
+        doughSmellLog={doughSmellLog}
+        onDoughFeel={(value) => handleDoughFeel(currentStep, value)}
+        onDoughSmell={(value) => handleDoughSmell(currentStep, value)}
+        shapingMethodLog={shapingMethodLog}
+        shapingFeelLog={shapingFeelLog}
+        onShapingMethod={(value) => handleShapingMethod(currentStep, value)}
+        onShapingFeel={(value) => handleShapingFeel(currentStep, value)}
+        fridgeLog={fridgeLog}
+        pokeLog={pokeLog}
+        onFridgeIn={() => handleFridgeIn(currentStep)}
+        onPokeTest={(value) => handlePokeTest(currentStep, value, step.type)}
+        onOffPlan={(reason, note) => handleOffPlan(currentStep, reason, note, step.type)}
       />
 
       {/* Navigation */}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { ShareToFeedModal } from '../community/ShareToFeedModal'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 import { StarRating } from './StarRating'
@@ -10,6 +11,8 @@ export function JournalDetail() {
   const [log, setLog] = useState<BakeLog | null>(null)
   const [loading, setLoading] = useState(true)
   const [deleting, setDeleting] = useState(false)
+  const [showShareModal, setShowShareModal] = useState(false)
+  const [isShared, setIsShared] = useState(false)
 
   useEffect(() => {
     async function fetchLog() {
@@ -21,6 +24,7 @@ export function JournalDetail() {
 
       if (!error && data) {
         setLog(data as BakeLog)
+        setIsShared(!!(data as any).is_shared)
       }
       setLoading(false)
     }
@@ -114,8 +118,31 @@ export function JournalDetail() {
         <NoteSection label="What to change next time" value={log.what_to_change} />
       </div>
 
+      {/* Share to Feed */}
+      {!isShared && (
+        <button
+          onClick={() => setShowShareModal(true)}
+          className="mt-6 w-full text-center bg-wheat/20 text-crust py-3 rounded-xl font-medium hover:bg-wheat/30 transition-colors"
+        >
+          Share to Community
+        </button>
+      )}
+      {isShared && (
+        <p className="mt-6 text-center text-sm text-ash">
+          Shared to the community feed
+        </p>
+      )}
+
+      {showShareModal && (
+        <ShareToFeedModal
+          bakeLogId={log.id}
+          onClose={() => setShowShareModal(false)}
+          onShared={() => { setShowShareModal(false); setIsShared(true) }}
+        />
+      )}
+
       {/* Actions */}
-      <div className="mt-8 flex gap-3">
+      <div className="mt-4 flex gap-3">
         <Link
           to={`/journal/${log.id}/edit`}
           className="flex-1 text-center bg-crust text-steam py-3 rounded-xl font-medium hover:bg-crust/90 transition-colors"
