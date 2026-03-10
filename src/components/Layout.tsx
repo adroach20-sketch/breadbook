@@ -36,8 +36,8 @@ export function Layout() {
             <Link
               key={item.path}
               to={item.path}
-              className={`hover:text-wheat transition-colors ${
-                isNavActive(item.path, location.pathname) ? 'text-wheat' : ''
+              className={`hover:text-steam/80 transition-colors ${
+                isNavActive(item.path, location.pathname) ? 'text-steam font-semibold' : ''
               }`}
             >
               {item.label}
@@ -45,21 +45,21 @@ export function Layout() {
           ))}
           <button
             onClick={() => setThemeMode(themeNext[themeMode])}
-            className="text-sm hover:text-wheat transition-colors"
+            className="text-sm hover:text-steam/80 transition-colors"
             aria-label={`Theme: ${themeMode}`}
             title={`Theme: ${themeMode}`}
           >
             {themeIcons[themeMode]}
           </button>
           {user && (
-            <Link to="/profile/edit" className="text-sm text-dough/70 hover:text-steam transition-colors">
+            <Link to="/profile/edit" className="text-sm text-steam/70 hover:text-steam transition-colors">
               Profile
             </Link>
           )}
           {user && (
             <button
               onClick={signOut}
-              className="text-sm text-dough/70 hover:text-steam transition-colors"
+              className="text-sm text-steam/70 hover:text-steam transition-colors"
             >
               Sign Out
             </button>
@@ -76,7 +76,7 @@ export function Layout() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setThemeMode(themeNext[themeMode])}
-            className="text-sm hover:text-wheat transition-colors"
+            className="text-sm hover:text-steam/80 transition-colors"
             aria-label={`Theme: ${themeMode}`}
           >
             {themeIcons[themeMode]}
@@ -84,7 +84,7 @@ export function Layout() {
           {user && (
             <button
               onClick={signOut}
-              className="text-sm text-dough/70 hover:text-steam transition-colors"
+              className="text-sm text-steam/70 hover:text-steam transition-colors"
             >
               Sign Out
             </button>
@@ -103,14 +103,17 @@ export function Layout() {
           <Link
             key={item.path}
             to={item.path}
-            className={`flex-1 flex flex-col items-center py-2 text-xs transition-colors ${
+            className={`flex-1 flex flex-col items-center py-2 text-xs transition-colors relative ${
               isNavActive(item.path, location.pathname)
-                ? 'text-crust font-medium'
+                ? 'text-crust font-semibold'
                 : 'text-ash'
             }`}
           >
             <span className="text-xl mb-0.5">{item.icon}</span>
             {item.label}
+            {isNavActive(item.path, location.pathname) && (
+              <span className="absolute bottom-0.5 w-4 h-0.5 bg-crust rounded-full" />
+            )}
           </Link>
         ))}
       </nav>

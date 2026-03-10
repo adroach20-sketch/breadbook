@@ -74,7 +74,7 @@ export function RecipeSection({ title, emoji, recipes, onSeeAll }: RecipeSection
         {canScrollLeft && (
           <button
             onClick={() => scrollBy('left')}
-            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center bg-steam/90 border border-dough/50 rounded-full shadow-md text-ash hover:text-char transition-colors opacity-0 group-hover:opacity-100"
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center bg-steam/90 border border-dough rounded-full shadow-md text-ash hover:text-char transition-colors opacity-0 group-hover:opacity-100"
             aria-label="Scroll left"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -104,7 +104,7 @@ export function RecipeSection({ title, emoji, recipes, onSeeAll }: RecipeSection
         {canScrollRight && (
           <button
             onClick={() => scrollBy('right')}
-            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center bg-steam/90 border border-dough/50 rounded-full shadow-md text-ash hover:text-char transition-colors opacity-0 group-hover:opacity-100"
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center bg-steam/90 border border-dough rounded-full shadow-md text-ash hover:text-char transition-colors opacity-0 group-hover:opacity-100"
             aria-label="Scroll right"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

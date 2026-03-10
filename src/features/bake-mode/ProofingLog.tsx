@@ -94,7 +94,7 @@ export function ProofingLog({ stepType, onFridgeIn, onPokeTest, fridgeLog, pokeL
 
       {/* Mini-log */}
       {pokeLog.length > 0 && (
-        <div className="text-sm text-ash/70 space-y-1">
+        <div className="text-sm text-ash-muted space-y-1">
           {pokeLog.map((event) => (
             <div key={event.timestamp} className="text-center">
               {formatTime(event.timestamp)} — {event.eventValue}

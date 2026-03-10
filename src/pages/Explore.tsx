@@ -234,7 +234,7 @@ function EmptySearch({ onReset }: { onReset: () => void }) {
     <div className="text-center py-12">
       <span className="text-4xl mb-3 block">{'\u{1F50D}'}</span>
       <p className="text-ash mb-1 font-heading font-medium">No recipes match your search</p>
-      <p className="text-sm text-ash/70 mb-4">
+      <p className="text-sm text-ash-muted mb-4">
         Try broadening your filters or searching for something different.
       </p>
       <button

@@ -279,10 +279,14 @@ export function useOwnProfile() {
     load()
   }, [user])
 
-  const updateProfile = async (updates: Partial<Profile>) => {
-    if (!user) return false
+  const updateProfile = async (updates: Partial<Profile>): Promise<true | string> => {
+    if (!user) return 'Not logged in.'
     const { error } = await supabase.from('profiles').update(updates).eq('id', user.id)
-    if (error) { console.error('Failed to update profile:', error.message); return false }
+    if (error) {
+      console.error('Failed to update profile:', error.message, error.code, error.details)
+      if (error.code === '23505') return 'That username is already taken. Try another one.'
+      return error.message || 'Something went wrong. Please try again.'
+    }
     setProfile((prev) => (prev ? { ...prev, ...updates } : null))
     return true
   }

@@ -130,7 +130,7 @@ export function StarterDetail() {
       {/* Back link */}
       <Link
         to="/starters"
-        className="inline-flex items-center text-sm text-ash hover:text-char transition-colors mb-4"
+        className="inline-flex items-center text-sm text-crust hover:text-crust-light transition-colors mb-4"
       >
         {'<-'} My Starters
       </Link>
@@ -156,7 +156,7 @@ export function StarterDetail() {
       </div>
 
       {/* Activity status bar */}
-      <div className="bg-steam rounded-xl border border-dough/50 p-4 mb-4">
+      <div className="bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough p-4 mb-4">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <span className="text-xl">{activityInfo.emoji}</span>
@@ -184,7 +184,7 @@ export function StarterDetail() {
       </div>
 
       {/* Feeding log section */}
-      <div className="bg-steam rounded-xl border border-dough/50 p-4 mb-4">
+      <div className="bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough p-4 mb-4">
         <div className="flex items-center justify-between mb-3">
           <h3 className="font-heading font-semibold text-char">Feeding Log</h3>
           {!showFeedingForm && (
@@ -228,7 +228,7 @@ export function StarterDetail() {
       </div>
 
       {/* Schedule section */}
-      <div className="bg-steam rounded-xl border border-dough/50 p-4 mb-4">
+      <div className="bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough p-4 mb-4">
         <div className="flex items-center justify-between mb-3">
           <h3 className="font-heading font-semibold text-char">Feeding Schedule</h3>
           {!showScheduleForm && (
@@ -279,7 +279,7 @@ export function StarterDetail() {
       </div>
 
       {/* Starter info / edit / delete */}
-      <div className="bg-steam rounded-xl border border-dough/50 p-4 mb-4">
+      <div className="bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough p-4 mb-4">
         <div className="flex items-center justify-between mb-3">
           <h3 className="font-heading font-semibold text-char">Starter Details</h3>
           {!showEditForm && (
@@ -325,7 +325,7 @@ export function StarterDetail() {
         <div className="border-t border-dough mt-4 pt-4">
           {showDeleteConfirm ? (
             <div className="space-y-2">
-              <p className="text-sm text-red-600">
+              <p className="text-sm text-red-600 dark:text-red-400">
                 This will permanently delete {starter.name} and all feeding logs. Are you sure?
               </p>
               <div className="flex gap-2">
@@ -420,7 +420,7 @@ function FeedingLogEntry({ log, onDelete }: { log: StarterLog; onDelete: (id: st
           )}
         </div>
         {log.notes && (
-          <p className="text-xs text-ash/70 mt-0.5 truncate">{log.notes}</p>
+          <p className="text-xs text-ash-muted mt-0.5 truncate">{log.notes}</p>
         )}
       </div>
       {showDelete && (

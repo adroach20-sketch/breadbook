@@ -17,7 +17,7 @@ export function IngredientList({ ingredients }: { ingredients: Ingredient[] }) {
       </div>
       <ul className="space-y-2">
         {ingredients.map((ing) => (
-          <li key={ing.id} className="flex justify-between items-center py-1 border-b border-dough/50 last:border-0">
+          <li key={ing.id} className="flex justify-between items-center py-1 border-b border-dough last:border-0">
             <span className="text-char">{ing.name}</span>
             <span className="text-ash font-medium tabular-nums">
               {showBakersPercent && ing.bakers_pct > 0

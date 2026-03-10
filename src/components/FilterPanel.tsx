@@ -117,7 +117,7 @@ function HydrationSlider({
           aria-label={`Maximum hydration: ${max}%`}
         />
       </div>
-      <div className="flex justify-between text-[10px] text-ash/60 mt-1 px-0.5">
+      <div className="flex justify-between text-[10px] text-ash-muted mt-1 px-0.5">
         <span>0%</span>
         <span>50%</span>
         <span>100%</span>
@@ -172,7 +172,7 @@ export function FilterPanel({ filters, onFilterChange, onReset, activeFilterCoun
       {/* Toggle button */}
       <button
         onClick={toggle}
-        className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium text-ash bg-steam border border-dough/50 hover:border-crust/30 transition-colors min-h-[44px] w-full sm:w-auto"
+        className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium text-ash bg-steam border border-dough hover:border-crust/30 transition-colors min-h-[44px] w-full sm:w-auto"
         aria-expanded={open}
         aria-controls="filter-panel-content"
       >
@@ -194,7 +194,7 @@ export function FilterPanel({ filters, onFilterChange, onReset, activeFilterCoun
       {open && (
         <div
           id="filter-panel-content"
-          className="mt-3 bg-steam rounded-xl border border-dough/50 p-4 animate-[slide-down_200ms_ease-out]"
+          className="mt-3 bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough p-4 animate-[slide-down_200ms_ease-out]"
           role="region"
           aria-label="Recipe filters"
         >

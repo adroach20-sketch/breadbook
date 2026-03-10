@@ -33,7 +33,7 @@ export function SearchBar({ value, onChange, placeholder }: SearchBarProps) {
     <div className="relative">
       {/* Search icon */}
       <svg
-        className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ash/50"
+        className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ash-muted"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -61,7 +61,7 @@ export function SearchBar({ value, onChange, placeholder }: SearchBarProps) {
             onChange('')
             inputRef.current?.focus()
           }}
-          className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center rounded-full bg-ash/10 text-ash/60 hover:bg-ash/20 transition-colors"
+          className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center rounded-full bg-ash/10 text-ash-muted hover:bg-ash/20 transition-colors"
           aria-label="Clear search"
         >
           <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">

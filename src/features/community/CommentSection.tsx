@@ -42,7 +42,7 @@ export function CommentSection({ postId }: CommentSectionProps) {
               {user?.id === comment.user_id && (
                 <button
                   onClick={() => deleteComment(comment.id)}
-                  className="text-xs text-ash/50 hover:text-red-500 shrink-0"
+                  className="text-xs text-ash-muted hover:text-red-500 shrink-0"
                   aria-label="Delete comment"
                 >
                   x
@@ -60,7 +60,7 @@ export function CommentSection({ postId }: CommentSectionProps) {
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="Nice bake!"
           maxLength={500}
-          className="flex-1 rounded-lg border border-dough bg-steam px-3 py-1.5 text-sm text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50"
+          className="flex-1 rounded-lg border border-dough bg-steam px-3 py-1.5 text-sm text-char placeholder:text-ash-muted focus:outline-none focus:ring-2 focus:ring-wheat/50"
         />
         <button
           type="submit"

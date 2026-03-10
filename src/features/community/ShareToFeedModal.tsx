@@ -38,7 +38,7 @@ export function ShareToFeedModal({ bakeLogId, onClose, onShared }: ShareToFeedMo
             placeholder="First time trying this recipe..."
             rows={2}
             maxLength={280}
-            className="w-full rounded-lg border border-dough bg-crumb px-3 py-2 text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50 resize-none"
+            className="w-full rounded-lg border border-dough bg-crumb px-3 py-2 text-char placeholder:text-ash-muted focus:outline-none focus:ring-2 focus:ring-wheat/50 resize-none"
           />
         </div>
 

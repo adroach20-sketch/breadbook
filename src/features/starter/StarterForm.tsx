@@ -52,7 +52,7 @@ export function StarterForm({ starter, onSave, onCancel, saving = false }: Start
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="e.g., Bubbles, The Beast, Old Faithful..."
-          className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50"
+          className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash-muted focus:outline-none focus:ring-2 focus:ring-wheat/50"
           autoFocus
         />
       </div>
@@ -94,7 +94,7 @@ export function StarterForm({ starter, onSave, onCancel, saving = false }: Start
           onChange={(e) => setNotes(e.target.value)}
           placeholder="Any details about your starter... age, quirks, feeding history"
           rows={3}
-          className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50 resize-none"
+          className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash-muted focus:outline-none focus:ring-2 focus:ring-wheat/50 resize-none"
         />
       </div>
 

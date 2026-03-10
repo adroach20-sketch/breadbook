@@ -168,9 +168,9 @@ export const activityLabels: Record<StarterActivityLevel, { label: string; emoji
 }
 
 export const healthStatusColors: Record<StarterHealthStatus, { label: string; bgClass: string; textClass: string }> = {
-  green: { label: 'On schedule', bgClass: 'bg-green-100', textClass: 'text-green-700' },
-  yellow: { label: 'Feed soon', bgClass: 'bg-amber-100', textClass: 'text-amber-700' },
-  red: { label: 'Overdue', bgClass: 'bg-red-100', textClass: 'text-red-700' },
+  green: { label: 'On schedule', bgClass: 'bg-green-100 dark:bg-green-900/30', textClass: 'text-green-700 dark:text-green-400' },
+  yellow: { label: 'Feed soon', bgClass: 'bg-amber-100 dark:bg-amber-900/30', textClass: 'text-amber-700 dark:text-amber-400' },
+  red: { label: 'Overdue', bgClass: 'bg-red-100 dark:bg-red-900/30', textClass: 'text-red-700 dark:text-red-400' },
 }
 
 // ─────────────────────────────────────────────

@@ -32,7 +32,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
     <Link
       to={`/recipes/${recipe.id}`}
-      className="relative block bg-steam rounded-xl shadow-sm hover:shadow-md transition-shadow p-4 border border-dough/50"
+      className="relative block bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] hover:shadow-md transition-shadow p-4 border border-dough"
     >
       {/* Favorite button — absolute top-right, sits above the Link */}
       <div className="absolute top-2 right-2 z-10">

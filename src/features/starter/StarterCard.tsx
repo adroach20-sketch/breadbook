@@ -27,7 +27,7 @@ export function StarterCard({ starter, lastLog, schedule, recentLogs, onQuickFee
   const healthInfo = healthStatusColors[health]
 
   return (
-    <div className="bg-steam rounded-xl shadow-sm border border-dough/50 p-4 hover:shadow-md transition-shadow">
+    <div className="bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough p-4 hover:shadow-md transition-shadow">
       {/* Header row: name + health badge */}
       <div className="flex items-start justify-between mb-3">
         <Link to={'/starters/' + starter.id} className="flex-1 min-w-0">

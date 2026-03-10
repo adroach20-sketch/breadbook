@@ -49,12 +49,12 @@ export function ScheduleHistory({ onReuse }: ScheduleHistoryProps) {
   if (loading) {
     return (
       <div className="px-4 py-6 max-w-2xl mx-auto">
-        <h1 className="font-heading text-2xl font-bold text-char dark:text-steam mb-6">
+        <h1 className="font-heading text-2xl font-bold text-char mb-6">
           My Schedules
         </h1>
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-dough/50 dark:bg-ash/20 rounded-xl h-24 animate-pulse" />
+            <div key={i} className="bg-dough/50 rounded-xl h-24 animate-pulse" />
           ))}
         </div>
       </div>
@@ -64,12 +64,12 @@ export function ScheduleHistory({ onReuse }: ScheduleHistoryProps) {
   return (
     <div className="px-4 py-6 max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-heading text-2xl font-bold text-char dark:text-steam">
+        <h1 className="font-heading text-2xl font-bold text-char">
           My Schedules
         </h1>
         <Link
           to="/schedule/new"
-          className="bg-crust text-steam dark:bg-wheat dark:text-char px-4 py-2 rounded-xl text-sm font-medium hover:opacity-90 transition-opacity"
+          className="bg-crust text-steam px-4 py-2 rounded-xl text-sm font-medium hover:opacity-90 transition-opacity"
         >
           Plan a Bake
         </Link>
@@ -78,15 +78,15 @@ export function ScheduleHistory({ onReuse }: ScheduleHistoryProps) {
       {schedules.length === 0 ? (
         <div className="text-center py-16">
           <span className="text-5xl block mb-4" aria-hidden="true">📅</span>
-          <p className="text-lg font-medium text-char dark:text-steam mb-2">
+          <p className="text-lg font-medium text-char mb-2">
             No schedules yet
           </p>
-          <p className="text-ash dark:text-dough/60 mb-6 max-w-xs mx-auto">
+          <p className="text-ash mb-6 max-w-xs mx-auto">
             Plan your first bake and we'll figure out the timing for you — pick a recipe, tell us when you want to eat, and we'll handle the rest.
           </p>
           <Link
             to="/schedule/new"
-            className="inline-block bg-crust text-steam dark:bg-wheat dark:text-char px-6 py-3 rounded-xl font-medium hover:opacity-90 transition-opacity"
+            className="inline-block bg-crust text-steam px-6 py-3 rounded-xl font-medium hover:opacity-90 transition-opacity"
           >
             Plan Your First Bake
           </Link>
@@ -100,14 +100,14 @@ export function ScheduleHistory({ onReuse }: ScheduleHistoryProps) {
             return (
               <div
                 key={schedule.id}
-                className="bg-steam dark:bg-char/50 rounded-xl border border-dough/50 dark:border-ash/20 p-4"
+                className="bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough p-4"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-medium text-char dark:text-steam truncate">
+                    <h3 className="font-medium text-char truncate">
                       {schedule.recipe_title}
                     </h3>
-                    <p className="text-sm text-ash dark:text-dough/60">
+                    <p className="text-sm text-ash">
                       {formatScheduleTime(schedule.target_eat_time)} &middot; {stepCount} steps
                     </p>
                   </div>
@@ -120,7 +120,7 @@ export function ScheduleHistory({ onReuse }: ScheduleHistoryProps) {
                     return (
                       <span key={cat} className="flex items-center gap-1">
                         <span className={`w-2 h-2 rounded-full ${config.dotClass}`} />
-                        <span className="text-xs text-ash dark:text-dough/50">{config.label}</span>
+                        <span className="text-xs text-ash">{config.label}</span>
                       </span>
                     )
                   })}
@@ -130,14 +130,14 @@ export function ScheduleHistory({ onReuse }: ScheduleHistoryProps) {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => onReuse(schedule)}
-                    className="flex-1 text-sm text-crust dark:text-wheat font-medium py-2 rounded-lg hover:bg-crust/5 dark:hover:bg-wheat/10 transition-colors"
+                    className="flex-1 text-sm text-crust font-medium py-2 rounded-lg hover:bg-crust/5 transition-colors"
                   >
                     Re-use Settings
                   </button>
                   <button
                     onClick={() => handleDelete(schedule.id)}
                     disabled={deletingId === schedule.id}
-                    className="text-sm text-ash dark:text-dough/50 py-2 px-3 rounded-lg hover:text-red-500 dark:hover:text-red-400 transition-colors disabled:opacity-50"
+                    className="text-sm text-ash py-2 px-3 rounded-lg hover:text-red-500 dark:hover:text-red-400 transition-colors disabled:opacity-50"
                     aria-label={`Delete schedule for ${schedule.recipe_title}`}
                   >
                     {deletingId === schedule.id ? '...' : 'Delete'}

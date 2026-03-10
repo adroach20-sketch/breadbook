@@ -68,7 +68,7 @@ export function BakerProfile() {
           <h1 className="font-heading text-xl font-bold text-char">@{profile.username}</h1>
           {profile.bio && <p className="text-sm text-ash mt-1">{profile.bio}</p>}
           {profile.starter_name && (
-            <p className="text-xs text-ash/70 mt-1">
+            <p className="text-xs text-ash-muted mt-1">
               Starter: {profile.starter_name}
             </p>
           )}
@@ -110,7 +110,7 @@ export function BakerProfile() {
               <Link
                 key={recipe.id}
                 to={'/recipes/' + recipe.id}
-                className="flex items-center gap-3 p-3 bg-steam rounded-lg border border-dough/50 hover:shadow-sm transition-shadow"
+                className="flex items-center gap-3 p-3 bg-steam rounded-lg border border-dough hover:shadow-sm transition-shadow"
               >
                 <span className="text-xl">{categoryEmojis[recipe.category] || '\uD83C\uDF5E'}</span>
                 <div className="flex-1 min-w-0">

@@ -19,7 +19,7 @@ export function ActivitySparkline({ logs }: ActivitySparklineProps) {
   if (dataLogs.length < 2) {
     return (
       <div className="h-8 flex items-center">
-        <span className="text-xs text-ash/50">Not enough data</span>
+        <span className="text-xs text-ash-muted">Not enough data</span>
       </div>
     )
   }

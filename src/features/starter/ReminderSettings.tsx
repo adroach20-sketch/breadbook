@@ -35,13 +35,13 @@ export function ReminderSettings({ starterId, starterName }: ReminderSettingsPro
   }
 
   return (
-    <div className="bg-steam rounded-xl border border-dough/50 p-4 space-y-4">
+    <div className="bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough p-4 space-y-4">
       <h3 className="font-heading text-sm font-semibold text-char">Reminders</h3>
 
       {/* Browser permission check */}
       {notificationsSupported && permissionStatus !== 'granted' && (
-        <div className="bg-amber-50 rounded-lg p-3">
-          <p className="text-sm text-amber-700 mb-2">
+        <div className="bg-amber-50 dark:bg-amber-950/30 rounded-lg p-3">
+          <p className="text-sm text-amber-700 dark:text-amber-300 mb-2">
             Enable browser notifications to get feeding reminders.
           </p>
           <button

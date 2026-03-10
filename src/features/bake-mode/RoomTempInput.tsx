@@ -46,7 +46,7 @@ export function RoomTempInput({ onSubmit, currentTemp }: RoomTempInputProps) {
           onKeyDown={(e) => e.key === 'Enter' && handleCustomSubmit()}
           className="w-20 px-2 py-1.5 rounded-lg text-sm text-center bg-steam border border-dough text-char placeholder:text-ash/40 focus:outline-none focus:ring-1 focus:ring-wheat"
         />
-        <span className="text-xs text-ash/60">°F</span>
+        <span className="text-xs text-ash-muted">°F</span>
         {customTemp && (
           <button
             onClick={handleCustomSubmit}

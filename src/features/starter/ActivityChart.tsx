@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import type { StarterLog } from '../../data/types'
+import { useThemeColors } from '../../hooks/useThemeColors'
 
 interface ActivityChartProps {
   logs: StarterLog[]
@@ -30,6 +31,7 @@ export function ActivityChart({
   starterName,
 }: ActivityChartProps) {
   const [timeRange, setTimeRange] = useState<7 | 14 | 30>(7)
+  const colors = useThemeColors()
 
   const cutoff = new Date()
   cutoff.setDate(cutoff.getDate() - timeRange)
@@ -78,14 +80,14 @@ export function ActivityChart({
 
   if (chartData.length === 0) {
     return (
-      <div className="bg-steam rounded-xl border border-dough/50 p-6 text-center">
+      <div className="bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough p-6 text-center">
         <p className="text-ash">No rise data yet. Log peak rise % with your feedings to see trends.</p>
       </div>
     )
   }
 
   return (
-    <div className="bg-steam rounded-xl border border-dough/50 p-4">
+    <div className="bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough p-4">
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-heading font-semibold text-char">Activity Chart</h3>
         <div className="flex gap-1">
@@ -109,28 +111,29 @@ export function ActivityChart({
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#F5ECD7" />
+            <CartesianGrid strokeDasharray="3 3" stroke={colors.dough} />
             <XAxis
               dataKey="date"
-              tick={{ fontSize: 12, fill: '#5C4033' }}
+              tick={{ fontSize: 12, fill: colors.ash }}
               tickLine={false}
             />
             <YAxis
-              tick={{ fontSize: 12, fill: '#5C4033' }}
+              tick={{ fontSize: 12, fill: colors.ash }}
               tickLine={false}
               label={{
                 value: 'Rise %',
                 angle: -90,
                 position: 'insideLeft',
-                style: { fontSize: 12, fill: '#5C4033' },
+                style: { fontSize: 12, fill: colors.ash },
               }}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#FBF7F0',
-                border: '1px solid #F5ECD7',
+                backgroundColor: colors.steam,
+                border: `1px solid ${colors.dough}`,
                 borderRadius: '8px',
                 fontSize: '12px',
+                color: colors.char,
               }}
               formatter={(value: number, name: string) => [value + '%', name]}
             />
@@ -138,9 +141,9 @@ export function ActivityChart({
             <Line
               type="monotone"
               dataKey={starterName}
-              stroke="#8B5E3C"
+              stroke={colors.crust}
               strokeWidth={2}
-              dot={{ fill: '#8B5E3C', r: 3 }}
+              dot={{ fill: colors.crust, r: 3 }}
               activeDot={{ r: 5 }}
               connectNulls
             />
@@ -148,9 +151,9 @@ export function ActivityChart({
               <Line
                 type="monotone"
                 dataKey={comparisonName}
-                stroke="#D4A96A"
+                stroke={colors.wheat}
                 strokeWidth={2}
-                dot={{ fill: '#D4A96A', r: 3 }}
+                dot={{ fill: colors.wheat, r: 3 }}
                 activeDot={{ r: 5 }}
                 connectNulls
                 strokeDasharray="5 5"

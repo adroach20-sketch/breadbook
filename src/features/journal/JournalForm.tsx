@@ -137,7 +137,7 @@ export function JournalForm() {
       )}
 
       {error && (
-        <p className="text-red-600 text-sm mb-4">{error}</p>
+        <p className="text-red-600 dark:text-red-400 text-sm mb-4">{error}</p>
       )}
 
       {/* Star rating */}
@@ -226,7 +226,7 @@ function Field({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         rows={2}
-        className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50 resize-none"
+        className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash-muted focus:outline-none focus:ring-2 focus:ring-wheat/50 resize-none"
       />
     </div>
   )

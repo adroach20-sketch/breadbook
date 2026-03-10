@@ -50,7 +50,7 @@ export function FavoriteButton({ recipeId, size = 'sm', showCount = false }: Fav
       className={`${buttonSize} flex items-center justify-center rounded-full transition-all duration-200 ${
         saved
           ? 'text-red-500'
-          : 'text-ash/40 hover:text-ash/70'
+          : 'text-ash/40 hover:text-ash-muted'
       } ${!user ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer active:scale-125'}`}
       aria-label={saved ? 'Remove from favorites' : 'Add to favorites'}
       title={saved ? 'Remove from favorites' : 'Save to favorites'}

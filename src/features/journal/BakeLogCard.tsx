@@ -13,7 +13,7 @@ export function BakeLogCard({ log }: { log: BakeLog }) {
   return (
     <Link
       to={`/journal/${log.id}`}
-      className="block bg-steam rounded-xl shadow-sm hover:shadow-md transition-shadow border border-dough/50 overflow-hidden"
+      className="block bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] hover:shadow-md transition-shadow border border-dough overflow-hidden"
     >
       {/* Photo or placeholder */}
       <div className="h-36 bg-dough flex items-center justify-center">

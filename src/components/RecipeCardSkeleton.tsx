@@ -1,6 +1,6 @@
 export function RecipeCardSkeleton() {
   return (
-    <div className="bg-steam rounded-xl shadow-sm p-4 border border-dough/50 animate-pulse">
+    <div className="bg-steam rounded-xl shadow-sm p-4 border border-dough animate-pulse">
       <div className="flex items-start justify-between mb-2">
         <div className="w-8 h-8 bg-dough rounded" />
         <div className="w-20 h-5 bg-dough rounded-full" />

@@ -53,7 +53,7 @@ export function RecipeDetail() {
         </div>
         <div className="h-4 bg-dough rounded w-full mb-2" />
         <div className="h-4 bg-dough rounded w-2/3 mb-6" />
-        <div className="bg-steam rounded-xl p-4 border border-dough/50 mb-6">
+        <div className="bg-steam rounded-xl p-4 shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough mb-6">
           <div className="h-5 bg-dough rounded w-24 mb-3" />
           <div className="space-y-2">
             <div className="h-4 bg-dough rounded w-full" />
@@ -111,17 +111,17 @@ export function RecipeDetail() {
         </div>
         <p className="text-ash leading-relaxed">{recipe.description}</p>
         {recipe.source_credit && (
-          <p className="text-xs text-ash/60 mt-2">Inspired by {recipe.source_credit}</p>
+          <p className="text-xs text-ash-muted mt-2">Inspired by {recipe.source_credit}</p>
         )}
       </div>
 
       {/* Ingredients */}
-      <div className="bg-steam rounded-xl p-4 mb-6 border border-dough/50">
+      <div className="bg-steam rounded-xl p-4 mb-6 shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough">
         <IngredientList ingredients={recipe.ingredients} />
       </div>
 
       {/* Steps */}
-      <div className="bg-steam rounded-xl p-4 mb-6 border border-dough/50">
+      <div className="bg-steam rounded-xl p-4 mb-6 shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough">
         <StepList steps={recipe.steps} />
       </div>
 

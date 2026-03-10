@@ -122,7 +122,7 @@ export function StarterDashboard() {
 
       {/* Add starter form */}
       {showForm && (
-        <div className="bg-steam rounded-xl border border-dough/50 p-4 mb-6">
+        <div className="bg-steam rounded-xl border border-dough p-4 mb-6">
           <StarterForm
             onSave={handleCreateStarter}
             onCancel={() => setShowForm(false)}

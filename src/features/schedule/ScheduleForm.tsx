@@ -55,10 +55,10 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
   return (
     <div className="px-4 py-6 max-w-lg mx-auto">
       <div className="mb-6">
-        <h1 className="font-heading text-2xl font-bold text-char dark:text-steam">
+        <h1 className="font-heading text-2xl font-bold text-char">
           Plan a Bake
         </h1>
-        <p className="text-ash dark:text-dough/70 mt-1">
+        <p className="text-ash mt-1">
           Pick a recipe and tell us when you want to eat — we'll work backwards to build your schedule.
         </p>
       </div>
@@ -66,14 +66,14 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Recipe picker */}
         <div>
-          <label htmlFor="recipe" className="block text-sm font-medium text-char dark:text-steam mb-2">
+          <label htmlFor="recipe" className="block text-sm font-medium text-char mb-2">
             What are you baking?
           </label>
           <select
             id="recipe"
             value={selectedRecipeId}
             onChange={(e) => setSelectedRecipeId(e.target.value)}
-            className="w-full rounded-xl border border-dough dark:border-ash/30 bg-steam dark:bg-char/50 px-4 py-3 text-char dark:text-steam focus:outline-none focus:ring-2 focus:ring-wheat/50 appearance-none"
+            className="w-full rounded-xl border border-dough bg-steam px-4 py-3 text-char focus:outline-none focus:ring-2 focus:ring-wheat/50 appearance-none"
             aria-label="Select a recipe"
           >
             <option value="">Choose a recipe...</option>
@@ -84,7 +84,7 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
             ))}
           </select>
           {selectedRecipe && (
-            <p className="text-xs text-ash dark:text-dough/50 mt-1.5">
+            <p className="text-xs text-ash-muted mt-1.5">
               {selectedRecipe.description.slice(0, 100)}...
             </p>
           )}
@@ -92,7 +92,7 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
 
         {/* Eat time */}
         <div>
-          <label htmlFor="eatTime" className="block text-sm font-medium text-char dark:text-steam mb-2">
+          <label htmlFor="eatTime" className="block text-sm font-medium text-char mb-2">
             When do you want to eat?
           </label>
           <input
@@ -100,13 +100,13 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
             type="datetime-local"
             value={eatTimeStr}
             onChange={(e) => setEatTimeStr(e.target.value)}
-            className="w-full rounded-xl border border-dough dark:border-ash/30 bg-steam dark:bg-char/50 px-4 py-3 text-char dark:text-steam focus:outline-none focus:ring-2 focus:ring-wheat/50"
+            className="w-full rounded-xl border border-dough bg-steam px-4 py-3 text-char focus:outline-none focus:ring-2 focus:ring-wheat/50"
           />
         </div>
 
         {/* Starter status */}
         <div>
-          <label className="block text-sm font-medium text-char dark:text-steam mb-2">
+          <label className="block text-sm font-medium text-char mb-2">
             How's your starter doing?
           </label>
           <div className="space-y-2">
@@ -117,15 +117,15 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
                 onClick={() => setStarterStatus(option.value)}
                 className={`w-full text-left rounded-xl px-4 py-3 border transition-colors ${
                   starterStatus === option.value
-                    ? 'border-crust dark:border-wheat bg-crust/5 dark:bg-wheat/10'
-                    : 'border-dough dark:border-ash/30 bg-steam dark:bg-char/50 hover:border-ash/50 dark:hover:border-ash/50'
+                    ? 'border-crust bg-crust/5'
+                    : 'border-dough bg-steam hover:border-ash/50'
                 }`}
                 aria-pressed={starterStatus === option.value}
               >
-                <span className="text-sm font-medium text-char dark:text-steam">
+                <span className="text-sm font-medium text-char">
                   {option.label}
                 </span>
-                <span className="block text-xs text-ash dark:text-dough/50 mt-0.5">
+                <span className="block text-xs text-ash-muted mt-0.5">
                   {option.hint}
                 </span>
               </button>
@@ -135,8 +135,8 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
 
         {/* Starter name (optional) */}
         <div>
-          <label htmlFor="starterName" className="block text-sm font-medium text-char dark:text-steam mb-2">
-            What's your starter's name? <span className="text-ash dark:text-dough/50 font-normal">(optional)</span>
+          <label htmlFor="starterName" className="block text-sm font-medium text-char mb-2">
+            What's your starter's name? <span className="text-ash-muted font-normal">(optional)</span>
           </label>
           <input
             id="starterName"
@@ -144,13 +144,13 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
             value={starterName}
             onChange={(e) => setStarterName(e.target.value)}
             placeholder="e.g., Bubbles, Steve, The Blob"
-            className="w-full rounded-xl border border-dough dark:border-ash/30 bg-steam dark:bg-char/50 px-4 py-3 text-char dark:text-steam placeholder:text-ash/40 dark:placeholder:text-dough/30 focus:outline-none focus:ring-2 focus:ring-wheat/50"
+            className="w-full rounded-xl border border-dough bg-steam px-4 py-3 text-char placeholder:text-ash-muted focus:outline-none focus:ring-2 focus:ring-wheat/50"
           />
         </div>
 
         {/* Room temperature */}
         <div>
-          <label htmlFor="roomTemp" className="block text-sm font-medium text-char dark:text-steam mb-2">
+          <label htmlFor="roomTemp" className="block text-sm font-medium text-char mb-2">
             Kitchen temperature
           </label>
           <div className="flex items-center gap-3">
@@ -162,14 +162,14 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
               step={1}
               value={roomTempF}
               onChange={(e) => setRoomTempF(Number(e.target.value))}
-              className="flex-1 accent-crust dark:accent-wheat h-2"
+              className="flex-1 accent-crust h-2"
               aria-label={`Kitchen temperature: ${roomTempF}°F`}
             />
-            <span className="text-sm font-medium text-char dark:text-steam w-14 text-right tabular-nums">
+            <span className="text-sm font-medium text-char w-14 text-right tabular-nums">
               {roomTempF}°F
             </span>
           </div>
-          <p className="text-xs text-ash dark:text-dough/50 mt-1">
+          <p className="text-xs text-ash-muted mt-1">
             {roomTempF < 65
               ? 'Pretty cool — fermentation will be slower. Great for flavor development.'
               : roomTempF > 78
@@ -179,10 +179,10 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
         </div>
 
         {/* Fridge toggle */}
-        <div className="flex items-center justify-between rounded-xl border border-dough dark:border-ash/30 bg-steam dark:bg-char/50 px-4 py-3">
+        <div className="flex items-center justify-between rounded-xl border border-dough bg-steam px-4 py-3">
           <div>
-            <p className="text-sm font-medium text-char dark:text-steam">Fridge available for cold proof?</p>
-            <p className="text-xs text-ash dark:text-dough/50 mt-0.5">
+            <p className="text-sm font-medium text-char">Fridge available for cold proof?</p>
+            <p className="text-xs text-ash-muted mt-0.5">
               {fridgeAvailable
                 ? 'Cold proofing develops flavor and makes scheduling flexible.'
                 : 'No worries — we\'ll use a room-temp proof instead.'}
@@ -194,9 +194,7 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
             aria-checked={fridgeAvailable}
             onClick={() => setFridgeAvailable(!fridgeAvailable)}
             className={`relative inline-flex h-7 w-12 shrink-0 rounded-full transition-colors ${
-              fridgeAvailable
-                ? 'bg-crust dark:bg-wheat'
-                : 'bg-dough dark:bg-ash/40'
+              fridgeAvailable ? 'bg-crust' : 'bg-dough'
             }`}
           >
             <span
@@ -211,7 +209,7 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
         <button
           type="submit"
           disabled={!canGenerate}
-          className="w-full bg-crust text-steam py-3.5 rounded-xl font-medium hover:bg-crust/90 dark:bg-wheat dark:text-char dark:hover:bg-wheat/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-base"
+          className="w-full bg-crust text-steam py-3.5 rounded-xl font-medium hover:bg-crust/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-base"
         >
           Generate Schedule
         </button>

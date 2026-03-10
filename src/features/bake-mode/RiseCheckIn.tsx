@@ -31,7 +31,7 @@ export function RiseCheckIn({ onRiseCheck, riseLog }: RiseCheckInProps) {
 
       {/* Mini-log */}
       {riseLog.length > 0 && (
-        <div className="text-sm text-ash/70 space-y-1">
+        <div className="text-sm text-ash-muted space-y-1">
           {riseLog.map((event) => (
             <div key={event.timestamp} className="text-center">
               {formatTime(event.timestamp)} — ~{event.eventValue}

@@ -51,7 +51,7 @@ export function DoughObservation({ onDoughFeel, onDoughSmell, feelLog, smellLog 
 
       {/* Mini-log */}
       {(feelLog.length > 0 || smellLog.length > 0) && (
-        <div className="text-sm text-ash/70 space-y-1">
+        <div className="text-sm text-ash-muted space-y-1">
           {feelLog.map((event) => (
             <div key={event.timestamp} className="text-center">
               {formatTime(event.timestamp)} — Feel: {event.eventValue}

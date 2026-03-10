@@ -59,7 +59,7 @@ export function FoldTracker({ onFoldDone, foldLog, onAdvance }: FoldTrackerProps
           {foldLog.map((event, i) => (
             <div key={event.timestamp} className="flex justify-between">
               <span>Set {i + 1}: {formatTime(event.timestamp)}</span>
-              <span className="text-ash/60">{timeSince(event.timestamp)}</span>
+              <span className="text-ash-muted">{timeSince(event.timestamp)}</span>
             </div>
           ))}
         </div>
@@ -67,7 +67,7 @@ export function FoldTracker({ onFoldDone, foldLog, onAdvance }: FoldTrackerProps
 
       {/* Time since last fold */}
       {lastFold && (
-        <p className="text-xs text-wheat text-center">
+        <p className="text-xs text-ash-muted text-center">
           {timeSince(lastFold.timestamp)} since last fold
         </p>
       )}

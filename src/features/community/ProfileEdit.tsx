@@ -39,18 +39,18 @@ export function ProfileEdit() {
     }
 
     setSaving(true)
-    const ok = await updateProfile({
+    const result = await updateProfile({
       username,
       bio: bio || null,
       starter_name: starterName || null,
       is_public: isPublic,
     })
 
-    if (ok) {
+    if (result === true) {
       setSuccess(true)
       setTimeout(() => setSuccess(false), 3000)
     } else {
-      setError('Failed to save. Username might already be taken.')
+      setError(result)
     }
     setSaving(false)
   }
@@ -67,8 +67,8 @@ export function ProfileEdit() {
     <div className="px-6 py-8 max-w-lg mx-auto">
       <h1 className="font-heading text-2xl font-bold text-char mb-6">Edit Profile</h1>
 
-      {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
-      {success && <p className="text-green-600 text-sm mb-4">Profile updated!</p>}
+      {error && <p className="text-red-600 dark:text-red-400 text-sm mb-4">{error}</p>}
+      {success && <p className="text-green-600 dark:text-green-400 text-sm mb-4">Profile updated!</p>}
 
       <div className="space-y-5">
         <div>
@@ -84,7 +84,7 @@ export function ProfileEdit() {
               className="flex-1 rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50"
             />
           </div>
-          <p className="text-xs text-ash/60 mt-1">3-30 characters. Letters, numbers, underscores.</p>
+          <p className="text-xs text-ash-muted mt-1">3-30 characters. Letters, numbers, underscores.</p>
         </div>
 
         <div>
@@ -109,7 +109,7 @@ export function ProfileEdit() {
             maxLength={50}
             className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50"
           />
-          <p className="text-xs text-ash/60 mt-1">Every great starter has a name.</p>
+          <p className="text-xs text-ash-muted mt-1">Every great starter has a name.</p>
         </div>
 
         <div className="flex items-center justify-between py-3 border-t border-dough">
@@ -151,7 +151,7 @@ export function ProfileEdit() {
       </div>
 
       {profile?.username && isPublic && (
-        <p className="text-xs text-ash/60 text-center mt-4">
+        <p className="text-xs text-ash-muted text-center mt-4">
           Your profile: breadbook.app/@{profile.username}
         </p>
       )}

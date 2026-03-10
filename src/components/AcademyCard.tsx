@@ -130,7 +130,7 @@ function CardContent({ card }: { card: { explanation: string; tips: string[]; in
 
       {/* When to skip */}
       {card.whenToSkip && (
-        <p className="mt-3 text-xs text-ash/70 italic">
+        <p className="mt-3 text-xs text-ash-muted italic">
           Skip this step? {card.whenToSkip}
         </p>
       )}

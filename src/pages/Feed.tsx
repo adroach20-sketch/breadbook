@@ -45,7 +45,7 @@ export function Feed() {
       {loading ? (
         <div className="space-y-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-steam rounded-xl border border-dough/50 animate-pulse">
+            <div key={i} className="bg-steam rounded-xl border border-dough animate-pulse">
               <div className="aspect-square bg-dough/50" />
               <div className="p-4 space-y-2">
                 <div className="h-4 bg-dough rounded w-32" />

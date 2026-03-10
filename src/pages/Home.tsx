@@ -33,7 +33,7 @@ export function Home() {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="font-heading text-lg font-semibold">Browse Recipes</h2>
-            <p className="text-sm text-dough/80 mt-0.5">
+            <p className="text-sm text-steam/80 mt-0.5">
               {breadbookOriginals.length} BreadBook Originals ready to bake
             </p>
           </div>

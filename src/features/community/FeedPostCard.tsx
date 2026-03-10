@@ -20,7 +20,7 @@ export function FeedPostCard({ post }: FeedPostCardProps) {
   const timeAgo = formatTimeAgo(post.created_at)
 
   return (
-    <div className="bg-steam rounded-xl border border-dough/50 overflow-hidden">
+    <div className="bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough overflow-hidden">
       {/* Photo */}
       {photos.length > 0 && (
         <div className="aspect-square bg-dough">
@@ -59,7 +59,7 @@ export function FeedPostCard({ post }: FeedPostCardProps) {
             <span className="text-sm text-char font-medium">{recipeTitle}</span>
           )}
           {rating > 0 && (
-            <span className="text-xs text-wheat">
+            <span className="text-xs text-crust">
               {'*'.repeat(rating)}
             </span>
           )}
@@ -72,7 +72,7 @@ export function FeedPostCard({ post }: FeedPostCardProps) {
 
         {/* Bake notes (condensed) */}
         {bakeLog?.what_went_well && (
-          <p className="text-xs text-ash/70 mb-2 italic">
+          <p className="text-xs text-ash-muted mb-2 italic">
             What went well: {bakeLog.what_went_well}
           </p>
         )}

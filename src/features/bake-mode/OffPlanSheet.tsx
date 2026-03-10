@@ -40,7 +40,7 @@ export function OffPlanSheet({ onOffPlan }: OffPlanSheetProps) {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="text-xs text-ash/50 hover:text-ash transition-colors mt-2"
+        className="text-xs text-ash-muted hover:text-ash transition-colors mt-2"
       >
         Off plan?
       </button>
@@ -61,7 +61,7 @@ export function OffPlanSheet({ onOffPlan }: OffPlanSheetProps) {
           <h3 className="font-heading font-semibold text-char">What happened?</h3>
           <button
             onClick={handleClose}
-            className="text-ash/50 hover:text-ash text-xl leading-none"
+            className="text-ash-muted hover:text-ash text-xl leading-none"
           >
             &times;
           </button>

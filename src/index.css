@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* BreadBook Color Palette — CSS custom properties for easy dark mode toggle later */
+/* BreadBook Color Palette — CSS custom properties for dark mode toggle */
 @theme {
   --color-crust: #8B5E3C;
   --color-crust-light: #A3764E;
@@ -11,23 +11,25 @@
   --color-char: #2C1A0E;
   --color-ash: #5C4033;
   --color-steam: #FFFFFF;
+  --color-ash-muted: #8B7B6B;
 
   /* Font families */
   --font-heading: 'Lora', Georgia, serif;
   --font-body: 'Inter', system-ui, sans-serif;
 }
 
-/* Dark mode — swap semantic colors so all existing classes just work */
+/* Dark mode — warm bakery feel with clear surface hierarchy */
 .dark {
-  --color-crumb: #1A120B;
+  --color-crumb: #1C1310;
+  --color-steam: #2D2118;
+  --color-dough: #3D2E22;
   --color-char: #F0E6D6;
-  --color-dough: #2C1F14;
-  --color-steam: #241A12;
-  --color-ash: #B8A08A;
-  --color-crust: #A3764E;
-  --color-crust-light: #B8875C;
-  --color-crust-dark: #8B5E3C;
-  --color-wheat: #D4A96A;
+  --color-ash: #C8B098;
+  --color-wheat: #E5C080;
+  --color-crust: #C09268;
+  --color-crust-light: #D4A87C;
+  --color-crust-dark: #A3764E;
+  --color-ash-muted: #AA9580;
 }
 
 /* Base styles */

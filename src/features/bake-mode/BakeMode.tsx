@@ -282,15 +282,15 @@ export function BakeMode() {
               navigate(`/recipes/${recipe.id}`)
             }
           }}
-          className="text-sm text-dough/70 hover:text-steam transition-colors"
+          className="text-sm text-steam/70 hover:text-steam transition-colors"
         >
           ← Exit
         </button>
         <span className="font-heading font-semibold text-sm truncate mx-4">
           {recipe.title}
         </span>
-        <span className="text-xs text-dough/70 flex items-center gap-2">
-          {roomTemp && <span className="text-wheat">{roomTemp}°F</span>}
+        <span className="text-xs text-steam/70 flex items-center gap-2">
+          {roomTemp && <span className="text-steam font-medium">{roomTemp}°F</span>}
           {currentStep + 1}/{steps.length}
         </span>
       </header>

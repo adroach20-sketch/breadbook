@@ -37,7 +37,7 @@ export function ShapingLog({ onShapingMethod, onShapingFeel, methodLog, feelLog 
           </div>
         </div>
       ) : (
-        <p className="text-sm text-ash/70 text-center">
+        <p className="text-sm text-ash-muted text-center">
           {formatTime(methodLog[0].timestamp)} — Shaped as {methodLog[0].eventValue}
         </p>
       )}
@@ -59,7 +59,7 @@ export function ShapingLog({ onShapingMethod, onShapingFeel, methodLog, feelLog 
           </div>
         </div>
       ) : (
-        <p className="text-sm text-ash/70 text-center">
+        <p className="text-sm text-ash-muted text-center">
           {formatTime(feelLog[0].timestamp)} — {feelLog[0].eventValue}
         </p>
       )}

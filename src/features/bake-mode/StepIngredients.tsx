@@ -52,7 +52,7 @@ export function StepIngredients({ ingredients }: StepIngredientsProps) {
               </span>
               <span
                 className={`text-sm transition-colors ${
-                  checked.has(ing.id) ? 'text-ash/50 line-through' : 'text-char'
+                  checked.has(ing.id) ? 'text-ash-muted line-through' : 'text-char'
                 }`}
               >
                 {formatAmount(ing)}

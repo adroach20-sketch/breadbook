@@ -26,7 +26,7 @@ export function StarRating({ value, onChange, size = 'md' }: StarRatingProps) {
         <span
           key={star}
           className={`${interactive ? 'cursor-pointer' : ''} select-none transition-colors ${
-            star <= displayValue ? 'text-wheat' : 'text-dough'
+            star <= displayValue ? 'text-wheat' : 'text-ash-muted'
           }`}
           onClick={() => onChange?.(star)}
           onMouseEnter={() => interactive && setHoverValue(star)}

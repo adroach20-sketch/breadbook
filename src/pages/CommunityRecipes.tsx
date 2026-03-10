@@ -73,7 +73,7 @@ export function CommunityRecipes() {
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Search recipes..."
-            className="flex-1 rounded-lg border border-dough bg-steam px-3 py-2 text-sm text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50"
+            className="flex-1 rounded-lg border border-dough bg-steam px-3 py-2 text-sm text-char placeholder:text-ash-muted focus:outline-none focus:ring-2 focus:ring-wheat/50"
           />
           <button
             type="submit"
@@ -112,7 +112,7 @@ export function CommunityRecipes() {
         <div className="text-center py-12">
           <span className="text-4xl mb-3 block">\uD83C\uDF5E</span>
           <p className="text-ash mb-2">No community recipes found.</p>
-          <p className="text-xs text-ash/60">
+          <p className="text-xs text-ash-muted">
             Share your own recipes by making them public!
           </p>
         </div>
@@ -123,7 +123,7 @@ export function CommunityRecipes() {
             return (
               <div
                 key={recipe.id}
-                className="bg-steam rounded-xl shadow-sm hover:shadow-md transition-shadow p-4 border border-dough/50"
+                className="bg-steam rounded-xl shadow-sm hover:shadow-md transition-shadow p-4 border border-dough"
               >
                 <Link to={'/recipes/' + recipe.id} className="block">
                   <div className="flex items-start justify-between mb-2">

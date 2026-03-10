@@ -52,7 +52,7 @@ export function FeedingLogForm({ starterId, onSave, onCancel, saving = false }: 
     <div className="space-y-4">
       <h3 className="font-heading text-lg font-semibold text-char">Log Feeding Details</h3>
 
-      {error && <p className="text-red-600 text-sm">{error}</p>}
+      {error && <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>}
 
       <div className="grid grid-cols-2 gap-3">
         <div>
@@ -62,7 +62,7 @@ export function FeedingLogForm({ starterId, onSave, onCancel, saving = false }: 
             value={waterG}
             onChange={(e) => setWaterG(e.target.value)}
             placeholder="50"
-            className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50"
+            className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash-muted focus:outline-none focus:ring-2 focus:ring-wheat/50"
           />
         </div>
         <div>
@@ -72,7 +72,7 @@ export function FeedingLogForm({ starterId, onSave, onCancel, saving = false }: 
             value={flourG}
             onChange={(e) => setFlourG(e.target.value)}
             placeholder="50"
-            className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50"
+            className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash-muted focus:outline-none focus:ring-2 focus:ring-wheat/50"
           />
         </div>
       </div>
@@ -85,7 +85,7 @@ export function FeedingLogForm({ starterId, onSave, onCancel, saving = false }: 
             value={temperatureF}
             onChange={(e) => setTemperatureF(e.target.value)}
             placeholder="72"
-            className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50"
+            className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash-muted focus:outline-none focus:ring-2 focus:ring-wheat/50"
           />
         </div>
         <div>
@@ -95,7 +95,7 @@ export function FeedingLogForm({ starterId, onSave, onCancel, saving = false }: 
             value={peakRisePct}
             onChange={(e) => setPeakRisePct(e.target.value)}
             placeholder="100"
-            className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50"
+            className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash-muted focus:outline-none focus:ring-2 focus:ring-wheat/50"
           />
         </div>
       </div>
@@ -107,7 +107,7 @@ export function FeedingLogForm({ starterId, onSave, onCancel, saving = false }: 
           value={peakRiseMinutes}
           onChange={(e) => setPeakRiseMinutes(e.target.value)}
           placeholder="360"
-          className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50"
+          className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash-muted focus:outline-none focus:ring-2 focus:ring-wheat/50"
         />
         <p className="text-xs text-ash mt-1">How many minutes after feeding did it peak?</p>
       </div>
@@ -119,7 +119,7 @@ export function FeedingLogForm({ starterId, onSave, onCancel, saving = false }: 
           onChange={(e) => setNotes(e.target.value)}
           placeholder="Looked extra bubbly today, used rye flour..."
           rows={2}
-          className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash/50 focus:outline-none focus:ring-2 focus:ring-wheat/50 resize-none"
+          className="w-full rounded-lg border border-dough bg-steam px-3 py-2 text-char placeholder:text-ash-muted focus:outline-none focus:ring-2 focus:ring-wheat/50 resize-none"
         />
       </div>
 

@@ -30,7 +30,7 @@ export function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-dough flex items-center justify-center px-4">
+    <div className="min-h-screen bg-crumb flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <span className="text-5xl">🍞</span>
@@ -38,9 +38,9 @@ export function Login() {
           <p className="text-ash mt-1">Sign in to your BreadBook</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-steam rounded-xl shadow-sm p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough p-6 space-y-4">
           {error && (
-            <div className="bg-red-50 text-red-700 text-sm p-3 rounded-lg">{error}</div>
+            <div className="bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300 text-sm p-3 rounded-lg">{error}</div>
           )}
 
           <div>
@@ -53,7 +53,7 @@ export function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-3 py-2 border border-dough rounded-lg focus:outline-none focus:ring-2 focus:ring-crust/50 bg-crumb"
+              className="w-full px-3 py-2 border border-dough rounded-lg focus:outline-none focus:ring-2 focus:ring-crust/50 bg-steam dark:bg-crumb"
             />
           </div>
 
@@ -67,7 +67,7 @@ export function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-3 py-2 border border-dough rounded-lg focus:outline-none focus:ring-2 focus:ring-crust/50 bg-crumb"
+              className="w-full px-3 py-2 border border-dough rounded-lg focus:outline-none focus:ring-2 focus:ring-crust/50 bg-steam dark:bg-crumb"
             />
           </div>
 

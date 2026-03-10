@@ -23,7 +23,7 @@ export function FeedingCalendar({ logs, schedule }: FeedingCalendarProps) {
   const feedsPerDay = Math.max(1, Math.round(24 / intervalHours))
 
   return (
-    <div className="bg-steam rounded-xl border border-dough/50 p-4">
+    <div className="bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] border border-dough p-4">
       <h3 className="font-heading text-sm font-semibold text-char mb-3">Last 7 Days</h3>
       <div className="flex gap-1 justify-between">
         {days.map((day) => {
@@ -43,7 +43,7 @@ export function FeedingCalendar({ logs, schedule }: FeedingCalendarProps) {
               <span className={'text-xs ' + (isToday ? 'font-semibold text-crust' : 'text-ash')}>
                 {dayLabel}
               </span>
-              <span className={'text-xs ' + (isToday ? 'text-char' : 'text-ash/70')}>
+              <span className={'text-xs ' + (isToday ? 'text-char' : 'text-ash-muted')}>
                 {day.getDate()}
               </span>
               {/* Feed indicators */}
