@@ -17,6 +17,19 @@
   --font-body: 'Inter', system-ui, sans-serif;
 }
 
+/* Dark mode — swap semantic colors so all existing classes just work */
+.dark {
+  --color-crumb: #1A120B;
+  --color-char: #F0E6D6;
+  --color-dough: #2C1F14;
+  --color-steam: #241A12;
+  --color-ash: #B8A08A;
+  --color-crust: #A3764E;
+  --color-crust-light: #B8875C;
+  --color-crust-dark: #8B5E3C;
+  --color-wheat: #D4A96A;
+}
+
 /* Base styles */
 body {
   font-family: var(--font-body);

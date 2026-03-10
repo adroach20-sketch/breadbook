@@ -1,5 +1,9 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
+import { usePreferences } from '../store/preferences'
+
+const themeIcons = { system: '💻', light: '☀️', dark: '🌙' } as const
+const themeNext = { system: 'light', light: 'dark', dark: 'system' } as const
 
 const navItems = [
   { path: '/', label: 'Home', icon: '🏠' },
@@ -15,6 +19,7 @@ function isNavActive(itemPath: string, currentPath: string) {
 export function Layout() {
   const { user, signOut } = useAuth()
   const location = useLocation()
+  const { themeMode, setThemeMode } = usePreferences()
 
   return (
     <div className="min-h-screen bg-crumb flex flex-col">
@@ -36,6 +41,14 @@ export function Layout() {
               {item.label}
             </Link>
           ))}
+          <button
+            onClick={() => setThemeMode(themeNext[themeMode])}
+            className="text-sm hover:text-wheat transition-colors"
+            aria-label={`Theme: ${themeMode}`}
+            title={`Theme: ${themeMode}`}
+          >
+            {themeIcons[themeMode]}
+          </button>
           {user && (
             <button
               onClick={signOut}
@@ -53,14 +66,23 @@ export function Layout() {
           <span className="text-lg">🍞</span>
           <span className="font-heading text-lg font-bold">BreadBook</span>
         </Link>
-        {user && (
+        <div className="flex items-center gap-3">
           <button
-            onClick={signOut}
-            className="text-sm text-dough/70 hover:text-steam transition-colors"
+            onClick={() => setThemeMode(themeNext[themeMode])}
+            className="text-sm hover:text-wheat transition-colors"
+            aria-label={`Theme: ${themeMode}`}
           >
-            Sign Out
+            {themeIcons[themeMode]}
           </button>
-        )}
+          {user && (
+            <button
+              onClick={signOut}
+              className="text-sm text-dough/70 hover:text-steam transition-colors"
+            >
+              Sign Out
+            </button>
+          )}
+        </div>
       </header>
 
       {/* Main content */}
