@@ -17,7 +17,7 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [x] Zustand for client state
 - [x] `.env.example` with all required vars
 - [x] README with setup instructions
-- [ ] Dark mode support (Char background, warm light text, detect system preference)
+- [x] Dark mode support (CSS variable swap, system/light/dark toggle, persisted to localStorage)
 
 ### 1.2 Supabase Setup & System Account
 - [x] Supabase project created
@@ -30,7 +30,7 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [ ] Expand `recipes` table: add `forked_from`, `version`, `fold_method`, `shaping_method`, `base_servings`, `yield_loaves` columns
 - [ ] `bake_event_logs` table with RLS (in-bake capture)
 - [ ] `bake_schedules` table with RLS
-- [ ] Supabase Storage bucket: `breadbook-photos` (public)
+- [x] Supabase Storage bucket: `breadbook-photos` (public read, authenticated upload)
 - [ ] Enable Realtime on `bake_event_logs`
 
 ### 1.3 Authentication & Onboarding
@@ -211,12 +211,14 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [ ] Database: `bake_schedules` table with `schedule_steps` jsonb
 
 ### 2.4 Bake Journal
-- [ ] Database table: `bake_logs` (rating, crumb/crust/flavor notes, what went well, what to change, bulk/proof hours, room temp, photo URLs)
-- [ ] Log a bake result after Guided Bake Mode completes (pre-fill recipe, date/time)
-- [ ] Photo upload (Supabase Storage: `breadbook-photos` bucket)
-- [ ] Star rating (1–5) + free text notes
+- [x] Database table: `bake_logs` (rating, crumb/crust/flavor notes, what went well, what to change, photo URLs)
+- [x] Log a bake result after Guided Bake Mode completes (pre-fill recipe, date/time)
+- [x] Photo upload (Supabase Storage: `breadbook-photos` bucket)
+- [x] Star rating (1–5) + free text notes
+- [x] "My Bakes" gallery — grid of bake photos with dates
+- [x] Detail view with edit/delete
 - [ ] Bake history timeline per recipe — see improvement over time
-- [ ] "My Bakes" gallery — grid of bake photos with dates
+- [ ] Bulk/proof hours + room temp fields (deferred — belongs with In-Bake Logging)
 
 ### 2.5 Loaf Troubleshooter
 - [ ] Database table: `troubleshoot_sessions`
@@ -304,9 +306,10 @@ This is the spec's recommended sequence. Items within a phase can shift, but the
 14. Starter Tracker (feeding log, dashboard, chart)
 15. Starter Feeding Plan (schedules, reminders, bake-linked feeds)
 16. Smart Schedule Planner (reverse timeline from eat time)
-17. Bake Journal (log, photos, history)
+17. ~~Bake Journal (log, photos, history)~~ ✅
 18. Loaf Troubleshooter (symptoms, diagnosis, amendments)
 19. Community features (sharing, feed, profiles, challenges)
-20. Dark mode
-21. Deploy to Render
-22. Domain + PWA
+20. ~~Dark mode~~ ✅
+21. ~~Deploy to Render~~ ✅
+22. ~~Custom domain (breadbook.app)~~ ✅
+23. PWA support

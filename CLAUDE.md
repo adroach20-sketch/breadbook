@@ -31,15 +31,17 @@ A sourdough lifestyle app. Users browse curated recipes (BreadBook Originals), f
 | Steam | #FFFFFF | `text-steam`, `bg-steam` |
 
 ## Current Status
-Building Phase 1 (Core MVP). See `ROADMAP.md` for the full build plan and status tracking.
+Live at **breadbook.app** and **breadbook.onrender.com**. See `ROADMAP.md` for the full build plan.
 
 ### What's Built
 - Project scaffold, Tailwind, routing, auth (email/password)
 - BreadBook Originals (~10 seeded recipes)
 - Recipe list with category tabs + detail with baker's % toggle
 - Guided Bake Mode (step view, timers, notifications, wake lock, session persistence)
+- Bake Journal (star rating, crumb/crust/flavor notes, what went well/change, photo upload, list/detail/edit/delete)
+- Dark mode (CSS variable swap, system/light/dark toggle, persisted to localStorage)
 
-### What's Next (Phase 1 remaining)
+### What's Next
 - BreadBook Academy (inline knowledge cards)
 - Modular Recipe Builder (create/edit, drag-to-reorder, hydration calc, batch scaler)
 - Recipe Fork & Customize
@@ -48,15 +50,15 @@ Building Phase 1 (Core MVP). See `ROADMAP.md` for the full build plan and status
 - Recipe Import (text paste + URL via Claude API)
 - In-Bake Logging (fold timestamps, rise check-ins, dough observations, off-plan events)
 - Live Schedule Adjustment
-- Dark mode
 - Welcome screen on first login
 
-### Phase 2: Starter Tracker, Feeding Plans, Schedule Planner, Bake Journal, Loaf Troubleshooter
+### Phase 2: Starter Tracker, Feeding Plans, Schedule Planner, Loaf Troubleshooter
 ### Phase 3: Community (recipe sharing, bake feed, profiles, challenges)
 
 ## Database
-Current tables in `supabase/migrations/001_initial_schema.sql`: profiles, recipes, bake_sessions.
-Future tables needed: starters, starter_logs, starter_schedules, bake_logs, bake_schedules, bake_event_logs, troubleshoot_sessions, recipe_likes, recipe_saves.
+Tables in `supabase/migrations/`: profiles, recipes, bake_sessions (001), bake_logs (002).
+Storage bucket: `breadbook-photos` (public read, authenticated upload).
+Future tables needed: starters, starter_logs, starter_schedules, bake_schedules, bake_event_logs, troubleshoot_sessions, recipe_likes, recipe_saves.
 
 ## Key Architecture Notes
 - **Academy cards are inline components**, not a separate page. Content keyed by `academy_key` in a local TS file. Build once, use everywhere.
