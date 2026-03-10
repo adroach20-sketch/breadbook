@@ -6,6 +6,101 @@ import type { Recipe } from './types'
 
 export const breadbookOriginals: Recipe[] = [
   // ─────────────────────────────────────────────
+  // 0. Artisan Sourdough Made Simple — Alexandra Cooks
+  // ─────────────────────────────────────────────
+  {
+    id: 'bb-artisan-simple',
+    title: 'Artisan Sourdough Made Simple',
+    description:
+      'The beginner-friendly classic from Alexandra Cooks. Just four ingredients, an overnight bulk ferment, and a cold proof — this no-fuss recipe is how thousands of bakers made their first loaf.',
+    category: 'sourdough_loaf',
+    ferment_type: 'overnight',
+    hydration_pct: 75,
+    yield_amount: '1 loaf',
+    tags: ['beginner', 'classic', 'overnight', 'simple'],
+    is_breadbook_original: false,
+    source_credit: 'Alexandra Stafford / alexandracooks.com',
+    ingredients: [
+      { id: 'as-1', name: 'Bubbly Active Starter', amount: 100, unit: 'g', bakers_pct: 20 },
+      { id: 'as-2', name: 'Warm Water', amount: 375, unit: 'g', bakers_pct: 75 },
+      { id: 'as-3', name: 'Bread Flour', amount: 500, unit: 'g', bakers_pct: 100 },
+      { id: 'as-4', name: 'Fine Sea Salt', amount: 9, unit: 'g', bakers_pct: 1.8 },
+    ],
+    steps: [
+      {
+        id: 'as-s1', order: 1, type: 'mix', title: 'Make the Dough',
+        instruction: 'Whisk 100g starter and 375g warm water together in a large bowl with a fork or spatula. Add 500g bread flour and 9g salt. Mix to combine, finishing by hand to form a rough dough. Cover with a damp towel and let rest.',
+        timer_minutes: 30, timer_label: 'Rest', is_optional: false, academy_key: null, ingredient_ids: ['as-1', 'as-2', 'as-3', 'as-4'],
+      },
+      {
+        id: 'as-s2', order: 2, type: 'stretch_fold', title: 'Stretch & Fold — Set 1',
+        instruction: 'Grab a corner of the dough, stretch it up, and fold it into the center. Repeat 4–5 times around the bowl. Cover and rest 30 minutes.',
+        timer_minutes: 30, timer_label: 'Rest before next set', is_optional: false, academy_key: 'stretch_fold',
+      },
+      {
+        id: 'as-s3', order: 3, type: 'stretch_fold', title: 'Stretch & Fold — Set 2',
+        instruction: 'Repeat the stretch and fold sequence. The dough should feel slightly tighter than before. Cover and rest. If you have time, do two more sets (4 total in 2 hours).',
+        timer_minutes: 30, timer_label: 'Rest before next set', is_optional: false, academy_key: 'stretch_fold',
+      },
+      {
+        id: 'as-s4', order: 4, type: 'stretch_fold', title: 'Stretch & Fold — Set 3',
+        instruction: 'Third set of stretch and folds. The dough should be noticeably smoother.',
+        timer_minutes: 30, timer_label: 'Rest before next set', is_optional: true, academy_key: 'stretch_fold',
+      },
+      {
+        id: 'as-s5', order: 5, type: 'stretch_fold', title: 'Stretch & Fold — Set 4',
+        instruction: 'Final set. The dough should feel strong and elastic. Even if you can only do one or two sets, your dough will benefit.',
+        timer_minutes: null, timer_label: null, is_optional: true, academy_key: 'stretch_fold',
+      },
+      {
+        id: 'as-s6', order: 6, type: 'bulk_ferment', title: 'Bulk Ferment (Overnight)',
+        instruction: 'Cover the bowl with a towel and let rise at room temperature (70°F / 21°C) for 8–10 hours, or overnight. The dough is ready when it has increased about 50% in volume, has a few bubbles on the surface, and jiggles when you move the bowl. Use visual cues, not the clock — warmer kitchens will be faster.',
+        timer_minutes: 480, timer_label: 'Bulk ferment (8 hrs)', is_optional: false, academy_key: 'bulk_ferment',
+      },
+      {
+        id: 'as-s7', order: 7, type: 'shape', title: 'Shape',
+        instruction: 'Coax the dough onto a lightly floured surface. Gently shape into a round: fold the top down to the center, turn, repeat until you\'ve come full circle. Use a bench scraper to push and pull the dough to create tension.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: 'shape',
+      },
+      {
+        id: 'as-s8', order: 8, type: 'shape', title: 'Bench Rest & Final Shape',
+        instruction: 'Let the dough rest seam side up for 30 minutes. Meanwhile, line an 8-inch bowl or proofing basket with a towel and dust with rice flour. Shape it again, then place seam side up in the lined bowl.',
+        timer_minutes: 30, timer_label: 'Bench rest', is_optional: false, academy_key: 'shape',
+      },
+      {
+        id: 'as-s9', order: 9, type: 'cold_proof', title: 'Cold Proof',
+        instruction: 'Cover the dough and refrigerate for 1 hour or up to 48 hours. A longer cold proof (24+ hours) develops better flavor and makes scoring easier.',
+        timer_minutes: 60, timer_label: 'Minimum cold proof (1 hr)', is_optional: false, academy_key: 'cold_proof',
+      },
+      {
+        id: 'as-s10', order: 10, type: 'preheat', title: 'Preheat Oven',
+        instruction: 'Place a Dutch oven inside and preheat to 550°F (290°C). Let it get ripping hot — at least 30 minutes.',
+        timer_minutes: 30, timer_label: 'Preheat', is_optional: false, academy_key: 'preheat',
+      },
+      {
+        id: 'as-s11', order: 11, type: 'score', title: 'Score',
+        instruction: 'Place parchment over the bowl and invert to release the dough. Score however you wish — a simple "X" works great. Use the parchment to transfer into the hot Dutch oven.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: 'score',
+      },
+      {
+        id: 'as-s12', order: 12, type: 'bake', title: 'Bake — Covered',
+        instruction: 'Lower the oven temperature to 450°F (230°C). Carefully cover the pot. Bake covered for 30 minutes to trap steam.',
+        timer_minutes: 30, timer_label: 'Covered bake', is_optional: false, academy_key: 'bake',
+      },
+      {
+        id: 'as-s13', order: 13, type: 'bake', title: 'Bake — Uncovered',
+        instruction: 'Remove the lid and lower temperature to 400°F (200°C). Continue baking 10–15 minutes until deep golden brown. If needed, lift the loaf out and bake directly on the rack for the last 5 minutes.',
+        timer_minutes: 15, timer_label: 'Uncovered bake', is_optional: false, academy_key: 'bake',
+      },
+      {
+        id: 'as-s14', order: 14, type: 'cool', title: 'Cool',
+        instruction: 'Cool on a wire rack for at least 1 hour before slicing. The crumb is still setting inside — patience!',
+        timer_minutes: 60, timer_label: 'Cooling', is_optional: false, academy_key: null,
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────────────
   // 1. Classic Country Loaf — the beginner anchor
   // ─────────────────────────────────────────────
   {
