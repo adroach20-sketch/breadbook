@@ -30,13 +30,13 @@ export const breadbookOriginals: Recipe[] = [
     steps: [
       {
         id: 'ccl-s1', order: 1, type: 'autolyse', title: 'Autolyse',
-        instruction: 'Combine flour and water in a large bowl. Mix until no dry flour remains. Cover and rest.',
-        timer_minutes: 45, timer_label: 'Autolyse rest', is_optional: true, academy_key: 'autolyse',
+        instruction: 'Combine 450g bread flour and 50g whole wheat flour with 375g water in a large bowl. Mix until no dry flour remains. Cover and rest.',
+        timer_minutes: 45, timer_label: 'Autolyse rest', is_optional: true, academy_key: 'autolyse', ingredient_ids: ['ccl-1', 'ccl-2', 'ccl-3'],
       },
       {
         id: 'ccl-s2', order: 2, type: 'mix', title: 'Add Starter & Salt',
-        instruction: 'Add the active starter and salt to the dough. Squeeze and fold through the dough until fully incorporated, about 3–4 minutes.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Add 100g active starter and 10g salt to the dough. Squeeze and fold through the dough until fully incorporated, about 3–4 minutes.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['ccl-4', 'ccl-5'],
       },
       {
         id: 'ccl-s3', order: 3, type: 'stretch_fold', title: 'Stretch & Fold — Set 1',
@@ -132,13 +132,13 @@ export const breadbookOriginals: Recipe[] = [
     steps: [
       {
         id: 'wws-s1', order: 1, type: 'autolyse', title: 'Autolyse',
-        instruction: 'Combine both flours and water. Mix until no dry flour remains. Cover and rest. This longer autolyse softens the whole wheat bran.',
-        timer_minutes: 60, timer_label: 'Autolyse rest', is_optional: false, academy_key: 'autolyse',
+        instruction: 'Combine 250g bread flour and 250g whole wheat flour with 390g water. Mix until no dry flour remains. Cover and rest. This longer autolyse softens the whole wheat bran.',
+        timer_minutes: 60, timer_label: 'Autolyse rest', is_optional: false, academy_key: 'autolyse', ingredient_ids: ['wws-1', 'wws-2', 'wws-3'],
       },
       {
         id: 'wws-s2', order: 2, type: 'mix', title: 'Add Starter, Honey & Salt',
-        instruction: 'Add starter, honey, and salt. Squeeze and fold through the dough until fully incorporated.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Add 100g active starter, 15g honey, and 10g salt. Squeeze and fold through the dough until fully incorporated.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['wws-4', 'wws-5', 'wws-6'],
       },
       {
         id: 'wws-s3', order: 3, type: 'stretch_fold', title: 'Stretch & Fold — Set 1',
@@ -230,8 +230,8 @@ export const breadbookOriginals: Recipe[] = [
     steps: [
       {
         id: 'rf-s1', order: 1, type: 'mix', title: 'Mix Dough',
-        instruction: 'Combine flour, water, starter, and salt. Mix until a shaggy dough forms. Drizzle in 2 tablespoons of olive oil and incorporate.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Combine 500g bread flour, 400g water, 100g active starter, and 10g salt. Mix until a shaggy dough forms. Drizzle in 2 tablespoons of olive oil and incorporate.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['rf-1', 'rf-2', 'rf-3', 'rf-4', 'rf-5'],
       },
       {
         id: 'rf-s2', order: 2, type: 'stretch_fold', title: 'Stretch & Fold — Set 1',
@@ -255,7 +255,7 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'rf-s6', order: 6, type: 'custom', title: 'Oil the Pan & First Stretch',
-        instruction: 'Pour remaining olive oil into a sheet pan (9x13 or quarter sheet). Gently turn the dough into the pan. Stretch it toward the edges — it\'s OK if it doesn\'t reach all the way. Cover and let it rest.',
+        instruction: 'Pour the remaining olive oil (about 3 tablespoons) into a sheet pan (9x13 or quarter sheet). Gently turn the dough into the pan. Stretch it toward the edges — it\'s OK if it doesn\'t reach all the way. Cover and let it rest.',
         timer_minutes: 30, timer_label: 'Pan rest', is_optional: false, academy_key: null,
       },
       {
@@ -275,8 +275,8 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'rf-s10', order: 10, type: 'custom', title: 'Dimple & Top',
-        instruction: 'Oil your fingers and press deep dimples all over the dough. Scatter rosemary and flaky salt across the top. Drizzle with a bit more olive oil.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Oil your fingers and press deep dimples all over the dough. Scatter 3 tbsp fresh rosemary and 5g flaky salt across the top. Drizzle with a bit more olive oil.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['rf-6', 'rf-7'],
       },
       {
         id: 'rf-s11', order: 11, type: 'bake', title: 'Bake',
@@ -316,8 +316,8 @@ export const breadbookOriginals: Recipe[] = [
     steps: [
       {
         id: 'spd-s1', order: 1, type: 'mix', title: 'Mix Dough',
-        instruction: 'Combine flour, water, starter, salt, and olive oil. Mix until a smooth dough forms. Knead briefly on the counter, about 3 minutes.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Combine 500g bread flour, 340g water, 100g active starter, 10g salt, and 15ml olive oil. Mix until a smooth dough forms. Knead briefly on the counter, about 3 minutes.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['spd-1', 'spd-2', 'spd-3', 'spd-4', 'spd-5'],
       },
       {
         id: 'spd-s2', order: 2, type: 'bulk_ferment', title: 'Room Temp Rise',
@@ -386,13 +386,13 @@ export const breadbookOriginals: Recipe[] = [
     steps: [
       {
         id: 'sp-s1', order: 1, type: 'mix', title: 'Mix Wet Ingredients',
-        instruction: 'In a large bowl, whisk together the sourdough discard, egg, milk, melted butter, sugar, and vanilla.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'In a large bowl, whisk together 200g sourdough discard, 1 egg, 60ml milk, 30g melted butter, 20g sugar, and 5ml vanilla.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sp-1', 'sp-3', 'sp-4', 'sp-5', 'sp-7', 'sp-8'],
       },
       {
         id: 'sp-s2', order: 2, type: 'mix', title: 'Add Dry Ingredients',
-        instruction: 'Add flour, baking soda, and salt. Stir gently until just combined — lumps are OK! Overmixing makes pancakes tough.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Add 100g flour, 3g baking soda, and 2g salt. Stir gently until just combined — lumps are OK! Overmixing makes pancakes tough.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sp-2', 'sp-6', 'sp-9'],
       },
       {
         id: 'sp-s3', order: 3, type: 'custom', title: 'Heat Griddle',
@@ -441,8 +441,8 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'sc-s2', order: 2, type: 'mix', title: 'Mix',
-        instruction: 'Combine sourdough discard, olive oil, and salt. Stir until smooth.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Combine 200g sourdough discard, 30ml olive oil, and 3g salt. Stir until smooth.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sc-1', 'sc-2', 'sc-3'],
       },
       {
         id: 'sc-s3', order: 3, type: 'shape', title: 'Roll Thin',
@@ -451,8 +451,8 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'sc-s4', order: 4, type: 'custom', title: 'Season',
-        instruction: 'Sprinkle your chosen seasoning evenly across the top. Press gently so it sticks.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Sprinkle 10g of your chosen seasoning evenly across the top. Press gently so it sticks.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sc-4'],
       },
       {
         id: 'sc-s5', order: 5, type: 'bake', title: 'Bake',
@@ -502,13 +502,13 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'sbb-s2', order: 2, type: 'mix', title: 'Mash & Mix Wet',
-        instruction: 'Mash bananas in a large bowl. Add melted butter, egg, sourdough discard, sugar, and vanilla. Mix well.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Mash 3 ripe bananas in a large bowl. Add 75g melted butter, 1 egg, 120g sourdough discard, 130g sugar, and 5ml vanilla. Mix well.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sbb-1', 'sbb-2', 'sbb-4', 'sbb-5', 'sbb-6', 'sbb-9'],
       },
       {
         id: 'sbb-s3', order: 3, type: 'mix', title: 'Add Dry & Fold',
-        instruction: 'Add flour, baking soda, and salt. Fold gently until just combined. Fold in chocolate chips if using.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Add 200g flour, 5g baking soda, and 3g salt. Fold gently until just combined. Fold in 100g chocolate chips if using.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sbb-3', 'sbb-7', 'sbb-8', 'sbb-10'],
       },
       {
         id: 'sbb-s4', order: 4, type: 'bake', title: 'Bake',
@@ -548,8 +548,8 @@ export const breadbookOriginals: Recipe[] = [
     steps: [
       {
         id: 'st-s1', order: 1, type: 'mix', title: 'Mix Dough',
-        instruction: 'Combine flour and salt. Add sourdough discard, olive oil, and warm water. Mix until a smooth dough forms. Knead briefly on the counter, about 2 minutes.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Combine 200g flour and 4g salt. Add 150g sourdough discard, 30ml olive oil, and 30ml warm water. Mix until a smooth dough forms. Knead briefly on the counter, about 2 minutes.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['st-1', 'st-2', 'st-3', 'st-4', 'st-5'],
       },
       {
         id: 'st-s2', order: 2, type: 'custom', title: 'Rest',
@@ -604,8 +604,8 @@ export const breadbookOriginals: Recipe[] = [
     steps: [
       {
         id: 'scr-s1', order: 1, type: 'mix', title: 'Mix Dough',
-        instruction: 'Combine flour, warm milk, starter, eggs, sugar, and salt. Mix until a shaggy dough forms. Add softened butter and knead (by hand or stand mixer) until smooth and elastic, about 8–10 minutes. The dough should pass the windowpane test.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Combine 500g flour, 180ml warm milk, 150g active starter, 2 eggs, 65g sugar, and 7g salt. Mix until a shaggy dough forms. Add 75g softened butter and knead (by hand or stand mixer) until smooth and elastic, about 8–10 minutes. The dough should pass the windowpane test.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['scr-1', 'scr-2', 'scr-3', 'scr-4', 'scr-5', 'scr-6', 'scr-7'],
       },
       {
         id: 'scr-s2', order: 2, type: 'bulk_ferment', title: 'Bulk Rise',
@@ -614,8 +614,8 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'scr-s3', order: 3, type: 'shape', title: 'Roll & Fill',
-        instruction: 'Roll dough into a large rectangle, about 16x20 inches. Spread softened butter over the surface. Mix brown sugar and cinnamon, and sprinkle evenly. Roll up tightly from the long side. Cut into 12 equal pieces.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Roll dough into a large rectangle, about 16x20 inches. Spread 60g softened butter over the surface. Mix 150g brown sugar and 15g cinnamon, and sprinkle evenly. Roll up tightly from the long side. Cut into 12 equal pieces.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['scr-8', 'scr-9', 'scr-10'],
       },
       {
         id: 'scr-s4', order: 4, type: 'custom', title: 'Arrange',
@@ -644,8 +644,8 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'scr-s9', order: 9, type: 'custom', title: 'Frost & Serve',
-        instruction: 'While rolls bake, mix cream cheese, powdered sugar, and vanilla until smooth. Spread frosting over warm rolls. Serve immediately.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'While rolls bake, mix 115g cream cheese, 120g powdered sugar, and 5ml vanilla until smooth. Spread frosting over warm rolls. Serve immediately.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['scr-11', 'scr-12', 'scr-13'],
       },
     ],
   },
@@ -677,8 +677,8 @@ export const breadbookOriginals: Recipe[] = [
     steps: [
       {
         id: 'sb-s1', order: 1, type: 'mix', title: 'Mix Dough',
-        instruction: 'Combine flour, water, starter, honey, and salt. Mix until a stiff dough forms. Knead on the counter for 8–10 minutes — bagel dough should be firm and smooth, not sticky. This is a workout.',
-        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+        instruction: 'Combine 500g bread flour, 290g water, 100g active starter, 15g honey, and 10g salt. Mix until a stiff dough forms. Knead on the counter for 8–10 minutes — bagel dough should be firm and smooth, not sticky. This is a workout.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sb-1', 'sb-2', 'sb-3', 'sb-4', 'sb-5'],
       },
       {
         id: 'sb-s2', order: 2, type: 'bulk_ferment', title: 'Bulk Rise',
@@ -697,13 +697,13 @@ export const breadbookOriginals: Recipe[] = [
       },
       {
         id: 'sb-s5', order: 5, type: 'preheat', title: 'Preheat & Boil Water',
-        instruction: 'Preheat oven to 450°F (230°C). Bring a large pot of water to a boil and add honey.',
-        timer_minutes: 15, timer_label: 'Preheat', is_optional: false, academy_key: 'preheat',
+        instruction: 'Preheat oven to 450°F (230°C). Bring a large pot of water to a boil and add 30ml honey.',
+        timer_minutes: 15, timer_label: 'Preheat', is_optional: false, academy_key: 'preheat', ingredient_ids: ['sb-6'],
       },
       {
         id: 'sb-s6', order: 6, type: 'custom', title: 'Boil Bagels',
         instruction: 'Drop 2–3 bagels into boiling water. Boil 45 seconds per side. Remove with a slotted spoon, place on a parchment-lined baking sheet, and add toppings immediately while still wet. Repeat for each batch — boil, top, then start the next batch.',
-        timer_minutes: 2, timer_label: 'Per batch', is_optional: false, academy_key: null,
+        timer_minutes: 2, timer_label: 'Per batch', is_optional: false, academy_key: null, ingredient_ids: ['sb-7'],
       },
       {
         id: 'sb-s7', order: 7, type: 'bake', title: 'Bake',

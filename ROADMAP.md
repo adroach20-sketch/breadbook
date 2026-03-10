@@ -40,10 +40,11 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [ ] Welcome screen on first login: "Welcome to BreadBook!" with 3-card intro (Your Starter · Your Recipes · Your Community) and "Start with a BreadBook Original →" CTA
 
 ### 1.4 BreadBook Academy (Knowledge Layer)
-- [ ] Academy content file (`src/data/academy.ts`) — keyed by `academy_key`
-- [ ] Inline Academy card component (expand/collapse, used everywhere)
-- [ ] Content per step type: what it does, when to use vs skip, beginner/intermediate/advanced label
-- [ ] Contextual interaction notes (e.g., "Adding lamination? Reduce stretch & fold sets from 4 to 2")
+- [x] Academy content file (`src/data/academy.ts`) — 13 cards keyed by `academy_key` (9 Tier 1 full, 4 Tier 2 stubs)
+- [x] Inline Academy card component (`src/components/AcademyCard.tsx`) — accordion expand/collapse, full + compact variants
+- [x] Content per step type: what it does, when to use vs skip, tips, `showByDefault` tiering
+- [x] Contextual interaction notes (e.g., "Adding lamination? Reduce stretch & fold sets from 4 to 2")
+- [ ] Difficulty labels (beginner/intermediate/advanced) — deferred
 - [ ] Method picker Academy cards (fold methods, shaping methods, scoring patterns)
 
 ### 1.5 Modular Recipe Builder
@@ -294,7 +295,7 @@ This is the spec's recommended sequence. Items within a phase can shift, but the
 1. ~~Project scaffold + Tailwind + routing~~ ✅
 2. ~~Supabase setup + @BreadBook account~~ ✅
 3. ~~Auth screens + protected routes~~ ✅
-4. Academy knowledge base (content file + inline card component)
+4. ~~Academy knowledge base (content file + inline card component)~~ ✅
 5. Modular Recipe Builder
 6. Batch scaler + hydration calculator
 7. Expand BreadBook Originals to 30+

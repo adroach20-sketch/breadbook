@@ -1,8 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { StepView } from './StepView'
 import { BakeComplete } from './BakeComplete'
 import { useWakeLock } from '../../hooks/useWakeLock'
+import { useBakeEvents } from '../../hooks/useBakeEvents'
 import { breadbookOriginals } from '../../data/originals'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../lib/auth'
@@ -29,6 +30,38 @@ export function BakeMode() {
   const [sessionId, setSessionId] = useState<string | null>(null)
 
   const wakeLock = useWakeLock()
+  const { events, logEvent, getEventsByType, clearEvents } = useBakeEvents(id, sessionId, user?.id)
+
+  // Derived bake event data
+  const foldLog = getEventsByType('fold_done')
+  const riseLog = getEventsByType('rise_check')
+  const roomTempEvent = events.find((e) => e.eventType === 'room_temp')
+  const roomTemp = roomTempEvent?.eventValue ?? null
+
+  const handleFoldDone = useCallback(
+    (stepIndex: number) => {
+      logEvent({ stepIndex, stepType: 'stretch_fold', eventType: 'fold_done', eventValue: null })
+    },
+    [logEvent]
+  )
+
+  const handleRiseCheck = useCallback(
+    (stepIndex: number, value: string) => {
+      logEvent({ stepIndex, stepType: 'bulk_ferment', eventType: 'rise_check', eventValue: value })
+    },
+    [logEvent]
+  )
+
+  const handleRoomTemp = useCallback(
+    (stepIndex: number, value: string) => {
+      logEvent({ stepIndex, stepType: 'stretch_fold', eventType: 'room_temp', eventValue: value })
+    },
+    [logEvent]
+  )
+
+  const handleAdvanceStep = useCallback(() => {
+    setCurrentStep((s) => Math.min((recipe?.steps.length ?? 1) - 1, s + 1))
+  }, [recipe])
 
   // Load recipe
   useEffect(() => {
@@ -115,12 +148,13 @@ export function BakeMode() {
   const handleComplete = async () => {
     setIsComplete(true)
     localStorage.removeItem(BAKE_SESSION_KEY)
-    // Clean up any persisted timer states for this recipe
+    // Clean up any persisted timer states and bake events for this recipe
     if (recipe) {
       for (let i = 0; i < recipe.steps.length; i++) {
         localStorage.removeItem(`breadbook-timer-${recipe.id}-${i}`)
       }
     }
+    clearEvents()
     wakeLock.release()
 
     if (sessionId) {
@@ -175,6 +209,13 @@ export function BakeMode() {
     ? firstAcademyStepIndex.get(step.academy_key) === currentStep
     : false
 
+  // Resolve step ingredients from ingredient_ids
+  const stepIngredients = step.ingredient_ids
+    ? step.ingredient_ids
+        .map((id) => recipe.ingredients.find((ing) => ing.id === id))
+        .filter((ing): ing is NonNullable<typeof ing> => ing != null)
+    : []
+
   return (
     <div className="min-h-screen bg-crumb flex flex-col">
       {/* Top bar */}
@@ -192,7 +233,8 @@ export function BakeMode() {
         <span className="font-heading font-semibold text-sm truncate mx-4">
           {recipe.title}
         </span>
-        <span className="text-xs text-dough/70">
+        <span className="text-xs text-dough/70 flex items-center gap-2">
+          {roomTemp && <span className="text-wheat">{roomTemp}°F</span>}
           {currentStep + 1}/{steps.length}
         </span>
       </header>
@@ -206,7 +248,21 @@ export function BakeMode() {
       </div>
 
       {/* Step content */}
-      <StepView step={step} stepIndex={currentStep} totalSteps={steps.length} recipeId={recipe.id} showAcademy={showAcademy} />
+      <StepView
+        step={step}
+        stepIndex={currentStep}
+        totalSteps={steps.length}
+        recipeId={recipe.id}
+        showAcademy={showAcademy}
+        ingredients={stepIngredients}
+        foldLog={foldLog}
+        onFoldDone={() => handleFoldDone(currentStep)}
+        riseLog={riseLog}
+        onRiseCheck={(value) => handleRiseCheck(currentStep, value)}
+        roomTemp={roomTemp}
+        onRoomTemp={(value) => handleRoomTemp(currentStep, value)}
+        onAdvance={handleAdvanceStep}
+      />
 
       {/* Navigation */}
       <div className="flex gap-3 px-6 pb-8 pt-4 flex-shrink-0 max-w-lg mx-auto w-full">

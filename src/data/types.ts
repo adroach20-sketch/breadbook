@@ -50,6 +50,7 @@ export interface RecipeStep {
   timer_label: string | null
   is_optional: boolean
   academy_key: string | null
+  ingredient_ids?: string[]
 }
 
 export interface Recipe {

@@ -35,15 +35,16 @@ Live at **breadbook.app** and **breadbook.onrender.com**. See `ROADMAP.md` for t
 
 ### What's Built
 - Project scaffold, Tailwind, routing, auth (email/password)
-- BreadBook Originals (~10 seeded recipes)
+- BreadBook Originals (~10 seeded recipes, all reviewed for beginner usability)
 - Recipe list with category tabs + detail with baker's % toggle
 - Guided Bake Mode (step view, timers, notifications, wake lock, session persistence)
 - Bake Journal (star rating, crumb/crust/flavor notes, what went well/change, photo upload, list/detail/edit/delete)
 - Dark mode (CSS variable swap, system/light/dark toggle, persisted to localStorage)
+- BreadBook Academy (13 inline knowledge cards, accordion UI, full + compact variants, deduplication across repeated step types)
+- Recipe step restructure: bulk ferment split into active folds + passive rest phase for all Originals
 
 ### What's Next
-- BreadBook Academy (inline knowledge cards)
-- Modular Recipe Builder (create/edit, drag-to-reorder, hydration calc, batch scaler)
+- Modular Recipe Builder (create/edit, drag-to-reorder, hydration calc, batch scaler) — phase grouping for bulk ferment is the key UX decision
 - Recipe Fork & Customize
 - Expand Originals to 30+
 - Recipe Explorer with search & filters
