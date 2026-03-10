@@ -9,8 +9,8 @@ export function Home() {
 
   // Show a mix of recipe types on the home page
   const featured = [
+    breadbookOriginals.find((r) => r.id === 'bb-artisan-simple'),
     breadbookOriginals.find((r) => r.id === 'bb-classic-country-loaf'),
-    breadbookOriginals.find((r) => r.id === 'bb-sourdough-pancakes'),
     breadbookOriginals.find((r) => r.id === 'bb-rosemary-focaccia'),
     breadbookOriginals.find((r) => r.id === 'bb-sourdough-pizza-dough'),
   ].filter(Boolean)

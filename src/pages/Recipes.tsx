@@ -25,7 +25,7 @@ export function Recipes() {
   const [activeTab, setActiveTab] = useState('all')
   const [loading, setLoading] = useState(true)
 
-  // Try to load from Supabase, fall back to local data
+  // Merge Supabase recipes with local originals (local always included)
   useEffect(() => {
     async function loadRecipes() {
       const { data, error } = await supabase
@@ -37,7 +37,13 @@ export function Recipes() {
       if (error) {
         console.warn('Failed to load recipes from Supabase:', error.message)
       } else if (data && data.length > 0) {
-        setRecipes(data as Recipe[])
+        // Supabase recipes take priority; add any local originals not in Supabase
+        const supabaseIds = new Set(data.map((r: Recipe) => r.id))
+        const supabaseTitles = new Set(data.map((r: Recipe) => r.title))
+        const missingLocals = breadbookOriginals.filter(
+          (r) => !supabaseIds.has(r.id) && !supabaseTitles.has(r.title)
+        )
+        setRecipes([...missingLocals, ...(data as Recipe[])])
       }
       setLoading(false)
     }

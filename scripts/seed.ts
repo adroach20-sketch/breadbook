@@ -83,7 +83,6 @@ async function seed() {
   const { data: existingRecipes } = await supabase
     .from('recipes')
     .select('title')
-    .eq('is_breadbook_original', true)
 
   const existingTitles = new Set((existingRecipes || []).map((r: { title: string }) => r.title))
 
@@ -112,7 +111,7 @@ async function seed() {
       steps: recipe.steps,
       tags: recipe.tags,
       is_public: true,
-      is_breadbook_original: true,
+      is_breadbook_original: recipe.is_breadbook_original,
       source_credit: recipe.source_credit,
     })
 
