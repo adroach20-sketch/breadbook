@@ -4,11 +4,12 @@
 A sourdough lifestyle app. Users browse curated recipes (BreadBook Originals), follow guided bakes with timers, and track their sourdough starters. Built with React + Supabase.
 
 ## Architecture
-- **React + TypeScript** SPA with Vite
+- **React + TypeScript** SPA with Vite 7
 - **Tailwind CSS v4** with custom BreadBook palette (defined via CSS @theme in index.css)
 - **Supabase** for auth, Postgres DB, and storage
 - **Zustand** for client state
-- **React Router v6** for routing
+- **React Router v7** for routing
+- **Capacitor** for native iOS + Android (wraps existing React app, ~95% code reuse)
 
 ## Key Conventions
 - Mobile-first design — every UI decision prioritizes phone screens
@@ -44,39 +45,41 @@ A sourdough lifestyle app. Users browse curated recipes (BreadBook Originals), f
 ## Current Status
 Live at **breadbook.app** and **breadbook.onrender.com**. See `ROADMAP.md` for the full build plan.
 
-### What's Built (v0.2)
-- Project scaffold, Tailwind, routing, auth (email/password)
-- BreadBook Originals (~10 seeded recipes, all reviewed for beginner usability)
-- Recipe list with category tabs + detail with baker's % toggle
-- Guided Bake Mode (step view, timers, notifications, wake lock, session persistence)
-- Bake Journal (star rating, crumb/crust/flavor notes, what went well/change, photo upload, list/detail/edit/delete)
-- Dark mode (WCAG AA compliant palette, CSS variable swap, system/light/dark toggle, `ash-muted` semantic token)
-- BreadBook Academy (13 inline knowledge cards, accordion UI, full + compact variants, deduplication across repeated step types)
-- Recipe step restructure: bulk ferment split into active folds + passive rest phase for all Originals
-- In-Bake Logging MVP: S&F fold tracker, rise check-ins, room temp capture, dough observations, shaping/proofing logs, off-plan events
-- Per-step ingredient checklists with tap-to-check UI + inline amounts in instruction text
-- External recipe support: Alexandra Cooks added with `source_credit`
-- Recipe Favorites (heart toggle, optimistic UI, favorites tab)
-- Recipe Explorer (search bar, filter panel with category/hydration/time/technique filters)
-- Starter Tracker (dashboard, feeding log, activity chart with Recharts, feeding calendar, reminder settings, health status)
-- Smart Schedule Planner (reverse timeline from eat time, schedule engine, step cards, save/reuse history)
-- Community MVP (bake feed with photo sharing, comments, baker profiles, community recipe browsing)
-- `useThemeColors` hook for Recharts dark mode compatibility
+### What's Built (v0.2.1)
+- Project scaffold, Tailwind v4, routing, auth, onboarding (3-step welcome flow)
+- 19 BreadBook Originals seeded
+- Recipe list + detail + baker's % toggle + favorites + explorer (search + filters)
+- Guided Bake Mode with useBakeSession hook (timers, notifications, wake lock, session persistence)
+- Bake Journal (star rating, notes, photos, edit/delete)
+- Dark mode (WCAG AA compliant palette, `ash-muted` semantic token, `useThemeColors` hook)
+- BreadBook Academy (13 inline knowledge cards, accordion UI, full + compact variants)
+- In-Bake Logging: fold tracker, rise check-ins, room temp, dough observations, shaping/proofing logs, off-plan events
+- Per-step ingredient checklists with tap-to-check UI + inline amounts
+- Starter Tracker (dashboard, feeding log, activity chart, calendar, health status)
+- Smart Schedule Planner v2 (reverse timeline, ratio-aware feeding, quiet hours, linked to Bake Mode)
+- Community MVP (bake feed, photo sharing, comments, baker profiles, community recipes)
+- ErrorBoundary, Timer aria-live, security fixes (RLS verified, views + functions patched)
 
-### What's Next
-- Modular Recipe Builder (create/edit, drag-to-reorder, hydration calc, batch scaler)
-- Recipe Fork & Customize
-- Expand Originals to 30+
-- Recipe Import (text paste + URL via Claude API)
-- Live Schedule Adjustment
-- Starter Feeding Plans (repeating schedules, bake-linked feeds)
-- Loaf Troubleshooter
-- Welcome screen on first login
+### What's Next (v0.3 — "The Front Door")
+1. Connect existing flows (bake→journal prompt, starter→schedule, journal→recipe)
+2. "First Bake" guided path (beginner activation loop)
+3. Starter feeding plans (repeating schedules + reminders)
+4. Simple Loaf Troubleshooter (searchable symptom KB)
+5. Basic baking stats on profile
+6. DB migrations (expand profiles + recipes tables)
+7. Capacitor shell (native iOS + Android with timer notifications)
+8. 10+ new Originals (target 25-30 total)
+
+### Product Strategy
+- **App is 100% free.** No paywalls, no IAP, no premium tiers.
+- **Revenue:** Brand partnerships/affiliate, Baker's Circle ($5/yr voluntary support), creator tip jar (15% cut).
+- **Mobile:** Capacitor wraps existing React app. Native local notifications for timers, push for feeding reminders.
+- See `plans/monetization-strategy.md` and `plans/mobile-app-capacitor.md` for full details.
 
 ## Database
-Tables in `supabase/migrations/`: profiles, recipes, bake_sessions (001), bake_logs (002), bake_event_logs (003).
+Tables in `supabase/migrations/`: profiles, recipes, bake_sessions (001), bake_logs (002), bake_event_logs (003), starters, starter_logs, starter_schedules, bake_schedules, recipe_likes, recipe_saves.
 Storage bucket: `breadbook-photos` (public read, authenticated upload).
-Future tables needed: starters, starter_logs, starter_schedules, bake_schedules, bake_event_logs, troubleshoot_sessions, recipe_likes, recipe_saves.
+Supabase MCP server configured in `~/.claude.json` — can run SQL directly against the project.
 
 ## Key Architecture Notes
 - **Academy cards are inline components**, not a separate page. Content keyed by `academy_key` in a local TS file. Build once, use everywhere.

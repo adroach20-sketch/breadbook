@@ -1,13 +1,17 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { StepView } from './StepView'
 import { BakeComplete } from './BakeComplete'
 import { useWakeLock } from '../../hooks/useWakeLock'
 import { useBakeSession } from '../../hooks/useBakeSession'
+import { useAuth } from '../../lib/auth'
+import { supabase } from '../../lib/supabase'
 
 export function BakeMode() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const { user } = useAuth()
+  const [isFirstBake, setIsFirstBake] = useState(false)
 
   const wakeLock = useWakeLock()
   const {
@@ -18,6 +22,19 @@ export function BakeMode() {
     handleDoughFeel, handleDoughSmell, handleShapingMethod, handleShapingFeel,
     handleFridgeIn, handlePokeTest, handleOffPlan, handleAdvanceStep, handleComplete: completeSession,
   } = useBakeSession(id)
+
+  // Check if this is the user's first completed bake
+  useEffect(() => {
+    if (!user) return
+    supabase
+      .from('bake_sessions')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .not('completed_at', 'is', null)
+      .then(({ count }) => {
+        setIsFirstBake(count === 0)
+      })
+  }, [user])
 
   // Request wake lock on mount
   useEffect(() => {
@@ -57,7 +74,7 @@ export function BakeMode() {
   }
 
   if (isComplete) {
-    return <BakeComplete recipeTitle={recipe.title} recipeId={recipe.id} sessionId={sessionId || undefined} />
+    return <BakeComplete recipeTitle={recipe.title} recipeId={recipe.id} sessionId={sessionId || undefined} isFirstBake={isFirstBake} />
   }
 
   const steps = recipe.steps

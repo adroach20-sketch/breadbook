@@ -118,6 +118,25 @@ export function JournalDetail() {
         <NoteSection label="What to change next time" value={log.what_to_change} />
       </div>
 
+      {/* Troubleshooter suggestion for low-rated bakes */}
+      {log.rating <= 2 && (
+        <Link
+          to={`/troubleshoot?from=journal&logId=${log.id}`}
+          className="mt-6 block bg-wheat/10 border border-wheat/30 rounded-xl p-4 hover:bg-wheat/20 transition-colors"
+        >
+          <p className="text-char font-medium text-sm">Something didn't go right?</p>
+          <p className="text-ash text-sm mt-0.5">We can help figure out what happened and how to fix it next time.</p>
+        </Link>
+      )}
+
+      {/* Bake this again */}
+      <Link
+        to={`/bake/${log.recipe_id}`}
+        className="mt-4 block w-full text-center border border-dough text-crust py-3 rounded-xl font-medium hover:bg-dough/30 transition-colors"
+      >
+        Bake This Again
+      </Link>
+
       {/* Share to Feed */}
       {!isShared && (
         <button

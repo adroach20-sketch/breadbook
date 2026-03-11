@@ -1,8 +1,12 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { breadbookOriginals } from '../../data/originals'
 import type { Recipe, StarterStatus, FeedSpeed, QuietHours } from '../../data/types'
 import { STARTER_STATUS_OPTIONS, FEED_SPEED_OPTIONS, DEFAULT_QUIET_HOURS } from '../../lib/schedule-engine'
 import type { GenerateScheduleInput } from '../../lib/schedule-engine'
+import { useStarters } from '../../hooks/useStarters'
+import { getActivityLevel, formatTimeSinceFeed } from '../../hooks/useStarterActivity'
+import { supabase } from '../../lib/supabase'
 
 interface ScheduleFormProps {
   onGenerate: (input: GenerateScheduleInput) => void
@@ -30,7 +34,8 @@ function formatHour(hour: number): string {
 }
 
 export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
-  const [selectedRecipeId, setSelectedRecipeId] = useState('')
+  const [searchParams] = useSearchParams()
+  const [selectedRecipeId, setSelectedRecipeId] = useState(searchParams.get('recipe') || '')
   const [eatTimeStr, setEatTimeStr] = useState(toDatetimeLocal(getDefaultEatTime()))
   const [starterStatus, setStarterStatus] = useState<StarterStatus>('ready')
   const [feedSpeed, setFeedSpeed] = useState<FeedSpeed>('overnight')
@@ -38,6 +43,42 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
   const [roomTempF, setRoomTempF] = useState(70)
   const [fridgeAvailable, setFridgeAvailable] = useState(true)
   const [quietHours, setQuietHours] = useState<QuietHours>(DEFAULT_QUIET_HOURS)
+
+  // Auto-detect starter status from Starter Tracker
+  const { starters } = useStarters()
+  const [starterHint, setStarterHint] = useState('')
+
+  useEffect(() => {
+    if (starters.length === 0) return
+
+    const starter = starters[0] // Use first (or only) starter
+    if (!starterName) setStarterName(starter.name)
+
+    // Fetch latest log for this starter
+    supabase
+      .from('starter_logs')
+      .select('*')
+      .eq('starter_id', starter.id)
+      .order('fed_at', { ascending: false })
+      .limit(1)
+      .then(({ data }) => {
+        const lastLog = data?.[0] || null
+        const activity = getActivityLevel(lastLog)
+        const timeSince = formatTimeSinceFeed(lastLog)
+
+        // Map activity level to StarterStatus
+        if (activity === 'peak' || activity === 'active') {
+          setStarterStatus('ready')
+          setStarterHint(`${starter.name} was fed ${timeSince} — looking active!`)
+        } else if (activity === 'waking_up' || activity === 'past_peak') {
+          setStarterStatus('needs_feed')
+          setStarterHint(`${starter.name} was fed ${timeSince} — needs a feed before baking.`)
+        } else {
+          setStarterStatus('neglected')
+          setStarterHint(`${starter.name} hasn't been fed in a while (${timeSince}). We'll plan extra feeds.`)
+        }
+      })
+  }, [starters]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const recipes = useMemo(() => breadbookOriginals, [])
   const selectedRecipe: Recipe | undefined = recipes.find((r) => r.id === selectedRecipeId)
@@ -121,6 +162,11 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
           <label className="block text-sm font-medium text-char mb-2">
             How's your starter doing?
           </label>
+          {starterHint && (
+            <p className="text-xs text-crust bg-crust/5 border border-crust/20 rounded-lg px-3 py-2 mb-2">
+              {starterHint}
+            </p>
+          )}
           <div className="space-y-2">
             {STARTER_STATUS_OPTIONS.map((option) => (
               <button

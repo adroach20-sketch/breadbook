@@ -125,6 +125,16 @@ export function RecipeDetail() {
         <StepList steps={recipe.steps} />
       </div>
 
+      {/* Plan This Bake — secondary link */}
+      <div className="text-center mb-3">
+        <Link
+          to={`/schedule/new?recipe=${recipe.id}`}
+          className="text-crust text-sm font-medium hover:underline"
+        >
+          Plan This Bake
+        </Link>
+      </div>
+
       {/* Start Bake CTA */}
       <div className="sticky bottom-20 md:bottom-4 z-40">
         <button

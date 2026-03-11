@@ -17,6 +17,7 @@ export function JournalForm() {
   const sessionId = searchParams.get('session')
 
   const [recipeTitle, setRecipeTitle] = useState('')
+  const [bakeEvents, setBakeEvents] = useState<Array<{ event_type: string; event_value: string | null }>>([])
   const [rating, setRating] = useState(0)
   const [crumbNotes, setCrumbNotes] = useState('')
   const [crustNotes, setCrustNotes] = useState('')
@@ -66,6 +67,18 @@ export function JournalForm() {
     }
     load()
   }, [id, isEdit, recipeId])
+
+  // Fetch bake event data for session summary card
+  useEffect(() => {
+    if (!sessionId || isEdit) return
+    supabase
+      .from('bake_event_logs')
+      .select('event_type, event_value')
+      .eq('bake_session_id', sessionId)
+      .then(({ data }) => {
+        if (data) setBakeEvents(data)
+      })
+  }, [sessionId, isEdit])
 
   const handleSave = async () => {
     if (!user) return
@@ -140,6 +153,9 @@ export function JournalForm() {
         <p className="text-red-600 dark:text-red-400 text-sm mb-4">{error}</p>
       )}
 
+      {/* Bake session summary — read-only reference from in-bake logging */}
+      {bakeEvents.length > 0 && <BakeSessionSummary events={bakeEvents} />}
+
       {/* Star rating */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-char mb-2">How did it turn out?</label>
@@ -202,6 +218,39 @@ export function JournalForm() {
           Cancel
         </button>
       </div>
+    </div>
+  )
+}
+
+// Read-only summary of bake session data for reference while journaling
+function BakeSessionSummary({ events }: { events: Array<{ event_type: string; event_value: string | null }> }) {
+  const roomTemp = events.find((e) => e.event_type === 'room_temp')?.event_value
+  const doughFeels = events.filter((e) => e.event_type === 'dough_feel').map((e) => e.event_value).filter(Boolean)
+  const doughSmells = events.filter((e) => e.event_type === 'dough_smell').map((e) => e.event_value).filter(Boolean)
+  const riseChecks = events.filter((e) => e.event_type === 'rise_check').map((e) => e.event_value).filter(Boolean)
+  const shapingFeel = events.find((e) => e.event_type === 'shaping_feel')?.event_value
+  const pokeTest = events.find((e) => e.event_type === 'poke_test')?.event_value
+  const foldCount = events.filter((e) => e.event_type === 'fold_done').length
+
+  const items: string[] = []
+  if (roomTemp) items.push(`Room temp: ${roomTemp}°F`)
+  if (foldCount > 0) items.push(`${foldCount} fold sets completed`)
+  if (riseChecks.length > 0) items.push(`Rise checks: ${riseChecks.join(', ')}`)
+  if (doughFeels.length > 0) items.push(`Dough felt: ${[...new Set(doughFeels)].join(', ')}`)
+  if (doughSmells.length > 0) items.push(`Dough smelled: ${[...new Set(doughSmells)].join(', ')}`)
+  if (shapingFeel) items.push(`Shaping: ${shapingFeel}`)
+  if (pokeTest) items.push(`Poke test: ${pokeTest}`)
+
+  if (items.length === 0) return null
+
+  return (
+    <div className="mb-6 bg-wheat/10 border border-wheat/30 rounded-xl p-4">
+      <h3 className="text-sm font-medium text-char mb-2">Your Bake</h3>
+      <ul className="text-sm text-ash space-y-1">
+        {items.map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
     </div>
   )
 }

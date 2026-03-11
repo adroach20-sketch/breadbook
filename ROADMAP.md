@@ -37,7 +37,7 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [x] Sign up / Log in / Log out
 - [x] Protected routes (redirect to login)
 - [x] User profile stored in `profiles` table
-- [ ] Welcome screen on first login: "Welcome to BreadBook!" with 3-card intro (Your Starter · Your Recipes · Your Community) and "Start with a BreadBook Original →" CTA
+- [x] Welcome screen on first login: 3-step onboarding flow (Welcome → Create Starter → Pick First Recipe), `has_onboarded` on profiles table
 
 ### 1.4 BreadBook Academy (Knowledge Layer)
 - [x] Academy content file (`src/data/academy.ts`) — 13 cards keyed by `academy_key` (9 Tier 1 full, 4 Tier 2 stubs)
@@ -67,9 +67,9 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [ ] Future troubleshoot amendments create version 2, 3, etc. — full history preserved
 
 ### 1.7 BreadBook Originals (Content)
-- [x] ~10 Originals seeded (Classic Country Loaf, Focaccia, Pizza, Pancakes, Crackers, Bagels, Cinnamon Rolls, etc.)
+- [x] 19 Originals seeded (v0.2.1: added High-Hydration Open Crumb, Rye & Caraway, Seeded Crust, Whole Spelt, Sandwich Loaf, Croissant Loaf, Cinnamon Swirl, Jalapeño Cheddar)
 - [ ] Expand to 30+ Originals across all categories:
-  - [ ] Sourdough Loaves: High-Hydration Open Crumb, Whole Wheat, Rye & Caraway, Seeded Crust, Whole Spelt
+  - [x] Sourdough Loaves: High-Hydration Open Crumb, Whole Wheat, Rye & Caraway, Seeded Crust, Whole Spelt, Sandwich Loaf, Croissant Loaf, Cinnamon Swirl, Jalapeño Cheddar
   - [ ] Flatbreads & Baked: Pita, English Muffins, Sandwich Bread
   - [ ] Enriched: Brioche, Dinner Rolls, Cardamom Buns
   - [ ] Same-Day Discard: Waffles, Crepes, Everything Bagel Crackers, Banana Bread, Blueberry Muffins, Chocolate Chip Cookies, Tortillas, Fresh Pasta, Soft Pretzels, Scones, Quick Flatbreads
@@ -212,7 +212,7 @@ The foundation. Everything here ships before BreadBook is "v1."
   - [x] Generates timestamps for every stage (feed starter → mix → bulk → shape → proof → bake → eat)
   - [x] Color-coded by category (starter prep, dough work, proofing, baking)
   - [ ] One-tap "Set Reminder" per step
-  - [ ] "Add to Bake Mode" button — loads recipe + schedule into Guided Bake Mode with times pre-populated
+  - [x] "Start Baking Now" button on timeline and "Start Bake" on schedule history — links to `/bake/{recipeId}`
   - [ ] Shareable as screenshot or link
   - [x] Saveable to schedule history
 - [x] **Smart adjustments:**
@@ -289,42 +289,128 @@ The foundation. Everything here ships before BreadBook is "v1."
 
 ---
 
-## Infrastructure & Cross-Cutting
+## Phase 4 — Monetization Infrastructure
 
-- [ ] Render deployment (auto-deploy on push to main)
-- [ ] Domain setup (`breadbook.app` or `breadbook.io`)
-- [ ] PWA support (add-to-homescreen, offline caching of active bake)
-- [ ] React Native migration path (post web launch)
+### 4.1 Affiliate & Recommendations
+- [ ] Product recommendation slots in Academy cards (contextual affiliate links)
+- [ ] Recommended products in recipe ingredient lists ("We tested with [Brand]")
+- [ ] Affiliate link tracking (UTM params or redirect through BreadBook)
+
+### 4.2 Baker's Circle (Voluntary Support — $5/year)
+- [ ] `circle_member`, `circle_since`, `baker_title`, `custom_username` on profiles table
+- [ ] Web-only Stripe Checkout (not in-app purchase)
+- [ ] Baker's Circle badge on profiles and community posts
+- [ ] Custom profile URL (`breadbook.app/@username`)
+- [ ] Baker title (custom text under display name)
+- [ ] "My Signature Bakes" curated gallery on profile
+- [ ] Baker DNA stats page (total loaves, trends, streaks, heatmap calendar)
+- [ ] Shareable year-in-review card
+- [ ] Vote on next BreadBook Original (monthly poll)
+- [ ] Early access / beta feature ring
+
+### 4.3 Founding Baker Program
+- [ ] One-time migration: all users before launch date get `circle_member = true` + Founding Baker badge
+- [ ] Founding Baker badge (distinct from Circle badge)
+- [ ] Announcement campaign 2-3 weeks before launch
+
+### 4.4 Brand Partnerships
+- [ ] Sponsored Originals framework ("crafted with [Brand]" recipe collections)
+- [ ] Analytics dashboard (user counts, engagement, popular recipes) — for pitching partners
+- [ ] Seasonal campaign support (themed content months)
+
+### 4.5 Creator Economy (gated: 10+ active creators, 2K+ users)
+- [ ] Creator tip jar ("Buy this baker a bag of flour" — $3/$5/$10)
+- [ ] Stripe Connect integration (Standard accounts)
+- [ ] BreadBook takes 15% of transactions
+- [ ] Digital product sales (PDF recipe packs, workshop tickets) — future
+- [ ] Creator audience analytics — future
 
 ---
 
-## Build Order (Recommended)
+## Infrastructure & Cross-Cutting
 
-This is the spec's recommended sequence. Items within a phase can shift, but the phase order matters.
+- [ ] Render deployment (auto-deploy on push to main)
+- [x] Domain setup (`breadbook.app`)
+- [ ] PWA support (add-to-homescreen, offline caching of active bake)
+- [ ] ~~React Native~~ — CUT. Using Capacitor instead.
+- [ ] Capacitor native shell (iOS + Android) — wraps existing React app. See `plans/mobile-app-capacitor.md`.
+- [ ] Native local notifications for timers (survives background/lock screen)
+- [ ] Push notifications for starter feeding reminders (via FCM/APNs)
+- [ ] App Store + Play Store submission
+- [ ] Apple Developer ($99/yr) + Google Play ($25 one-time) accounts
 
-1. ~~Project scaffold + Tailwind + routing~~ ✅
-2. ~~Supabase setup + @BreadBook account~~ ✅
-3. ~~Auth screens + protected routes~~ ✅
-4. ~~Academy knowledge base (content file + inline card component)~~ ✅
-5. Modular Recipe Builder
-6. Batch scaler + hydration calculator
-7. Expand BreadBook Originals to 30+
-8. Recipe Explorer & Search (Explore tab, search + filters)
-9. Recipe Fork & Customize flow
-10. Recipe Import (text paste → URL import)
-11. ~~Guided Bake Mode (step view + timers)~~ ✅
-12. ~~In-Bake Logging (per-step-type log widgets — MVP: fold tracker, rise check-in, room temp, ingredient checklists)~~ ✅
-13. Live Schedule Adjustment
-14. Starter Tracker (feeding log, dashboard, chart)
-15. Starter Feeding Plan (schedules, reminders, bake-linked feeds)
-16. Smart Schedule Planner (reverse timeline from eat time)
-17. ~~Bake Journal (log, photos, history)~~ ✅
-18. Loaf Troubleshooter (symptoms, diagnosis, amendments)
-19. Community features (sharing, feed, profiles, challenges)
-20. ~~Dark mode~~ ✅
-21. ~~Deploy to Render~~ ✅
-22. ~~Custom domain (breadbook.app)~~ ✅
-23. PWA support
+---
+
+## Build Order (Updated 2026-03-10)
+
+Revised after full team debate (roadmap team, monetization team, baker interviews). Organized by release, not original spec order.
+
+### Completed ✅
+- ~~Project scaffold + Tailwind + routing~~
+- ~~Supabase setup + @BreadBook account~~
+- ~~Auth screens + protected routes + onboarding~~
+- ~~Academy knowledge base~~
+- ~~Guided Bake Mode~~
+- ~~In-Bake Logging (fold tracker, rise check-ins, observations, checklists)~~
+- ~~Bake Journal~~
+- ~~Recipe Favorites + Explorer~~
+- ~~Starter Tracker~~
+- ~~Smart Schedule Planner v2~~
+- ~~Community MVP (feed, comments, profiles)~~
+- ~~Dark mode (WCAG AA)~~
+- ~~Deploy to Render + custom domain (breadbook.app)~~
+
+### v0.3 — "The Front Door"
+Goal: Convert signups into active bakers. Make the first session magical. Ship native app.
+
+1. Connect existing flows (bake complete → journal prompt, starter status in schedule, journal → recipe link, schedule → bake mode)
+2. "First Bake" guided path (beginner recipe → schedule → bake → journal → celebration)
+3. Starter feeding plans (repeating schedules + reminders) — daily retention hook
+4. Simple Loaf Troubleshooter (searchable symptom KB, linked from bad journal ratings)
+5. Basic baking stats on profile (loaves baked, favorite recipe, streak)
+6. DB migrations (expand profiles + recipes tables for v0.4 features)
+7. **Capacitor shell** — wrap app as native iOS + Android, native timer notifications (see `plans/mobile-app-capacitor.md`)
+8. **Parallel:** 10+ new Originals (target 25-30 total — flatbreads, enriched, discard)
+
+### v0.4 — "Make It Yours"
+Goal: Let bakers personalize. Deepen engagement.
+
+1. Recipe Fork & Customize
+2. Shareable bake results (photo share card for Instagram/link sharing)
+3. Interactive Loaf Troubleshooter (decision-tree diagnostic)
+4. Full filter panel + Explore tab editorial sections
+5. Baking dashboard / analytics (history timeline, improvement trends)
+6. **Parallel:** 5-8 more Originals (target 30+)
+
+### v1.0 — "Ready for the World"
+Goal: Polish, stability, App Store launch.
+
+1. Modular Recipe Builder (scoped: no drag-to-reorder, use move up/down for mobile)
+2. Push notifications for feeding reminders (Capacitor + Supabase Edge Function)
+3. App Store + Play Store submission (icons, screenshots, privacy policy, review)
+4. Auto-deploy CI/CD
+5. Affiliate link infrastructure (product recommendations in Academy + recipes)
+6. Community quality pass (if 50+ MAU gate met: better empty states, journal→feed bridge)
+
+### Post-v1 — Growth & Monetization
+Build order depends on user data and growth trajectory.
+
+- Baker's Circle launch ($5/year voluntary support — web-only Stripe)
+- Founding Baker migration (all pre-launch users → permanent Circle status)
+- Brand partnership pitches (need analytics + engagement data)
+- Recipe Import (Claude API — text paste, URL)
+- Creator tip jar + Stripe Connect (gate: 10+ active creators, 2K+ users)
+- Follow other bakers
+- Community Challenges
+- Live Schedule Adjustment
+- Baker DNA stats + year-in-review cards
+
+### Parked / Cut
+- ~~React Native~~ — CUT. Capacitor wraps existing React app instead (~95% code reuse vs. 0%).
+- ~~PWA-only mobile~~ — Replaced by Capacitor. iOS PWA push/timers too unreliable.
+- ~~Realtime on bake_event_logs~~ — No use case until collaborative features exist.
+- ~~Two-panel bake mode~~ — Power user / tablet feature. Low priority.
+- ~~Starter-aware recipe suggestions~~ — Requires modeling starter readiness reliably. Simpler: show prep time on recipes.
 
 ---
 
@@ -335,3 +421,6 @@ This is the spec's recommended sequence. Items within a phase can shift, but the
 | 2026-03-10 | Dark mode palette redesign for WCAG AA compliance | UI audit found surface colors in dark mode had ~1.2:1 contrast ratio. Expert debate redesigned entire `.dark` CSS variable set. Added `ash-muted` semantic token. Cleaned ~50 files of redundant `dark:` overrides. See `plans/dark-mode-redesign.md` and `plans/ui-audit.md`. |
 | 2026-03-10 | v0.2 feature batch: 9 features shipped | Favorites, Explorer, Starter Tracker, Schedule Planner, Community MVP, In-Bake Logging Phase 2 (dough observations, shaping/proofing, off-plan events). All built with parallel team execution + peer review. |
 | 2026-03-10 | Schedule Planner v2: smarter feeding + quiet hours | Baker interviews → simplified starter status to 3 options, added ratio-aware feed timing with temp adjustment, quiet hours enforcement (extends passive steps), feed step active/passive split for overnight compatibility. Fixed nested button a11y issue, added starter_feed Academy card. See `plans/schedule-planner-v2.md`. |
+| 2026-03-10 | v0.2.1: Full team review + stability pass | 5-expert team review (Engineer, UX, Baker, Security, A11y). Fixed: SECURITY DEFINER view, search_path vuln, added ErrorBoundary, Timer aria-live. Added: 8 new sourdough loaf recipes (19 total), Schedule→Bake link, onboarding flow, useBakeSession hook extraction. Supabase MCP connected for direct DB operations. |
+| 2026-03-10 | Monetization strategy: free app + brand partnerships | Full team debate (roadmap, monetization, baker interviews). Decision: app is 100% free, no paywalls, no IAP. Revenue from brand partnerships/affiliate, optional Baker's Circle ($5/yr voluntary support), and creator tip jar (15% cut). React Native cut. Roadmap reordered: onboarding/retention before new features, community frozen until 50+ MAU. See `plans/monetization-strategy.md`. |
+| 2026-03-10 | Mobile strategy: Capacitor (not RN, not PWA-only) | PWA timers unreliable when backgrounded on iOS. React Native = full rewrite. Capacitor wraps existing React app with ~95% code reuse, adds native local notifications (timers), push notifications (feeding reminders), and App Store/Play Store presence. Phase 1 (shell + timer notifications) targets v0.3. Push notifications + store submission targets v1.0. See `plans/mobile-app-capacitor.md`. |
