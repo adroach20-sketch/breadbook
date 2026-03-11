@@ -50,7 +50,7 @@ export function BakerProfile() {
     )
   }
 
-  const { profile, bake_count, bakes_this_month, public_recipes, recent_posts } = data
+  const { profile, bake_count, bakes_this_month, favorite_recipe, avg_rating, bake_streak, public_recipes, recent_posts } = data
   const isOwnProfile = user?.id === profile.id
 
   return (
@@ -86,7 +86,7 @@ export function BakerProfile() {
       </div>
 
       {/* Stats */}
-      <div className="flex gap-6 mb-6 py-3 border-y border-dough">
+      <div className="flex flex-wrap gap-x-6 gap-y-2 mb-4 py-3 border-y border-dough">
         <div className="text-center">
           <p className="font-heading text-lg font-bold text-char">{bake_count}</p>
           <p className="text-xs text-ash">Total Bakes</p>
@@ -95,11 +95,29 @@ export function BakerProfile() {
           <p className="font-heading text-lg font-bold text-char">{bakes_this_month}</p>
           <p className="text-xs text-ash">This Month</p>
         </div>
-        <div className="text-center">
-          <p className="font-heading text-lg font-bold text-char">{public_recipes.length}</p>
-          <p className="text-xs text-ash">Recipes</p>
-        </div>
+        {bake_streak > 0 && (
+          <div className="text-center">
+            <p className="font-heading text-lg font-bold text-char">{bake_streak}</p>
+            <p className="text-xs text-ash">Day Streak</p>
+          </div>
+        )}
+        {avg_rating !== null && (
+          <div className="text-center">
+            <p className="font-heading text-lg font-bold text-char">{avg_rating}</p>
+            <p className="text-xs text-ash">Avg Rating</p>
+          </div>
+        )}
       </div>
+
+      {/* Favorite recipe */}
+      {favorite_recipe && (
+        <div className="mb-6 px-3 py-2 bg-wheat/10 rounded-lg">
+          <p className="text-xs text-ash">
+            Favorite: <span className="font-medium text-char">{favorite_recipe.title}</span>
+            <span className="text-ash-muted"> ({favorite_recipe.count} bakes)</span>
+          </p>
+        </div>
+      )}
 
       {/* Public recipes */}
       {public_recipes.length > 0 && (

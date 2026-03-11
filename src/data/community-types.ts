@@ -59,6 +59,9 @@ export interface BakerProfileData {
   profile: Profile
   bake_count: number
   bakes_this_month: number
+  favorite_recipe: { title: string; count: number } | null
+  avg_rating: number | null
+  bake_streak: number
   public_recipes: Array<{
     id: string
     title: string

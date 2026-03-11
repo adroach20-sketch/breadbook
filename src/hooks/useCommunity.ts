@@ -245,10 +245,59 @@ export function useBakerProfile(username: string) {
         isFollowing = !!followRow
       }
 
+      // Fetch bake logs for stats: favorite recipe, average rating, streak
+      const { data: bakeLogs } = await supabase
+        .from('bake_logs')
+        .select('recipe_id, rating, created_at, recipes(title)')
+        .eq('user_id', p.id)
+        .order('created_at', { ascending: false })
+
+      // Favorite recipe (most baked, only shown if baked 2+ times)
+      let favoriteRecipe: { title: string; count: number } | null = null
+      if (bakeLogs && bakeLogs.length > 0) {
+        const recipeCounts: Record<string, { title: string; count: number }> = {}
+        for (const log of bakeLogs as any[]) {
+          const rid = log.recipe_id
+          const title = log.recipes?.title || 'Unknown'
+          if (!recipeCounts[rid]) recipeCounts[rid] = { title, count: 0 }
+          recipeCounts[rid].count++
+        }
+        const sorted = Object.values(recipeCounts).sort((a, b) => b.count - a.count)
+        if (sorted[0] && sorted[0].count >= 2) favoriteRecipe = sorted[0]
+      }
+
+      // Average rating (only rated bakes)
+      let avgRating: number | null = null
+      if (bakeLogs && bakeLogs.length > 0) {
+        const ratings = (bakeLogs as any[]).map((l) => l.rating).filter((r: number) => r > 0)
+        if (ratings.length > 0) {
+          avgRating = Math.round((ratings.reduce((a: number, b: number) => a + b, 0) / ratings.length) * 10) / 10
+        }
+      }
+
+      // Bake streak (consecutive days counting back from today)
+      let bakeStreak = 0
+      if (bakeLogs && bakeLogs.length > 0) {
+        const bakeDates = new Set(
+          (bakeLogs as any[]).map((l) => new Date(l.created_at).toDateString())
+        )
+        const checkDate = new Date()
+        if (!bakeDates.has(checkDate.toDateString())) {
+          checkDate.setDate(checkDate.getDate() - 1)
+        }
+        while (bakeDates.has(checkDate.toDateString())) {
+          bakeStreak++
+          checkDate.setDate(checkDate.getDate() - 1)
+        }
+      }
+
       setData({
         profile: p,
         bake_count: bakeCount || 0,
         bakes_this_month: bakesThisMonth || 0,
+        favorite_recipe: favoriteRecipe,
+        avg_rating: avgRating,
+        bake_streak: bakeStreak,
         public_recipes: (recipes || []).map((r) => ({ ...r, like_count: 0 })),
         recent_posts: (posts || []) as FeedPost[],
         follower_count: followerCount || 0,
