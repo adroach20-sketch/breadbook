@@ -2,10 +2,19 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
 import { breadbookOriginals } from '../data/originals'
 import { RecipeCard } from '../components/RecipeCard'
+import { WelcomeFlow } from '../features/onboarding/WelcomeFlow'
 
 export function Home() {
-  const { user } = useAuth()
+  const { user, hasOnboarded, setHasOnboarded } = useAuth()
   const username = user?.user_metadata?.username || 'Baker'
+
+  if (!hasOnboarded) {
+    return (
+      <WelcomeFlow
+        onComplete={() => setHasOnboarded(true)}
+      />
+    )
+  }
 
   // Show a mix of recipe types on the home page
   const featured = [

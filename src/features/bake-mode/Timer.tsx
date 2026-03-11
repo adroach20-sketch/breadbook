@@ -29,6 +29,9 @@ export function Timer({ minutes, label, storageKey }: TimerProps) {
       )}
 
       <div
+        role="timer"
+        aria-live="off"
+        aria-atomic="true"
         className={`font-mono text-5xl font-bold mb-4 tabular-nums ${
           isComplete ? 'text-wheat animate-pulse' : 'text-steam'
         }`}
@@ -37,7 +40,7 @@ export function Timer({ minutes, label, storageKey }: TimerProps) {
       </div>
 
       {isComplete && (
-        <p className="text-wheat text-sm mb-3">Time's up!</p>
+        <p aria-live="assertive" className="text-wheat text-sm mb-3">Time's up!</p>
       )}
 
       <div className="flex gap-3 justify-center">

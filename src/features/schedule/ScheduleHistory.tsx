@@ -128,6 +128,12 @@ export function ScheduleHistory({ onReuse }: ScheduleHistoryProps) {
 
                 {/* Actions */}
                 <div className="flex items-center gap-2">
+                  <Link
+                    to={`/bake/${schedule.recipe_id}`}
+                    className="flex-1 text-sm text-center text-steam bg-crust font-medium py-2 rounded-lg hover:bg-crust-light transition-colors"
+                  >
+                    Start Bake
+                  </Link>
                   <button
                     onClick={() => onReuse(schedule)}
                     className="flex-1 text-sm text-crust font-medium py-2 rounded-lg hover:bg-crust/5 transition-colors"

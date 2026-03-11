@@ -99,6 +99,7 @@ export function Schedule({ initialView = 'history' }: SchedulePageProps) {
             startTime={result.startTime}
             targetEatTime={input.targetEatTime}
             recipeTitle={input.recipe.title}
+            recipeId={input.recipe.id}
             onSave={handleSave}
             onBack={handleBackToForm}
             saving={saving}

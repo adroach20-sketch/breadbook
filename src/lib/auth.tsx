@@ -6,6 +6,8 @@ interface AuthContextType {
   user: User | null
   session: Session | null
   loading: boolean
+  hasOnboarded: boolean
+  setHasOnboarded: (value: boolean) => void
   signUp: (email: string, password: string, username: string) => Promise<{ error: string | null }>
   signIn: (email: string, password: string) => Promise<{ error: string | null }>
   signOut: () => Promise<void>
@@ -17,14 +19,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
+  const [hasOnboarded, setHasOnboarded] = useState(true) // default true to avoid flash
 
   useEffect(() => {
-    // Use onAuthStateChange as the single source of truth.
-    // It fires with the initial session on setup, so no separate getSession needed.
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
       setUser(session?.user ?? null)
       setLoading(false)
+
+      // Fetch onboarding status from profile
+      if (session?.user) {
+        supabase
+          .from('profiles')
+          .select('has_onboarded')
+          .eq('id', session.user.id)
+          .single()
+          .then(({ data }) => {
+            setHasOnboarded(data?.has_onboarded ?? false)
+          })
+      }
     })
 
     return () => subscription.unsubscribe()
@@ -49,7 +62,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, signUp, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, session, loading, hasOnboarded, setHasOnboarded, signUp, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   )

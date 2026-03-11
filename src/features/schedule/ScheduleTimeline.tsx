@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import type { ScheduleStep } from '../../data/types'
 import { ScheduleStepCard } from './ScheduleStepCard'
 import { formatScheduleTime, formatDuration } from '../../lib/schedule-engine'
@@ -8,6 +9,7 @@ interface ScheduleTimelineProps {
   startTime: Date
   targetEatTime: Date
   recipeTitle: string
+  recipeId: string
   onSave: () => void
   onBack: () => void
   saving: boolean
@@ -19,6 +21,7 @@ export function ScheduleTimeline({
   startTime,
   targetEatTime,
   recipeTitle,
+  recipeId,
   onSave,
   onBack,
   saving,
@@ -127,6 +130,12 @@ export function ScheduleTimeline({
         >
           {saving ? 'Saving...' : 'Save This Schedule'}
         </button>
+        <Link
+          to={`/bake/${recipeId}`}
+          className="block w-full text-center text-crust py-3 rounded-xl font-medium border border-dough hover:bg-dough/50 transition-colors"
+        >
+          Start Baking Now
+        </Link>
         <button
           onClick={onBack}
           className="w-full text-ash py-3 rounded-xl font-medium hover:text-char transition-colors"
