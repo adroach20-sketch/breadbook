@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useStarters } from '../../hooks/useStarters'
 import { useLatestStarterLogs } from '../../hooks/useStarterLogs'
 import { useAllStarterSchedules } from '../../hooks/useStarterSchedule'
@@ -130,17 +131,49 @@ export function StarterDashboard() {
         </div>
       )}
 
+      {/* Starter guide banner for new starters */}
+      {starters.length > 0 && (() => {
+        const starter = starters[0]
+        const created = new Date(starter.created_at)
+        created.setHours(0, 0, 0, 0)
+        const now = new Date()
+        now.setHours(0, 0, 0, 0)
+        const daysSince = Math.floor((now.getTime() - created.getTime()) / (1000 * 60 * 60 * 24))
+        return daysSince < 14
+      })() && (
+        <Link
+          to="/starters/guide"
+          className="block bg-crust/5 border border-crust/20 rounded-xl p-4 mb-6 hover:bg-crust/10 transition-colors"
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">🌱</span>
+            <div>
+              <p className="text-sm font-medium text-char">Starter Guide</p>
+              <p className="text-xs text-ash">Day-by-day instructions for your new starter</p>
+            </div>
+          </div>
+        </Link>
+      )}
+
       {/* Starter cards */}
       {starters.length === 0 && !showForm ? (
         <div className="text-center py-16">
           <span className="text-5xl block mb-4">{'🧪'}</span>
           <p className="text-ash mb-4">No starters yet.</p>
-          <button
-            onClick={() => setShowForm(true)}
-            className="text-crust font-medium hover:underline"
-          >
-            Add your first starter
-          </button>
+          <div className="space-y-3">
+            <button
+              onClick={() => setShowForm(true)}
+              className="text-crust font-medium hover:underline"
+            >
+              Add your first starter
+            </button>
+            <Link
+              to="/starters/guide"
+              className="block text-ash text-sm hover:text-char transition-colors"
+            >
+              New to sourdough? Follow our 14-day guide
+            </Link>
+          </div>
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">

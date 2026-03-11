@@ -3,6 +3,7 @@ import { useAuth } from '../lib/auth'
 import { useStarters } from './useStarters'
 import { getActivityLevel, formatTimeSinceFeed, getHealthStatus } from './useStarterActivity'
 import { breadbookOriginals } from '../data/originals'
+import { GUIDE_TOTAL_DAYS, starterGuide } from '../data/starter-guide'
 import { supabase } from '../lib/supabase'
 
 const BAKE_SESSION_KEY = 'breadbook-active-bake'
@@ -11,6 +12,7 @@ export type DashboardCardType =
   | 'resume_bake'
   | 'unlogged_bake'
   | 'starter_needs_feeding'
+  | 'starter_guide_progress'
   | null
 
 export interface DashboardCard {
@@ -26,6 +28,9 @@ export interface DashboardCard {
   starterName?: string
   starterHint?: string
   starterId?: string
+  // Starter guide progress
+  guideDay?: number
+  guideDayTitle?: string
 }
 
 export function useHomeDashboard() {
@@ -160,6 +165,32 @@ export function useHomeDashboard() {
           })
           setLoading(false)
           return
+        }
+      }
+
+      // Priority 4: Starter guide in progress (new starter < 14 days old)
+      if (starters.length > 0) {
+        const starter = starters[0]
+        const created = new Date(starter.created_at)
+        created.setHours(0, 0, 0, 0)
+        const now = new Date()
+        now.setHours(0, 0, 0, 0)
+        const daysSince = Math.floor((now.getTime() - created.getTime()) / (1000 * 60 * 60 * 24))
+
+        // Only show guide card during the 14-day window
+        if (daysSince < GUIDE_TOTAL_DAYS) {
+          const guideDay = daysSince + 1
+          const today = starterGuide.find((d) => d.day === guideDay)
+          if (today) {
+            setCard({
+              type: 'starter_guide_progress',
+              starterName: starter.name,
+              guideDay,
+              guideDayTitle: today.title,
+            })
+            setLoading(false)
+            return
+          }
         }
       }
 

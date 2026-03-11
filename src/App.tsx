@@ -21,6 +21,7 @@ import { StarterDetail } from './pages/StarterDetail'
 import { Schedule, ScheduleNew } from './pages/Schedule'
 import { Troubleshoot } from './pages/Troubleshoot'
 import { TroubleshootDetail } from './pages/TroubleshootDetail'
+import { StarterGuide } from './pages/StarterGuide'
 
 export default function App() {
   return (
@@ -53,6 +54,7 @@ export default function App() {
             <Route path="/@:username" element={<BakerProfile />} />
             <Route path="/profile/edit" element={<ProfileEdit />} />
             <Route path="/starters" element={<StarterDashboard />} />
+            <Route path="/starters/guide" element={<StarterGuide />} />
             <Route path="/starters/:id" element={<StarterDetail />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/schedule/new" element={<ScheduleNew />} />

@@ -70,5 +70,26 @@ export function HomeDashboardSlot({ card }: Props) {
     )
   }
 
+  if (card.type === 'starter_guide_progress') {
+    return (
+      <Link
+        to="/starters/guide"
+        aria-label={`Starter guide day ${card.guideDay}`}
+        className="block bg-crust/5 border border-crust/20 rounded-xl p-4 hover:bg-crust/10 transition-colors"
+      >
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm font-medium text-char">{card.guideDayTitle}</p>
+            <p className="text-ash text-sm mt-0.5">
+              {card.starterName}'s starter guide — day {card.guideDay} of 14
+            </p>
+          </div>
+          <span className="text-2xl">🌱</span>
+        </div>
+        <p className="text-crust text-sm font-medium mt-2">See today's task →</p>
+      </Link>
+    )
+  }
+
   return null
 }
