@@ -44,6 +44,7 @@ export function Schedule({ initialView = 'history' }: SchedulePageProps) {
       target_eat_time: input.targetEatTime.toISOString(),
       starter_name: input.starterName || null,
       starter_status: input.starterStatus,
+      feed_speed: input.feedSpeed || null,
       room_temp_f: input.roomTempF,
       fridge_available: input.fridgeAvailable,
       schedule_steps: result.steps,

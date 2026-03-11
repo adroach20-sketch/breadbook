@@ -177,7 +177,15 @@ export const healthStatusColors: Record<StarterHealthStatus, { label: string; bg
 // Smart Schedule Planner types (Feature 2.3)
 // ─────────────────────────────────────────────
 
-export type StarterStatus = 'peak' | 'recently_fed' | 'fed_but_fallen' | 'dormant'
+export type StarterStatus = 'ready' | 'needs_feed' | 'neglected'
+
+export type FeedSpeed = 'overnight' | 'same_day'
+
+export interface QuietHours {
+  enabled: boolean
+  start: number  // 24hr format, e.g. 22 = 10 PM
+  end: number    // 24hr format, e.g. 7 = 7 AM
+}
 
 export type ScheduleCategory = 'starter_prep' | 'dough_work' | 'proofing' | 'baking' | 'cooling'
 
@@ -192,6 +200,7 @@ export interface ScheduleStep {
   category: ScheduleCategory
   isActive: boolean         // Active (hands-on) vs passive (waiting)
   recipeStepId: string | null  // Links back to original recipe step, null for starter feeds
+  academyKey: string | null    // Key for inline Academy card in expanded view
 }
 
 export interface SavedSchedule {
@@ -202,6 +211,7 @@ export interface SavedSchedule {
   target_eat_time: string
   starter_name: string | null
   starter_status: StarterStatus
+  feed_speed: FeedSpeed | null
   room_temp_f: number
   fridge_available: boolean
   schedule_steps: ScheduleStep[]

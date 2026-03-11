@@ -175,6 +175,24 @@ export const academyCards: Record<string, AcademyCard> = {
     showByDefault: true,
   },
 
+  starter_feed: {
+    key: 'starter_feed',
+    title: 'Feeding Before a Bake',
+    summary: 'Getting your starter to peak activity right when you need it.',
+    explanation:
+      'Before baking, your starter needs to be at peak activity — bubbly, domed, and roughly doubled. The trick is timing your feed so the starter peaks right when you\'re ready to mix. A 1:1:1 ratio (equal parts starter, flour, water by weight) peaks in 4-6 hours. A 1:5:5 ratio (less starter, more flour and water) peaks in 8-10 hours — perfect for feeding before bed and mixing in the morning. Temperature matters too: warmer kitchens speed things up.',
+    tips: [
+      'The float test works: drop a spoonful in water. If it floats, it\'s ready to use.',
+      'A smaller ratio (1:5:5) gives you a longer, more predictable window. Great for overnight timing.',
+      'If you missed the peak and it\'s fallen, you can still use it — just expect slightly less rise and more tang.',
+    ],
+    interactions: [
+      'If your starter lives in the fridge and was fed in the last 2 weeks, one feed is all you need. Two feeds is only for starters that have been truly neglected (a month or more).',
+      'Whole wheat or rye flour in your feed speeds up fermentation. All-purpose is slower but milder.',
+    ],
+    showByDefault: true,
+  },
+
   // ─── Tier 2: Stubs (showByDefault: false) ───
 
   mix: {

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { ScheduleStep } from '../../data/types'
 import { formatScheduleTime, formatDuration, CATEGORY_CONFIG } from '../../lib/schedule-engine'
+import { AcademyCard } from '../../components/AcademyCard'
 
 interface ScheduleStepCardProps {
   step: ScheduleStep
@@ -25,48 +26,56 @@ export function ScheduleStepCard({ step, isFirst, isLast }: ScheduleStepCardProp
       </div>
 
       {/* Card */}
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className={`flex-1 rounded-xl p-4 mb-2 text-left transition-colors ${config.bgClass} border border-dough`}
-        aria-expanded={expanded}
-        aria-label={`${step.title}, ${formatScheduleTime(step.startTime)}, ${formatDuration(step.durationMinutes)}`}
-      >
-        {/* Time + duration row */}
-        <div className="flex items-center justify-between mb-1">
-          <span className="text-sm font-medium text-char">
-            {formatScheduleTime(step.startTime)}
-          </span>
-          <span className="text-xs text-ash flex items-center gap-1">
-            {step.isActive ? (
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-crust" title="Hands-on step" />
-            ) : (
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-ash/40" title="Passive step" />
-            )}
-            {formatDuration(step.durationMinutes)}
-          </span>
-        </div>
+      <div className={`flex-1 rounded-xl mb-2 transition-colors ${config.bgClass} border border-dough`}>
+        {/* Clickable header */}
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="w-full p-4 text-left"
+          aria-expanded={expanded}
+          aria-label={`${step.title}, ${formatScheduleTime(step.startTime)}, ${formatDuration(step.durationMinutes)}`}
+        >
+          {/* Time + duration row */}
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-sm font-medium text-char">
+              {formatScheduleTime(step.startTime)}
+            </span>
+            <span className="text-xs text-ash flex items-center gap-1">
+              {step.isActive ? (
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-crust" title="Hands-on step" />
+              ) : (
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-ash/40" title="Passive step" />
+              )}
+              {formatDuration(step.durationMinutes)}
+            </span>
+          </div>
 
-        {/* Title */}
-        <h3 className="font-medium text-char">{step.title}</h3>
+          {/* Title */}
+          <h3 className="font-medium text-char">{step.title}</h3>
 
-        {/* Category badge */}
-        <div className="flex items-center gap-1.5 mt-1">
-          <span className={`w-2 h-2 rounded-full ${config.dotClass}`} />
-          <span className="text-xs text-ash">{config.label}</span>
-        </div>
+          {/* Category badge */}
+          <div className="flex items-center gap-1.5 mt-1">
+            <span className={`w-2 h-2 rounded-full ${config.dotClass}`} />
+            <span className="text-xs text-ash">{config.label}</span>
+          </div>
+        </button>
 
-        {/* Expandable details */}
+        {/* Expandable details — outside the button to avoid nested interactive elements */}
         {expanded && (
-          <div className="mt-3 pt-3 border-t border-dough/30">
-            <p className="text-sm text-ash leading-relaxed">
-              {step.description}
-            </p>
-            <p className="text-xs text-ash-muted mt-2">
-              {formatScheduleTime(step.startTime)} — {formatScheduleTime(step.endTime)}
-            </p>
+          <div className="px-4 pb-4 -mt-1">
+            <div className="pt-3 border-t border-dough/30">
+              <p className="text-sm text-ash leading-relaxed">
+                {step.description}
+              </p>
+              <p className="text-xs text-ash-muted mt-2">
+                {formatScheduleTime(step.startTime)} — {formatScheduleTime(step.endTime)}
+              </p>
+              {step.academyKey && (
+                <AcademyCard academyKey={step.academyKey} variant="compact" forceShow />
+              )}
+            </div>
           </div>
         )}
-      </button>
+      </div>
     </div>
   )
 }

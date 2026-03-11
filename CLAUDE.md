@@ -16,48 +16,62 @@ A sourdough lifestyle app. Users browse curated recipes (BreadBook Originals), f
 - Recipe data lives in `src/data/originals.ts` as a typed array (also seeded to Supabase via `scripts/seed.ts`)
 - Baker's percentage toggle is global Zustand state, persisted to localStorage
 - Timer in Guided Bake Mode must survive tab switches and page refreshes (localStorage cache)
-- Use the BreadBook color palette: crust (#8B5E3C), dough (#F5ECD7), wheat (#D4A96A), crumb (#FBF7F0), char (#2C1A0E), ash (#5C4033), steam (#FFFFFF)
+- Use the BreadBook color palette (see quick reference below). Colors auto-swap in dark mode via CSS variables.
 - Fonts: Lora for headings, Inter for body/UI
 
 ## Color Palette Quick Reference
-| Name | Hex | Tailwind class |
-|---|---|---|
-| Crust | #8B5E3C | `text-crust`, `bg-crust` |
-| Dough | #F5ECD7 | `text-dough`, `bg-dough` |
-| Wheat | #D4A96A | `text-wheat`, `bg-wheat` |
-| Crumb | #FBF7F0 | `text-crumb`, `bg-crumb` |
-| Char | #2C1A0E | `text-char`, `bg-char` |
-| Ash | #5C4033 | `text-ash`, `bg-ash` |
-| Steam | #FFFFFF | `text-steam`, `bg-steam` |
+| Name | Hex (light) | Dark mode | Tailwind class | Role |
+|---|---|---|---|---|
+| Crust | #8B5E3C | #C09268 | `text-crust`, `bg-crust` | Primary action, buttons, links |
+| Crust Light | #A3764E | #D4A87C | `text-crust-light` | Hover states |
+| Crust Dark | #6E4A2F | #A3764E | `text-crust-dark` | Active states |
+| Dough | #F5ECD7 | #3D2E22 | `bg-dough`, `border-dough` | Borders, surfaces — **never use as text** |
+| Wheat | #D4A96A | #E5C080 | `text-wheat`, `bg-wheat` | Accent on dark backgrounds only |
+| Crumb | #FBF7F0 | #1C1310 | `bg-crumb` | Page background |
+| Char | #2C1A0E | #F0E6D6 | `text-char` | Primary text |
+| Ash | #5C4033 | #C8B098 | `text-ash` | Secondary text |
+| Ash Muted | #8B7B6B | #AA9580 | `text-ash-muted` | Tertiary text, placeholders, timestamps |
+| Steam | #FFFFFF | #2D2118 | `bg-steam` | Card/component backgrounds |
+
+### Color Rules
+- **`dough` is a surface token** — use for `bg-dough` and `border-dough`, never `text-dough`
+- **`wheat` is for dark backgrounds only** — use on `bg-crust` or hero sections, not on light surfaces
+- **Use `ash-muted` instead of opacity hacks** — `text-ash-muted` replaces `text-ash/50`, `text-ash/60`, `text-ash/70`
+- **Card pattern:** `bg-steam border border-dough shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)]`
+- **Status colors need dark variants:** `bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400`
+- **Recharts/canvas:** Use `useThemeColors` hook — these libs can't read CSS variables
 
 ## Current Status
 Live at **breadbook.app** and **breadbook.onrender.com**. See `ROADMAP.md` for the full build plan.
 
-### What's Built
+### What's Built (v0.2)
 - Project scaffold, Tailwind, routing, auth (email/password)
 - BreadBook Originals (~10 seeded recipes, all reviewed for beginner usability)
 - Recipe list with category tabs + detail with baker's % toggle
 - Guided Bake Mode (step view, timers, notifications, wake lock, session persistence)
 - Bake Journal (star rating, crumb/crust/flavor notes, what went well/change, photo upload, list/detail/edit/delete)
-- Dark mode (CSS variable swap, system/light/dark toggle, persisted to localStorage)
+- Dark mode (WCAG AA compliant palette, CSS variable swap, system/light/dark toggle, `ash-muted` semantic token)
 - BreadBook Academy (13 inline knowledge cards, accordion UI, full + compact variants, deduplication across repeated step types)
 - Recipe step restructure: bulk ferment split into active folds + passive rest phase for all Originals
-- In-Bake Logging MVP: S&F fold tracker (mark done + auto-advance), bulk ferment rise check-ins (pill buttons), room temp capture (one-time, header badge), all events dual-stored (localStorage + Supabase sync)
+- In-Bake Logging MVP: S&F fold tracker, rise check-ins, room temp capture, dough observations, shaping/proofing logs, off-plan events
 - Per-step ingredient checklists with tap-to-check UI + inline amounts in instruction text
-- External recipe support: Alexandra Cooks "Artisan Sourdough Made Simple" added as first recipe with `source_credit`
+- External recipe support: Alexandra Cooks added with `source_credit`
+- Recipe Favorites (heart toggle, optimistic UI, favorites tab)
+- Recipe Explorer (search bar, filter panel with category/hydration/time/technique filters)
+- Starter Tracker (dashboard, feeding log, activity chart with Recharts, feeding calendar, reminder settings, health status)
+- Smart Schedule Planner (reverse timeline from eat time, schedule engine, step cards, save/reuse history)
+- Community MVP (bake feed with photo sharing, comments, baker profiles, community recipe browsing)
+- `useThemeColors` hook for Recharts dark mode compatibility
 
 ### What's Next
-- Modular Recipe Builder (create/edit, drag-to-reorder, hydration calc, batch scaler) — phase grouping for bulk ferment is the key UX decision
+- Modular Recipe Builder (create/edit, drag-to-reorder, hydration calc, batch scaler)
 - Recipe Fork & Customize
 - Expand Originals to 30+
-- Recipe Explorer with search & filters
 - Recipe Import (text paste + URL via Claude API)
-- In-Bake Logging Phase 2 (dough observations, shaping/proofing logging, off-plan events)
 - Live Schedule Adjustment
+- Starter Feeding Plans (repeating schedules, bake-linked feeds)
+- Loaf Troubleshooter
 - Welcome screen on first login
-
-### Phase 2: Starter Tracker, Feeding Plans, Schedule Planner, Loaf Troubleshooter
-### Phase 3: Community (recipe sharing, bake feed, profiles, challenges)
 
 ## Database
 Tables in `supabase/migrations/`: profiles, recipes, bake_sessions (001), bake_logs (002), bake_event_logs (003).

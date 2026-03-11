@@ -1,14 +1,23 @@
 /**
- * Schedule Engine - Pure functions for reverse-engineering a bake timeline.
+ * Schedule Engine v2 - Pure functions for reverse-engineering a bake timeline.
  * Works backwards from eat time to produce timestamped steps.
- * Temperature adjustment: linear model based on 70F baseline.
- * Times rounded to nearest 15 minutes.
+ *
+ * v2 changes:
+ * - 3 starter statuses (ready / needs_feed / neglected) instead of 4
+ * - Feed speed picker (overnight 1:5:5 vs same_day 1:1:1) controls timing
+ * - Feed step descriptions include actual weights
+ * - Quiet hours enforcement (default 10pm-7am, user-configurable)
+ * - Academy keys on schedule steps for inline knowledge cards
+ * - Temperature adjustment: linear model based on 70F baseline
+ * - Times rounded to nearest 15 minutes
  */
 
 import type {
   Recipe,
   RecipeStep,
   StarterStatus,
+  FeedSpeed,
+  QuietHours,
   ScheduleStep,
   ScheduleCategory,
   StepType,
@@ -35,14 +44,27 @@ const DEFAULT_STEP_DURATIONS: Partial<Record<StepType, number>> = {
 
 const TEMP_SENSITIVE_TYPES: Set<StepType> = new Set(['bulk_ferment', 'proof'])
 
-const STARTER_PREP: Record<StarterStatus, { feeds: number; totalMinutes: number }> = {
-  peak: { feeds: 0, totalMinutes: 0 },
-  recently_fed: { feeds: 0, totalMinutes: 180 },
-  fed_but_fallen: { feeds: 1, totalMinutes: 420 },
-  dormant: { feeds: 2, totalMinutes: 1440 },
+const ROOM_TEMP_PROOF_MINUTES = 90
+
+/** Feed timing by speed selection (minutes to peak, temperature-adjusted later) */
+const FEED_TIMING: Record<FeedSpeed, { peakMinutes: number; ratio: string; description: string }> = {
+  overnight: {
+    peakMinutes: 540, // 9 hours (1:5:5)
+    ratio: '1:5:5',
+    description: 'Feed 10g starter + 50g flour + 50g water',
+  },
+  same_day: {
+    peakMinutes: 300, // 5 hours (1:1:1)
+    ratio: '1:1:1',
+    description: 'Feed 50g starter + 50g flour + 50g water',
+  },
 }
 
-const ROOM_TEMP_PROOF_MINUTES = 90
+export const DEFAULT_QUIET_HOURS: QuietHours = {
+  enabled: true,
+  start: 22, // 10 PM
+  end: 7,    // 7 AM
+}
 
 function roundTo15(minutes: number): number {
   return Math.round(minutes / 15) * 15 || 15
@@ -94,6 +116,27 @@ function isActiveStep(stepType: StepType | 'starter_feed'): boolean {
   }
 }
 
+/** Map recipe step types to academy keys */
+function getAcademyKey(stepType: StepType | 'starter_feed'): string | null {
+  switch (stepType) {
+    case 'starter_feed': return 'starter_feed'
+    case 'autolyse': return 'autolyse'
+    case 'levain': return 'levain'
+    case 'bulk_ferment': return 'bulk_ferment'
+    case 'stretch_fold': return 'stretch_fold'
+    case 'lamination': return 'lamination'
+    case 'shape': return 'shape'
+    case 'cold_proof': return 'cold_proof'
+    case 'score': return 'score'
+    case 'bake': return 'bake'
+    case 'proof': return 'proof'
+    case 'preheat': return 'preheat'
+    case 'cool': return 'cool'
+    case 'mix': return 'mix'
+    default: return null
+  }
+}
+
 function getStepDuration(
   step: RecipeStep,
   roomTempF: number,
@@ -109,13 +152,44 @@ function getStepDuration(
   return roundTo15(baseDuration)
 }
 
+/** Check if an hour falls within quiet hours window */
+function isInQuietHours(hour: number, quietHours: QuietHours): boolean {
+  if (!quietHours.enabled) return false
+  if (quietHours.start > quietHours.end) {
+    // Spans midnight: e.g. 22-7 means 22,23,0,1,2,3,4,5,6 are quiet
+    return hour >= quietHours.start || hour < quietHours.end
+  }
+  return hour >= quietHours.start && hour < quietHours.end
+}
+
+/** Find the next time outside quiet hours, moving forward from the given date */
+function nextTimeAfterQuietHours(date: Date, quietHours: QuietHours): Date {
+  if (!quietHours.enabled) return date
+  const hour = date.getHours()
+  if (!isInQuietHours(hour, quietHours)) return date
+
+  const result = new Date(date.getTime())
+  result.setHours(quietHours.end, 0, 0, 0)
+  // If we're before midnight and quiet hours span midnight, jump to next day's end
+  if (hour >= quietHours.start && quietHours.start > quietHours.end) {
+    result.setDate(result.getDate() + 1)
+  }
+  // If we're already past the end hour on this calendar day
+  if (result <= date) {
+    result.setDate(result.getDate() + 1)
+  }
+  return result
+}
+
 export interface GenerateScheduleInput {
   recipe: Recipe
   targetEatTime: Date
   starterStatus: StarterStatus
+  feedSpeed: FeedSpeed
   starterName: string
   roomTempF: number
   fridgeAvailable: boolean
+  quietHours: QuietHours
 }
 
 export interface GenerateScheduleResult {
@@ -124,32 +198,38 @@ export interface GenerateScheduleResult {
   startTime: Date
 }
 
+interface RawStep {
+  title: string
+  description: string
+  durationMinutes: number
+  category: ScheduleCategory
+  isActive: boolean
+  recipeStepId: string | null
+  type: StepType | 'starter_feed'
+  academyKey: string | null
+}
+
 /**
  * Generate a reverse-engineered bake schedule.
  *
  * Algorithm:
- * 1. Walk recipe steps in reverse order, subtracting durations from eat time
- * 2. Apply temperature adjustments for temp-sensitive steps
- * 3. Add starter prep feeds based on starter status
- * 4. Generate warnings for timeline issues
- * 5. Round all times to 15-minute increments
+ * 1. Walk recipe steps, calculate durations with temp adjustment
+ * 2. Add starter prep feeds based on status + feed speed
+ * 3. Assign times backwards from eat time
+ * 4. Enforce quiet hours by extending passive steps before active ones
+ * 5. Generate warnings for timeline issues
+ * 6. Round all times to 15-minute increments
  */
 export function generateSchedule(input: GenerateScheduleInput): GenerateScheduleResult {
-  const { recipe, targetEatTime, starterStatus, starterName, roomTempF, fridgeAvailable } = input
+  const { recipe, targetEatTime, starterStatus, feedSpeed, starterName, roomTempF, fridgeAvailable, quietHours } = input
   const warnings: string[] = []
+  const name = starterName || 'your starter'
+  const tempFactor = getTempFactor(roomTempF)
 
-  // Build schedule steps in reverse — we start at eat time and walk backwards
-  const rawSteps: Array<{
-    title: string
-    description: string
-    durationMinutes: number
-    category: ScheduleCategory
-    isActive: boolean
-    recipeStepId: string | null
-    type: StepType | 'starter_feed'
-  }> = []
+  // Build schedule steps in order (we'll assign times backwards later)
+  const rawSteps: RawStep[] = []
 
-  // Walk recipe steps in their natural order (we'll reverse-assign times later)
+  // Walk recipe steps in their natural order
   const sortedRecipeSteps = [...recipe.steps]
     .filter((s) => !s.is_optional)
     .sort((a, b) => a.order - b.order)
@@ -168,45 +248,100 @@ export function generateSchedule(input: GenerateScheduleInput): GenerateSchedule
       isActive: isActiveStep(step.type),
       recipeStepId: step.id,
       type: step.type,
+      academyKey: getAcademyKey(step.type),
     })
   }
 
-  // Add starter prep steps at the beginning (before all recipe steps)
-  const prep = STARTER_PREP[starterStatus]
-  if (prep.feeds > 0) {
-    const feedDuration = roundTo15(prep.totalMinutes / prep.feeds)
-    for (let i = prep.feeds; i >= 1; i--) {
-      const feedLabel = prep.feeds === 1
-        ? 'Feed Your Starter'
-        : `Feed Your Starter (${prep.feeds - i + 1} of ${prep.feeds})`
-      const feedDescription = i === 1
-        ? `Give ${starterName || 'your starter'} a fresh feed. It should be bubbly and doubled before you start mixing.`
-        : `Feed ${starterName || 'your starter'} and let it rise. It needs another feed after this one before it's ready.`
+  // Add starter prep steps at the beginning
+  // Feed steps are split into active "Feed" (5 min hands-on) + passive "Wait for Peak"
+  // so quiet hours correctly allows feeding before bed with rising overnight
+  const FEED_ACTIVE_MINUTES = 5
 
-      rawSteps.unshift({
-        title: feedLabel,
-        description: feedDescription,
-        durationMinutes: feedDuration,
+  if (starterStatus === 'needs_feed') {
+    const timing = FEED_TIMING[feedSpeed]
+    const totalMinutes = roundTo15(timing.peakMinutes * tempFactor)
+    const waitMinutes = totalMinutes - FEED_ACTIVE_MINUTES
+    const Name = name.charAt(0).toUpperCase() + name.slice(1)
+
+    rawSteps.unshift(
+      {
+        title: 'Feed Your Starter',
+        description: `${timing.description} (${timing.ratio} ratio). Mix well, cover, and leave in a warm spot.`,
+        durationMinutes: FEED_ACTIVE_MINUTES,
         category: 'starter_prep',
         isActive: true,
         recipeStepId: null,
         type: 'starter_feed',
-      })
-    }
-  } else if (starterStatus === 'recently_fed') {
-    // Starter was recently fed — just needs time to peak
-    rawSteps.unshift({
-      title: 'Wait for Starter to Peak',
-      description: `${starterName || 'Your starter'} was recently fed. Wait until it's bubbly and has roughly doubled before mixing.`,
-      durationMinutes: roundTo15(prep.totalMinutes),
-      category: 'starter_prep',
-      isActive: false,
-      recipeStepId: null,
-      type: 'starter_feed',
-    })
-  }
+        academyKey: 'starter_feed',
+      },
+      {
+        title: 'Wait for Starter to Peak',
+        description: `${Name} needs about ${formatDuration(totalMinutes)} to peak at ${roomTempF}°F. It should be bubbly and roughly doubled before you start mixing. The float test works — drop a spoonful in water. If it floats, it's ready.`,
+        durationMinutes: waitMinutes,
+        category: 'starter_prep',
+        isActive: false,
+        recipeStepId: null,
+        type: 'starter_feed',
+        academyKey: null,
+      }
+    )
+  } else if (starterStatus === 'neglected') {
+    // Two feeds: first is a discard-and-refresh (uses slow ratio to bridge time),
+    // second is the build feed using the user's selected speed
+    const buildTiming = FEED_TIMING[feedSpeed]
+    const buildTotal = roundTo15(buildTiming.peakMinutes * tempFactor)
+    const buildWait = buildTotal - FEED_ACTIVE_MINUTES
 
-  // Now assign times — walk backwards from eat time
+    // First feed: always a slow refresh (1:5:5 to bridge overnight if needed)
+    const refreshTotal = roundTo15(FEED_TIMING.overnight.peakMinutes * tempFactor)
+    const refreshWait = refreshTotal - FEED_ACTIVE_MINUTES
+
+    rawSteps.unshift(
+      {
+        title: 'Feed Your Starter (1 of 2) — Refresh',
+        description: `Discard all but 20g of ${name}, then feed with 50g flour and 50g water (roughly 1:2.5:2.5). Mix well, cover, and leave in a warm spot.`,
+        durationMinutes: FEED_ACTIVE_MINUTES,
+        category: 'starter_prep',
+        isActive: true,
+        recipeStepId: null,
+        type: 'starter_feed',
+        academyKey: 'starter_feed',
+      },
+      {
+        title: 'Wait for Signs of Life',
+        description: `This first feed wakes up the yeast and bacteria. It doesn't need to peak perfectly — just show signs of life (some bubbles, slight rise). If you see no activity after ${formatDuration(refreshTotal)}, feed again before proceeding.`,
+        durationMinutes: refreshWait,
+        category: 'starter_prep',
+        isActive: false,
+        recipeStepId: null,
+        type: 'starter_feed',
+        academyKey: null,
+      },
+      {
+        title: 'Feed Your Starter (2 of 2) — Build',
+        description: `${buildTiming.description} (${buildTiming.ratio} ratio). This is the build feed — mix well, cover, and leave in a warm spot.`,
+        durationMinutes: FEED_ACTIVE_MINUTES,
+        category: 'starter_prep',
+        isActive: true,
+        recipeStepId: null,
+        type: 'starter_feed',
+        academyKey: 'starter_feed',
+      },
+      {
+        title: 'Wait for Starter to Peak',
+        description: `${name.charAt(0).toUpperCase() + name.slice(1)} should be bubbly and doubled before you start mixing. Should take about ${formatDuration(buildTotal)} at ${roomTempF}°F.`,
+        durationMinutes: buildWait,
+        category: 'starter_prep',
+        isActive: false,
+        recipeStepId: null,
+        type: 'starter_feed',
+        academyKey: null,
+      }
+    )
+  }
+  // starterStatus === 'ready': no prep steps needed
+
+  // Assign times — walk backwards from eat time
   let cursor = new Date(targetEatTime.getTime())
   const scheduleSteps: ScheduleStep[] = []
 
@@ -229,9 +364,79 @@ export function generateSchedule(input: GenerateScheduleInput): GenerateSchedule
       category: raw.category,
       isActive: raw.isActive,
       recipeStepId: raw.recipeStepId,
+      academyKey: raw.academyKey,
     })
 
     cursor = startTime
+  }
+
+  // ── Quiet hours enforcement ──
+  // Scan for active steps that start during quiet hours and shift them
+  if (quietHours.enabled) {
+    let shifted = false
+    for (let i = 0; i < scheduleSteps.length; i++) {
+      const step = scheduleSteps[i]
+      const stepStart = new Date(step.startTime)
+      const startHour = stepStart.getHours()
+
+      if (step.isActive && isInQuietHours(startHour, quietHours)) {
+        // Find the preceding passive step to extend
+        const prevPassiveIdx = findPrecedingPassiveStep(scheduleSteps, i)
+
+        if (prevPassiveIdx !== -1) {
+          // Calculate how much time to add: push the active step to quiet hours end
+          const adjustedStart = nextTimeAfterQuietHours(stepStart, quietHours)
+          const shiftMs = adjustedStart.getTime() - stepStart.getTime()
+
+          if (shiftMs > 0) {
+            // Extend the passive step's duration
+            const passiveStep = scheduleSteps[prevPassiveIdx]
+            const addedMinutes = Math.round(shiftMs / (60 * 1000))
+            passiveStep.durationMinutes += addedMinutes
+            passiveStep.endTime = new Date(
+              new Date(passiveStep.endTime).getTime() + shiftMs
+            ).toISOString()
+
+            // If extending a cold_proof or bulk_ferment, add a helpful note
+            if (!passiveStep.description.includes('extended')) {
+              const passiveType = rawSteps[prevPassiveIdx]?.type
+              if (passiveType === 'cold_proof') {
+                passiveStep.description += ` (We extended your cold proof so you can sleep — your dough will develop amazing flavor in the fridge overnight.)`
+              } else {
+                passiveStep.description += ` (Extended to avoid a ${formatTimeShort(stepStart)} wake-up.)`
+              }
+            }
+
+            // Shift this step and all subsequent steps forward
+            for (let j = i; j < scheduleSteps.length; j++) {
+              const s = scheduleSteps[j]
+              s.startTime = new Date(new Date(s.startTime).getTime() + shiftMs).toISOString()
+              s.endTime = new Date(new Date(s.endTime).getTime() + shiftMs).toISOString()
+            }
+            shifted = true
+          }
+        } else {
+          // No passive step to extend — warn the user
+          warnings.push(
+            `This schedule has an active step (${step.title}) at ${formatTimeShort(stepStart)}, which falls during your quiet hours. We couldn't find a way to shift it — you may want to adjust your eat time.`
+          )
+        }
+      }
+    }
+
+    if (shifted) {
+      // Recalculate eat time shift
+      const lastStep = scheduleSteps[scheduleSteps.length - 1]
+      const newEndTime = new Date(lastStep.endTime)
+      if (newEndTime.getTime() > targetEatTime.getTime()) {
+        const delayMinutes = Math.round((newEndTime.getTime() - targetEatTime.getTime()) / (60 * 1000))
+        if (delayMinutes > 15) {
+          warnings.push(
+            `We shifted your schedule to avoid quiet hours. Your bread will be ready about ${formatDuration(delayMinutes)} later than originally planned.`
+          )
+        }
+      }
+    }
   }
 
   const startTime = scheduleSteps.length > 0
@@ -257,12 +462,14 @@ export function generateSchedule(input: GenerateScheduleInput): GenerateSchedule
     }
   }
 
-  // Warning: very early start
-  const startHour = startTime.getHours()
-  if (startHour >= 0 && startHour < 5 && startTime > now) {
-    warnings.push(
-      `Heads up — this schedule has you starting at ${formatTimeShort(startTime)}. That's early! A cold proof overnight could give you more flexibility.`
-    )
+  // Warning: very early start (only if quiet hours not enforced — otherwise the engine already handles it)
+  if (!quietHours.enabled) {
+    const startHour = startTime.getHours()
+    if (startHour >= 0 && startHour < 5 && startTime > now) {
+      warnings.push(
+        `Heads up — this schedule has you starting at ${formatTimeShort(startTime)}. That's early! A cold proof overnight could give you more flexibility.`
+      )
+    }
   }
 
   // Warning: very late finish
@@ -294,14 +501,22 @@ export function generateSchedule(input: GenerateScheduleInput): GenerateSchedule
     )
   }
 
-  // Warning: dormant starter needs a lot of lead time
-  if (starterStatus === 'dormant') {
+  // Warning: neglected starter needs extra lead time
+  if (starterStatus === 'neglected') {
     warnings.push(
-      `Your starter needs about 24 hours of feeding before it's ready to bake. The schedule includes two feeds — make sure ${starterName || 'your starter'} is in a warm spot (${roomTempF}°F or warmer).`
+      `Your starter needs two feeds before it's ready to bake. The schedule includes a refresh feed and a build feed — make sure ${name} is in a warm spot (${roomTempF}°F or warmer).`
     )
   }
 
   return { steps: scheduleSteps, warnings, startTime }
+}
+
+/** Find the nearest preceding passive (non-active) step */
+function findPrecedingPassiveStep(steps: ScheduleStep[], activeIdx: number): number {
+  for (let i = activeIdx - 1; i >= 0; i--) {
+    if (!steps[i].isActive) return i
+  }
+  return -1
 }
 
 /** Format a Date as short time like "8:00 AM" */
@@ -337,8 +552,13 @@ export const CATEGORY_CONFIG: Record<ScheduleCategory, { label: string; dotClass
 
 /** Starter status options with friendly labels */
 export const STARTER_STATUS_OPTIONS: Array<{ value: StarterStatus; label: string; hint: string }> = [
-  { value: 'peak', label: "It's bubbly and doubled!", hint: 'Ready to bake right now' },
-  { value: 'recently_fed', label: 'I fed it a few hours ago', hint: 'Needs a bit more time to peak' },
-  { value: 'fed_but_fallen', label: "I fed it yesterday, it's fallen back", hint: 'Needs one more feed' },
-  { value: 'dormant', label: "It's been in the fridge for a while", hint: 'Needs two feeds over ~24 hours' },
+  { value: 'ready', label: "It's bubbly and ready to go!", hint: 'No feeding needed — let\'s bake' },
+  { value: 'needs_feed', label: 'It needs a feed first', hint: 'One feed, then it\'ll be ready' },
+  { value: 'neglected', label: "It's been in the fridge a while", hint: 'Needs a refresh + build feed' },
+]
+
+/** Feed speed options (shown when starter needs a feed) */
+export const FEED_SPEED_OPTIONS: Array<{ value: FeedSpeed; label: string; hint: string }> = [
+  { value: 'overnight', label: 'Feed tonight, bake tomorrow', hint: '1:5:5 ratio — peaks in 8-10 hours' },
+  { value: 'same_day', label: 'Feed now, bake today', hint: '1:1:1 ratio — peaks in 4-6 hours' },
 ]

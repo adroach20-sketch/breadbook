@@ -77,12 +77,12 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [ ] `source_credit` field populated where inspired by known sources (Tartine, King Arthur, The Perfect Loaf)
 
 ### 1.8 Recipe Favorites
-- [ ] `recipe_saves` table (user_id + recipe_id, unique constraint, RLS)
-- [ ] Heart/bookmark icon on recipe cards and recipe detail page
-- [ ] Toggle favorite via Supabase insert/delete
-- [ ] "Favorites" filter tab on recipe list (alongside category tabs)
-- [ ] Favorites sort to top of default recipe list view
-- [ ] Optimistic UI (instant heart toggle, revert on error)
+- [x] `recipe_saves` table (user_id + recipe_id, unique constraint, RLS)
+- [x] Heart/bookmark icon on recipe cards and recipe detail page
+- [x] Toggle favorite via Supabase insert/delete
+- [x] "Favorites" filter tab on recipe list (alongside category tabs)
+- [x] Favorites sort to top of default recipe list view
+- [x] Optimistic UI (instant heart toggle, revert on error)
 
 ### 1.9 Recipe Explorer & Search
 - [x] Recipe list with category filter tabs (basic version)
@@ -146,17 +146,17 @@ The foundation. Everything here ships before BreadBook is "v1."
 - [x] **Bulk Ferment step:**
   - [x] Rise check-in button with quick-tap options: 25% / 50% / 75% / Doubled / Not sure
   - [x] Room temperature capture (one-time per bake, shown in header badge)
-  - [ ] Dough observation quick-taps — Feel: Tight / Springy / Slack / Sticky / Smooth / Jiggly — Smell: Mild / Yeasty / Tangy / Alcoholy
+  - [x] Dough observation quick-taps — Feel: Tight / Springy / Slack / Sticky / Smooth / Jiggly — Smell: Mild / Yeasty / Tangy / Alcoholy
   - [x] All observations timestamped automatically
-- [ ] **Shaping step:**
-  - [ ] Log shaping method used (if different from planned)
-  - [ ] Dough feel at shaping: Good tension / Tore a bit / Very sticky / Couldn't build tension
-- [ ] **Proofing step:**
-  - [ ] Auto-timestamp when dough goes into fridge
-  - [ ] Optional poke test result: Sprang back fast / Sprang back slowly / Didn't spring back
-- [ ] **Off-Plan button (always visible, any step):**
-  - [ ] Quick options: Running late / Running early / Dough not ready / Got interrupted / Temperature changed
-  - [ ] Free text field for notes
+- [x] **Shaping step:**
+  - [x] Log shaping method used (if different from planned)
+  - [x] Dough feel at shaping: Good tension / Tore a bit / Very sticky / Couldn't build tension
+- [x] **Proofing step:**
+  - [x] Auto-timestamp when dough goes into fridge
+  - [x] Optional poke test result: Sprang back fast / Sprang back slowly / Didn't spring back
+- [x] **Off-Plan button (always visible, any step):**
+  - [x] Quick options: Running late / Running early / Dough not ready / Got interrupted / Temperature changed
+  - [x] Free text field for notes
   - [ ] Triggers live schedule recalculation
 - [x] All log data saved to `bake_event_logs` table (localStorage primary + Supabase sync)
 - [x] Log widgets are compact and secondary to step/timer — never block progress
@@ -174,19 +174,19 @@ The foundation. Everything here ships before BreadBook is "v1."
 ## Phase 2 — Bake Journal, Smart Scheduling & Troubleshooter
 
 ### 2.1 Starter Tracker
-- [ ] Database tables: `starters`, `starter_logs`, `starter_schedules`
-- [ ] **Starter Dashboard:**
-  - [ ] Card per starter: name, last fed (relative time), next feed due
-  - [ ] Estimated activity level: dormant / waking up / active / peak / past peak
-  - [ ] Mini sparkline of recent rise history
-  - [ ] Color-coded health: green (on schedule), yellow (feed soon), red (overdue)
-  - [ ] Quick-log button — tap to log feeding without leaving dashboard
-- [ ] **Feeding Log:**
-  - [ ] Log: water added, flour added, temperature, peak rise %, peak rise time, notes, photo
-- [ ] **Activity Chart:**
-  - [ ] Recharts line chart — rise/fall curve over last 7 days
+- [x] Database tables: `starters`, `starter_logs`, `starter_schedules`
+- [x] **Starter Dashboard:**
+  - [x] Card per starter: name, last fed (relative time), next feed due
+  - [x] Estimated activity level: dormant / waking up / active / peak / past peak
+  - [x] Mini sparkline of recent rise history
+  - [x] Color-coded health: green (on schedule), yellow (feed soon), red (overdue)
+  - [x] Quick-log button — tap to log feeding without leaving dashboard
+- [x] **Feeding Log:**
+  - [x] Log: water added, flour added, temperature, peak rise %, peak rise time, notes, photo
+- [x] **Activity Chart:**
+  - [x] Recharts line chart — rise/fall curve over last 7 days
   - [ ] Overlay multiple starters for comparison
-  - [ ] Notes field per log entry
+  - [x] Notes field per log entry
 
 ### 2.2 Starter Feeding Plan
 - [ ] Set repeating feeding schedule per starter (e.g., every 12hrs, every 24hrs)
@@ -201,26 +201,26 @@ The foundation. Everything here ships before BreadBook is "v1."
   - [ ] Quiet hours (user-configurable, e.g., 10pm–7am)
 
 ### 2.3 Smart Schedule Planner
-- [ ] **User inputs:**
-  - [ ] Target eat date & time
-  - [ ] Recipe to use
-  - [ ] Starter name (pulls from starters)
-  - [ ] Current starter status: active / recently fed / needs feed / dormant
-  - [ ] Room temperature
-  - [ ] Fridge available for cold proof? (yes/no)
-- [ ] **Reverse-engineered timeline:**
-  - [ ] Generates timestamps for every stage (feed starter → mix → bulk → shape → proof → bake → eat)
-  - [ ] Color-coded by category (starter prep, dough work, proofing, baking)
+- [x] **User inputs:**
+  - [x] Target eat date & time
+  - [x] Recipe to use
+  - [x] Starter name (pulls from starters)
+  - [x] Current starter status: active / recently fed / needs feed / dormant
+  - [x] Room temperature
+  - [x] Fridge available for cold proof? (yes/no)
+- [x] **Reverse-engineered timeline:**
+  - [x] Generates timestamps for every stage (feed starter → mix → bulk → shape → proof → bake → eat)
+  - [x] Color-coded by category (starter prep, dough work, proofing, baking)
   - [ ] One-tap "Set Reminder" per step
   - [ ] "Add to Bake Mode" button — loads recipe + schedule into Guided Bake Mode with times pre-populated
   - [ ] Shareable as screenshot or link
-  - [ ] Saveable to schedule history
-- [ ] **Smart adjustments:**
-  - [ ] Room temp >75°F → shorter bulk ferment
-  - [ ] Dormant/cold starter → add 2 extra feeds
-  - [ ] No fridge → same-day proof schedule
-  - [ ] Warn if timeline too compressed
-- [ ] Database: `bake_schedules` table with `schedule_steps` jsonb
+  - [x] Saveable to schedule history
+- [x] **Smart adjustments:**
+  - [x] Room temp >75°F → shorter bulk ferment
+  - [x] Dormant/cold starter → add 2 extra feeds
+  - [x] No fridge → same-day proof schedule
+  - [x] Warn if timeline too compressed
+- [x] Database: `bake_schedules` table with `schedule_steps` jsonb
 
 ### 2.4 Bake Journal
 - [x] Database table: `bake_logs` (rating, crumb/crust/flavor notes, what went well, what to change, photo URLs)
@@ -263,22 +263,22 @@ The foundation. Everything here ships before BreadBook is "v1."
 ## Phase 3 — Community
 
 ### 3.1 Recipe Sharing
-- [ ] Database tables: `recipe_likes`, `recipe_saves`
+- [x] Database tables: `recipe_likes`, `recipe_saves`
 - [ ] Mark recipes as `is_public = true` to share
-- [ ] Public recipe feed — browse community recipes
+- [x] Public recipe feed — browse community recipes
 - [ ] Filter by category, hydration %, tags
 - [ ] Search by title or ingredient
 - [ ] Save/fork a community recipe (credits original baker)
-- [ ] Like / bookmark recipes
+- [x] Like / bookmark recipes
 
 ### 3.2 Bake Feed
-- [ ] Share bake log photos publicly to community feed
-- [ ] Minimal, warm sourdough-focused social feed
-- [ ] Comment on shared bakes
+- [x] Share bake log photos publicly to community feed
+- [x] Minimal, warm sourdough-focused social feed
+- [x] Comment on shared bakes
 - [ ] Follow other bakers
 
 ### 3.3 Baker Profiles
-- [ ] Public profile page: avatar, bio, starter name, bake count, public recipes
+- [x] Public profile page: avatar, bio, starter name, bake count, public recipes
 - [ ] Follow / Unfollow
 - [ ] "Bakes this month" counter
 - [ ] Profile URL: `breadbook.app/@username`
@@ -325,3 +325,12 @@ This is the spec's recommended sequence. Items within a phase can shift, but the
 21. ~~Deploy to Render~~ ✅
 22. ~~Custom domain (breadbook.app)~~ ✅
 23. PWA support
+
+---
+
+## Decision Log
+
+| Date | Decision | Context |
+|---|---|---|
+| 2026-03-10 | Dark mode palette redesign for WCAG AA compliance | UI audit found surface colors in dark mode had ~1.2:1 contrast ratio. Expert debate redesigned entire `.dark` CSS variable set. Added `ash-muted` semantic token. Cleaned ~50 files of redundant `dark:` overrides. See `plans/dark-mode-redesign.md` and `plans/ui-audit.md`. |
+| 2026-03-10 | v0.2 feature batch: 9 features shipped | Favorites, Explorer, Starter Tracker, Schedule Planner, Community MVP, In-Bake Logging Phase 2 (dough observations, shaping/proofing, off-plan events). All built with parallel team execution + peer review. |
