@@ -118,16 +118,7 @@ export function JournalDetail() {
         <NoteSection label="What to change next time" value={log.what_to_change} />
       </div>
 
-      {/* Troubleshooter suggestion for low-rated bakes */}
-      {log.rating <= 2 && (
-        <Link
-          to={`/troubleshoot?from=journal&logId=${log.id}`}
-          className="mt-6 block bg-wheat/10 border border-wheat/30 rounded-xl p-4 hover:bg-wheat/20 transition-colors"
-        >
-          <p className="text-char font-medium text-sm">Something didn't go right?</p>
-          <p className="text-ash text-sm mt-0.5">We can help figure out what happened and how to fix it next time.</p>
-        </Link>
-      )}
+      {/* Troubleshooter suggestion for low-rated bakes — will be enabled in A3 when route exists */}
 
       {/* Bake this again */}
       <Link

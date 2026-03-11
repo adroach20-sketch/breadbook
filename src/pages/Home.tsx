@@ -3,10 +3,13 @@ import { useAuth } from '../lib/auth'
 import { breadbookOriginals } from '../data/originals'
 import { RecipeCard } from '../components/RecipeCard'
 import { WelcomeFlow } from '../features/onboarding/WelcomeFlow'
+import { useHomeDashboard } from '../hooks/useHomeDashboard'
+import { HomeDashboardSlot } from '../components/HomeDashboardSlot'
 
 export function Home() {
   const { user, hasOnboarded, setHasOnboarded } = useAuth()
   const username = user?.user_metadata?.username || 'Baker'
+  const { card: dashboardCard } = useHomeDashboard()
 
   if (!hasOnboarded) {
     return (
@@ -33,6 +36,13 @@ export function Home() {
         </h1>
         <p className="text-ash mt-1">What are we baking today?</p>
       </div>
+
+      {/* Smart dashboard slot — single contextual card */}
+      {dashboardCard && (
+        <div className="mb-6">
+          <HomeDashboardSlot card={dashboardCard} />
+        </div>
+      )}
 
       {/* Quick action */}
       <Link

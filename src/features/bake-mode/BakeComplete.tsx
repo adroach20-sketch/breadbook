@@ -49,15 +49,7 @@ export function BakeComplete({ recipeTitle, recipeId, sessionId, isFirstBake }: 
             Back to Recipe
           </Link>
 
-          {/* Troubleshooter — conditional text link, hidden on first bake */}
-          {!isFirstBake && (
-            <Link
-              to={`/troubleshoot?recipe=${recipeId}${sessionId ? `&session=${sessionId}` : ''}`}
-              className="block text-ash text-sm hover:text-crust transition-colors"
-            >
-              Something didn't look right? Troubleshoot
-            </Link>
-          )}
+          {/* Troubleshooter link — will be enabled in A3 when route exists */}
         </div>
       </div>
     </div>

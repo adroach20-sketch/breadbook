@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { breadbookOriginals } from '../../data/originals'
 import type { Recipe, StarterStatus, FeedSpeed, QuietHours } from '../../data/types'
@@ -47,12 +47,16 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
   // Auto-detect starter status from Starter Tracker
   const { starters } = useStarters()
   const [starterHint, setStarterHint] = useState('')
+  const userOverrodeStatus = useRef(false)
 
   useEffect(() => {
     if (starters.length === 0) return
 
     const starter = starters[0] // Use first (or only) starter
     if (!starterName) setStarterName(starter.name)
+
+    // Don't overwrite if user already manually selected a status
+    if (userOverrodeStatus.current) return
 
     // Fetch latest log for this starter
     supabase
@@ -62,6 +66,7 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
       .order('fed_at', { ascending: false })
       .limit(1)
       .then(({ data }) => {
+        if (userOverrodeStatus.current) return
         const lastLog = data?.[0] || null
         const activity = getActivityLevel(lastLog)
         const timeSince = formatTimeSinceFeed(lastLog)
@@ -172,7 +177,7 @@ export function ScheduleForm({ onGenerate }: ScheduleFormProps) {
               <button
                 key={option.value}
                 type="button"
-                onClick={() => setStarterStatus(option.value)}
+                onClick={() => { userOverrodeStatus.current = true; setStarterStatus(option.value) }}
                 className={`w-full text-left rounded-xl px-4 py-3 border transition-colors ${
                   starterStatus === option.value
                     ? 'border-crust bg-crust/5'

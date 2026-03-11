@@ -31,8 +31,8 @@ export function BakeMode() {
       .select('id', { count: 'exact', head: true })
       .eq('user_id', user.id)
       .not('completed_at', 'is', null)
-      .then(({ count }) => {
-        setIsFirstBake(count === 0)
+      .then(({ count, error }) => {
+        if (!error) setIsFirstBake(count === 0)
       })
   }, [user])
 
