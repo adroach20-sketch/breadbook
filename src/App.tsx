@@ -19,6 +19,8 @@ import { ProfileEdit } from './features/community/ProfileEdit'
 import { StarterDashboard } from './features/starter/StarterDashboard'
 import { StarterDetail } from './pages/StarterDetail'
 import { Schedule, ScheduleNew } from './pages/Schedule'
+import { Troubleshoot } from './pages/Troubleshoot'
+import { TroubleshootDetail } from './pages/TroubleshootDetail'
 
 export default function App() {
   return (
@@ -54,6 +56,8 @@ export default function App() {
             <Route path="/starters/:id" element={<StarterDetail />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/schedule/new" element={<ScheduleNew />} />
+            <Route path="/troubleshoot" element={<Troubleshoot />} />
+            <Route path="/troubleshoot/:symptomId" element={<TroubleshootDetail />} />
           </Route>
 
           {/* Bake mode — full screen, no nav (but still protected) */}
