@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useStarters } from '../hooks/useStarters'
 import { useStarterLogs } from '../hooks/useStarterLogs'
 import { useStarterSchedule } from '../hooks/useStarterSchedule'
+import { useNotifications } from '../hooks/useNotifications'
 import { getActivityLevel, getHealthStatus, formatTimeSinceFeed, getTimeUntilNextFeed, getNextAction } from '../hooks/useStarterActivity'
 import { activityLabels, healthStatusColors } from '../data/types'
 import { ActivityChart } from '../features/starter/ActivityChart'
@@ -25,6 +26,7 @@ export function StarterDetail() {
   const { starters, loading: startersLoading, updateStarter, deleteStarter } = useStarters()
   const { logs, loading: logsLoading, quickLog, createLog, deleteLog } = useStarterLogs(id)
   const { schedule, loading: scheduleLoading, saveSchedule, deactivateSchedule } = useStarterSchedule(id)
+  const { scheduleReminder, cancelReminder } = useNotifications()
 
   const [showEditForm, setShowEditForm] = useState(false)
   const [showFeedingForm, setShowFeedingForm] = useState(false)
@@ -73,11 +75,15 @@ export function StarterDetail() {
   const healthInfo = healthStatusColors[health]
 
   const handleQuickFeed = async () => {
-    if (!id) return
+    if (!id || !starter) return
     setQuickFeedLoading(true)
     await quickLog(id)
     setQuickFeedLoading(false)
     setShowQuickFeed(false)
+    // Reschedule reminder based on current schedule interval from now
+    if (schedule) {
+      scheduleReminder(starter.id, starter.name, schedule.interval_hours * 60 * 60 * 1000, 'schedule')
+    }
   }
 
   const handleCreateLog = async (data: Parameters<typeof createLog>[0]) => {
@@ -86,6 +92,14 @@ export function StarterDetail() {
     setFeedingSaving(false)
     if (result) {
       setShowFeedingForm(false)
+      // Reschedule reminder from the logged feed time
+      if (starter && schedule) {
+        const fedAt = new Date(data.fed_at ?? Date.now()).getTime()
+        const delayMs = fedAt + schedule.interval_hours * 60 * 60 * 1000 - Date.now()
+        if (delayMs > 0) {
+          scheduleReminder(starter.id, starter.name, delayMs, 'schedule')
+        }
+      }
     }
     return result
   }
@@ -96,6 +110,17 @@ export function StarterDetail() {
     setScheduleSaving(false)
     if (result) {
       setShowScheduleForm(false)
+      // If we have a last feeding, schedule the reminder based on the new interval
+      if (starter && lastLog) {
+        const nextFeedMs =
+          new Date(lastLog.fed_at).getTime() + data.interval_hours * 60 * 60 * 1000
+        const delayMs = nextFeedMs - Date.now()
+        if (delayMs > 0) {
+          scheduleReminder(starter.id, starter.name, delayMs, 'schedule')
+        } else {
+          cancelReminder(starter.id)
+        }
+      }
     }
     return result
   }

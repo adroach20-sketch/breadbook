@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useStarters } from '../../hooks/useStarters'
 import { useLatestStarterLogs } from '../../hooks/useStarterLogs'
 import { useAllStarterSchedules } from '../../hooks/useStarterSchedule'
+import { useStarterReminderSync } from '../../hooks/useStarterReminderSync'
 import { StarterCard } from './StarterCard'
 import { StarterForm } from './StarterForm'
 import { QuickFeedModal } from './QuickFeedModal'
@@ -20,6 +21,9 @@ export function StarterDashboard() {
   const starterIds = useMemo(() => starters.map((s) => s.id), [starters])
   const { latestLogs, loading: logsLoading } = useLatestStarterLogs(starterIds)
   const { schedules } = useAllStarterSchedules(starterIds)
+
+  // Sync feeding reminders whenever starters/logs/schedules change
+  useStarterReminderSync(starters, latestLogs, schedules)
 
   const [showForm, setShowForm] = useState(false)
   const [quickFeedStarterId, setQuickFeedStarterId] = useState<string | null>(null)
