@@ -59,6 +59,7 @@ export function FeedingLogForm({ starterId, onSave, onCancel, saving = false }: 
           <label className="block text-xs font-medium text-char mb-1">Water (g)</label>
           <input
             type="number"
+            inputMode="decimal"
             value={waterG}
             onChange={(e) => setWaterG(e.target.value)}
             placeholder="50"
@@ -69,6 +70,7 @@ export function FeedingLogForm({ starterId, onSave, onCancel, saving = false }: 
           <label className="block text-xs font-medium text-char mb-1">Flour (g)</label>
           <input
             type="number"
+            inputMode="decimal"
             value={flourG}
             onChange={(e) => setFlourG(e.target.value)}
             placeholder="50"
@@ -82,6 +84,7 @@ export function FeedingLogForm({ starterId, onSave, onCancel, saving = false }: 
           <label className="block text-xs font-medium text-char mb-1">Temp (F)</label>
           <input
             type="number"
+            inputMode="decimal"
             value={temperatureF}
             onChange={(e) => setTemperatureF(e.target.value)}
             placeholder="72"
@@ -92,6 +95,7 @@ export function FeedingLogForm({ starterId, onSave, onCancel, saving = false }: 
           <label className="block text-xs font-medium text-char mb-1">Peak Rise %</label>
           <input
             type="number"
+            inputMode="decimal"
             value={peakRisePct}
             onChange={(e) => setPeakRisePct(e.target.value)}
             placeholder="100"
@@ -104,6 +108,7 @@ export function FeedingLogForm({ starterId, onSave, onCancel, saving = false }: 
         <label className="block text-xs font-medium text-char mb-1">Peak Rise Time (minutes)</label>
         <input
           type="number"
+          inputMode="decimal"
           value={peakRiseMinutes}
           onChange={(e) => setPeakRiseMinutes(e.target.value)}
           placeholder="360"

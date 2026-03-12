@@ -78,6 +78,7 @@ export function StarterForm({ starter, onSave, onCancel, saving = false }: Start
         </label>
         <input
           type="number"
+          inputMode="decimal"
           value={hydrationRatio}
           onChange={(e) => setHydrationRatio(Number(e.target.value))}
           min={50}

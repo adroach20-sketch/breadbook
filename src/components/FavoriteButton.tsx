@@ -46,7 +46,7 @@ export function FavoriteButton({ recipeId, size = 'sm', showCount = false }: Fav
   }
 
   const iconSize = size === 'md' ? 'w-6 h-6' : 'w-4 h-4'
-  const buttonSize = size === 'md' ? 'w-10 h-10' : 'w-8 h-8'
+  const buttonSize = 'w-11 h-11'
 
   return (
     <>

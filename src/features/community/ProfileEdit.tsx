@@ -119,14 +119,14 @@ export function ProfileEdit() {
           </div>
           <button
             onClick={() => setIsPublic(!isPublic)}
-            className={`relative w-11 h-6 rounded-full transition-colors ${
+            className={`relative w-12 h-7 rounded-full transition-colors ${
               isPublic ? 'bg-crust' : 'bg-dough'
             }`}
             role="switch"
             aria-checked={isPublic}
           >
             <span
-              className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-steam transition-transform shadow-sm ${
+              className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-steam transition-transform shadow-sm ${
                 isPublic ? 'translate-x-5' : 'translate-x-0'
               }`}
             />
