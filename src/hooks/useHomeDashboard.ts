@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useAuth } from '../lib/auth'
 import { useStarters } from './useStarters'
 import { getActivityLevel, formatTimeSinceFeed, getHealthStatus } from './useStarterActivity'
@@ -11,6 +11,7 @@ const BAKE_SESSION_KEY = 'breadbook-active-bake'
 export type DashboardCardType =
   | 'resume_bake'
   | 'unlogged_bake'
+  | 'starter_setup_nudge'
   | 'starter_needs_feeding'
   | 'starter_guide_progress'
   | null
@@ -34,11 +35,16 @@ export interface DashboardCard {
 }
 
 export function useHomeDashboard() {
-  const { user } = useAuth()
+  const { user, onboardingPath } = useAuth()
   const { starters } = useStarters()
   const [card, setCard] = useState<DashboardCard | null>(null)
   const [loading, setLoading] = useState(true)
   const resolvedRef = useRef(false)
+  const [refreshKey, setRefreshKey] = useState(0)
+  const refresh = useCallback(() => {
+    resolvedRef.current = false
+    setRefreshKey((k) => k + 1)
+  }, [])
 
   useEffect(() => {
     if (!user) {
@@ -48,7 +54,7 @@ export function useHomeDashboard() {
 
     // If we already resolved a high-priority card (resume/unlogged),
     // don't re-resolve when starters load later
-    if (resolvedRef.current && card?.type !== 'starter_needs_feeding' && card !== null) {
+    if (resolvedRef.current && card?.type !== 'starter_needs_feeding' && card?.type !== 'starter_setup_nudge' && card !== null) {
       return
     }
 
@@ -130,7 +136,23 @@ export function useHomeDashboard() {
         }
       }
 
-      // Priority 3: Starter needs feeding
+      // Priority 3: Starter setup nudge — has_starter user who hasn't logged a single feed yet
+      if (onboardingPath === 'has_starter' && starters.length > 0) {
+        const starter = starters[0]
+        const { data: anyLog } = await supabase
+          .from('starter_logs')
+          .select('id')
+          .eq('starter_id', starter.id)
+          .limit(1)
+
+        if (!anyLog?.length) {
+          setCard({ type: 'starter_setup_nudge', starterName: starter.name, starterId: starter.id })
+          setLoading(false)
+          return
+        }
+      }
+
+      // Priority 4: Starter needs feeding
       if (starters.length > 0) {
         const starter = starters[0]
         const { data: logs, error: logsError } = await supabase
@@ -168,7 +190,7 @@ export function useHomeDashboard() {
         }
       }
 
-      // Priority 4: Starter guide in progress (new starter < 14 days old)
+      // Priority 5: Starter guide in progress (new starter < 14 days old)
       if (starters.length > 0) {
         const starter = starters[0]
         const created = new Date(starter.created_at)
@@ -200,7 +222,7 @@ export function useHomeDashboard() {
     }
 
     resolve()
-  }, [user, starters]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [user, starters, onboardingPath, refreshKey]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  return { card, loading }
+  return { card, loading, refresh }
 }

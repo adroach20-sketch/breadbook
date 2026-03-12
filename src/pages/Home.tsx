@@ -9,7 +9,7 @@ import { HomeDashboardSlot } from '../components/HomeDashboardSlot'
 export function Home() {
   const { user, hasOnboarded, setHasOnboarded } = useAuth()
   const username = user?.user_metadata?.username || 'Baker'
-  const { card: dashboardCard } = useHomeDashboard()
+  const { card: dashboardCard, refresh: refreshDashboard } = useHomeDashboard()
 
   if (!hasOnboarded) {
     return (
@@ -40,7 +40,7 @@ export function Home() {
       {/* Smart dashboard slot — single contextual card */}
       {dashboardCard && (
         <div className="mb-6">
-          <HomeDashboardSlot card={dashboardCard} />
+          <HomeDashboardSlot card={dashboardCard} onRefresh={refreshDashboard} />
         </div>
       )}
 

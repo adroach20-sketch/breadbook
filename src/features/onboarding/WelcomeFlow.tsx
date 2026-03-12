@@ -11,8 +11,8 @@ interface WelcomeFlowProps {
   onComplete: () => void
 }
 
-// Steps: 1=routing, 2=expectation (beginner/kit only), 3=name starter, 4=pick recipe
-type Step = 1 | 2 | 3 | 4
+// Steps: 1=routing, 2=expectation (beginner/kit only), 3=name starter, 5=last fed (has_starter only), 4=pick recipe
+type Step = 1 | 2 | 3 | 4 | 5
 
 const PATH_OPTIONS: { value: OnboardingPath; emoji: string; label: string; sub: string }[] = [
   { value: 'beginner',     emoji: '🌱', label: "I'm brand new",          sub: "Never made a sourdough starter" },
@@ -30,6 +30,8 @@ export function WelcomeFlow({ onComplete }: WelcomeFlowProps) {
   const [path, setPath] = useState<OnboardingPath | null>(null)
   const [starterName, setStarterName] = useState('')
   const [creating, setCreating] = useState(false)
+  const [createdStarterId, setCreatedStarterId] = useState<string | null>(null)
+  const [lastFedSaving, setLastFedSaving] = useState(false)
 
   const saveAndFinish = async (selectedPath: OnboardingPath) => {
     if (user) {
@@ -62,14 +64,39 @@ export function WelcomeFlow({ onComplete }: WelcomeFlowProps) {
   const handleCreateStarter = async () => {
     if (!starterName.trim()) return
     setCreating(true)
-    await createStarter(starterName.trim(), 'all-purpose')
+    const starter = await createStarter(starterName.trim(), 'all-purpose')
     setCreating(false)
     if (path === 'beginner' || path === 'has_kit') {
       await saveAndFinish(path)
       navigate('/starters/guide')
+    } else if (path === 'has_starter') {
+      // Ask when they last fed it before showing recipes
+      if (starter) setCreatedStarterId(starter.id)
+      setStep(5)
     } else {
       setStep(4)
     }
+  }
+
+  const LAST_FED_OPTIONS = [
+    { label: 'Just now / today',  hoursAgo: 2  },
+    { label: 'Yesterday',         hoursAgo: 26 },
+    { label: '2–3 days ago',      hoursAgo: 60 },
+  ]
+
+  const handleLastFed = async (hoursAgo: number | null) => {
+    if (hoursAgo !== null && createdStarterId && user) {
+      setLastFedSaving(true)
+      const fedAt = new Date(Date.now() - hoursAgo * 60 * 60 * 1000).toISOString()
+      await supabase.from('starter_logs').insert({
+        starter_id: createdStarterId,
+        user_id: user.id,
+        fed_at: fedAt,
+        is_quick_log: true,
+      })
+      setLastFedSaving(false)
+    }
+    setStep(4)
   }
 
   // Beginner-friendly recipes for the final step
@@ -81,11 +108,13 @@ export function WelcomeFlow({ onComplete }: WelcomeFlowProps) {
     : breadbookOriginals.filter((r) => r.category === 'sourdough_loaf').slice(0, 4)
 
   // Step indicator — only show for paths that have multiple steps
+  // Note: has_starter uses [1,3,5,4] — out-of-numeric-order, so dots use index comparison
   const stepDots: Step[] = (path === 'experienced')
     ? [1, 4]
     : (path === 'has_starter')
-      ? [1, 3, 4]
+      ? [1, 3, 5, 4]
       : [1, 2, 3, 4] // beginner, has_kit, or not yet chosen
+  const currentDotIndex = stepDots.indexOf(step)
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
@@ -241,6 +270,48 @@ export function WelcomeFlow({ onComplete }: WelcomeFlowProps) {
         </div>
       )}
 
+      {/* ── Step 5: Last fed (has_starter only) ── */}
+      {step === 5 && (
+        <div className="py-8 max-w-sm mx-auto">
+          <button
+            onClick={() => setStep(3)}
+            className="text-sm text-ash hover:text-char transition-colors mb-6 flex items-center gap-1"
+          >
+            ← Back
+          </button>
+          <div className="text-center mb-8">
+            <span className="text-5xl block mb-3" aria-hidden="true">🍽️</span>
+            <h2 className="font-heading text-2xl font-bold text-char mb-2">
+              When did you last feed {starterName || 'it'}?
+            </h2>
+            <p className="text-ash text-sm max-w-xs mx-auto">
+              So we know when to remind you next.
+            </p>
+          </div>
+
+          <div className="space-y-3 mb-6">
+            {LAST_FED_OPTIONS.map((opt) => (
+              <button
+                key={opt.hoursAgo}
+                onClick={() => handleLastFed(opt.hoursAgo)}
+                disabled={lastFedSaving}
+                className="w-full flex items-center gap-4 bg-steam border border-dough rounded-xl px-5 py-4 text-left hover:border-crust hover:bg-crust/5 transition-colors disabled:opacity-50"
+              >
+                <p className="font-medium text-char">{opt.label}</p>
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={() => handleLastFed(null)}
+            disabled={lastFedSaving}
+            className="block mx-auto text-ash text-sm hover:text-char transition-colors"
+          >
+            Not sure — skip for now
+          </button>
+        </div>
+      )}
+
       {/* ── Step 4: Pick your first bake ── */}
       {step === 4 && (
         <div className="py-8">
@@ -283,11 +354,11 @@ export function WelcomeFlow({ onComplete }: WelcomeFlowProps) {
 
       {/* Step indicator */}
       <div className="flex justify-center gap-2 mt-8">
-        {stepDots.map((s) => (
+        {stepDots.map((s, i) => (
           <div
             key={s}
             className={`w-2 h-2 rounded-full transition-colors ${
-              s === step ? 'bg-crust' : s < step ? 'bg-crust/40' : 'bg-dough'
+              i === currentDotIndex ? 'bg-crust' : i < currentDotIndex ? 'bg-crust/40' : 'bg-dough'
             }`}
           />
         ))}
