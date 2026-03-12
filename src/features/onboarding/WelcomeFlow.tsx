@@ -247,7 +247,7 @@ export function WelcomeFlow({ onComplete }: WelcomeFlowProps) {
           <div className="text-center mb-6">
             <span className="text-5xl block mb-3" aria-hidden="true">👩‍🍳</span>
             <h2 className="font-heading text-2xl font-bold text-char mb-2">
-                {path === 'experienced' ? 'Pick a recipe' : "What we'll bake when your starter is ready"}
+                {path === 'experienced' ? 'Pick Your First Recipe' : 'Pick your first bake'}
             </h2>
             <p className="text-ash max-w-md mx-auto">
               {path === 'experienced'

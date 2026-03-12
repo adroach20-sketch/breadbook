@@ -81,7 +81,7 @@ function EmptyFeed({ mode, onSwitchToDiscover }: { mode: 'following' | 'discover
       <div className="text-center py-16">
         <span className="text-5xl block mb-4">👋</span>
         <h2 className="font-heading text-lg font-semibold text-char mb-2">
-          Your feed is empty
+          No bakes to see yet
         </h2>
         <p className="text-ash mb-4">
           Follow some bakers to see their bakes here.

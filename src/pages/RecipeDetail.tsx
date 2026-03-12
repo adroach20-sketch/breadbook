@@ -138,7 +138,7 @@ export function RecipeDetail() {
         <button
           onClick={() => requireAuth(
             () => navigate(`/schedule/new?recipe=${recipe.id}`),
-            { title: 'Plan This Bake', message: 'Sign up to plan your bake schedule — we reverse-engineer the timeline from when you want to eat.' }
+            { title: 'Plan This Bake', message: 'Sign up to plan your bake — tell us when you want to eat and we\'ll work out when to start.' }
           )}
           className="text-crust text-sm font-medium hover:underline"
         >

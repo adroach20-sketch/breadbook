@@ -87,6 +87,11 @@ export function Recipes() {
         ))}
       </div>
 
+      {/* Discard context hint */}
+      {activeTab === 'discard' && (
+        <p className="text-xs text-ash mb-4 -mt-1">Quick recipes that use your unfed starter overflow.</p>
+      )}
+
       {/* Recipe grid */}
       {loading ? (
         <div className="grid gap-4 sm:grid-cols-2">

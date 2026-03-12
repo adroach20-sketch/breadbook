@@ -147,7 +147,7 @@ export function BakerProfile() {
           <p className="text-ash">
             {isOwnProfile
               ? 'Share some recipes and bakes to fill your profile!'
-              : 'This baker hasn\'t shared anything yet.'}
+              : "This baker hasn't shared anything yet."}
           </p>
         </div>
       )}
