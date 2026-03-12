@@ -104,16 +104,16 @@ export function Layout() {
           <Link
             key={item.path}
             to={item.path}
-            className={`flex-1 flex flex-col items-center py-2 text-xs transition-colors relative ${
+            aria-label={item.label}
+            className={`flex-1 flex flex-col items-center py-3 transition-colors relative ${
               isNavActive(item.path, location.pathname)
-                ? 'text-crust font-semibold'
+                ? 'text-crust'
                 : 'text-ash'
             }`}
           >
-            <span className="text-xl mb-0.5">{item.icon}</span>
-            {item.label}
+            <span className="text-2xl">{item.icon}</span>
             {isNavActive(item.path, location.pathname) && (
-              <span className="absolute bottom-0.5 w-4 h-0.5 bg-crust rounded-full" />
+              <span className="absolute bottom-1 w-4 h-0.5 bg-crust rounded-full" />
             )}
           </Link>
         ))}
