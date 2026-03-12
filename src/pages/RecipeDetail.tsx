@@ -6,14 +6,9 @@ import { FavoriteButton } from '../components/FavoriteButton'
 import { breadbookOriginals } from '../data/originals'
 import { supabase } from '../lib/supabase'
 import type { Recipe } from '../data/types'
+import { fermentLabels } from '../data/types'
 import { LikeButton } from '../features/community/LikeButton'
 import { useAuthGate } from '../hooks/useAuthGate'
-
-const fermentLabels: Record<string, string> = {
-  long_ferment: 'Long Ferment',
-  overnight: 'Overnight',
-  same_day_discard: 'Same-Day Discard',
-}
 
 export function RecipeDetail() {
   const { id } = useParams<{ id: string }>()

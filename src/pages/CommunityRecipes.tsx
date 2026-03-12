@@ -3,27 +3,7 @@ import { Link } from 'react-router-dom'
 import { useCommunityRecipes } from '../hooks/useCommunity'
 import { LikeButton } from '../features/community/LikeButton'
 import { RecipeCardSkeleton } from '../components/RecipeCardSkeleton'
-
-const fermentLabels: Record<string, string> = {
-  long_ferment: 'Long Ferment',
-  overnight: 'Overnight',
-  same_day_discard: 'Same-Day Discard',
-}
-
-const categoryEmojis: Record<string, string> = {
-  sourdough_loaf: '\uD83C\uDF5E',
-  focaccia: '\uD83E\uDED3',
-  bagels: '\uD83E\uDD6F',
-  pizza: '\uD83C\uDF55',
-  enriched: '\uD83E\uDDC1',
-  sandwich: '\uD83E\uDD6A',
-  flatbread: '\uD83E\uDED3',
-  pancakes_waffles: '\uD83E\uDD5E',
-  crackers: '\uD83C\uDF58',
-  quick_bread: '\uD83C\uDF4C',
-  pasta: '\uD83C\uDF5D',
-  other_discard: '\u267B\uFE0F',
-}
+import { fermentLabels, categoryEmojis } from '../data/types'
 
 const filterTabs = [
   { key: 'all', label: 'All' },

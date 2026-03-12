@@ -69,6 +69,27 @@ export interface Recipe {
   image_url?: string
 }
 
+export const fermentLabels: Record<FermentType, string> = {
+  long_ferment: 'Long Ferment',
+  overnight: 'Overnight',
+  same_day_discard: 'Same-Day Discard',
+}
+
+export const categoryEmojis: Record<RecipeCategory, string> = {
+  sourdough_loaf: '\u{1F35E}',
+  focaccia: '\u{1FAD3}',
+  bagels: '\u{1F96F}',
+  pizza: '\u{1F355}',
+  enriched: '\u{1F9C1}',
+  sandwich: '\u{1F96A}',
+  flatbread: '\u{1FAD3}',
+  pancakes_waffles: '\u{1F95E}',
+  crackers: '\u{1F358}',
+  quick_bread: '\u{1F34C}',
+  pasta: '\u{1F35D}',
+  other_discard: '\u267B\uFE0F',
+}
+
 export interface AcademyCard {
   key: string
   title: string

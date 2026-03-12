@@ -83,6 +83,7 @@ async function seed() {
   const { data: existingRecipes } = await supabase
     .from('recipes')
     .select('id, title')
+    .eq('is_breadbook_original', true)
 
   const existingByTitle = new Map(
     (existingRecipes || []).map((r: { id: string; title: string }) => [r.title, r.id])

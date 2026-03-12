@@ -3,21 +3,7 @@ import { useBakerProfile } from '../hooks/useCommunity'
 import { useAuth } from '../lib/auth'
 import { FollowButton } from '../features/community/FollowButton'
 import { FeedPostCard } from '../features/community/FeedPostCard'
-
-const categoryEmojis: Record<string, string> = {
-  sourdough_loaf: '\uD83C\uDF5E',
-  focaccia: '\uD83E\uDED3',
-  bagels: '\uD83E\uDD6F',
-  pizza: '\uD83C\uDF55',
-  enriched: '\uD83E\uDDC1',
-  sandwich: '\uD83E\uDD6A',
-  flatbread: '\uD83E\uDED3',
-  pancakes_waffles: '\uD83E\uDD5E',
-  crackers: '\uD83C\uDF58',
-  quick_bread: '\uD83C\uDF4C',
-  pasta: '\uD83C\uDF5D',
-  other_discard: '\u267B\uFE0F',
-}
+import { categoryEmojis } from '../data/types'
 
 export function BakerProfile() {
   const { username } = useParams<{ username: string }>()
