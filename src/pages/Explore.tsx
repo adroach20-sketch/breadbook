@@ -22,6 +22,9 @@ export function Explore() {
   const [loading, setLoading] = useState(true)
   const { savedRecipeIds, loaded: favoritesLoaded } = useFavorites()
   const [isStarterActive, setIsStarterActive] = useState(false)
+  const [activeTab, setActiveTab] = useState<'explore' | 'mine'>('explore')
+  const [myVersions, setMyVersions] = useState<Recipe[]>([])
+  const [myVersionsLoading, setMyVersionsLoading] = useState(true)
 
   // Check if user has an active starter (fed within last 6 hours)
   useEffect(() => {
@@ -68,6 +71,22 @@ export function Explore() {
     loadRecipes()
   }, [])
 
+  // Load user's own recipes when Mine tab is opened
+  useEffect(() => {
+    if (!user || activeTab !== 'mine') return
+    setMyVersionsLoading(true)
+    supabase
+      .from('recipes')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .then(({ data }) => {
+        setMyVersions((data as Recipe[]) ?? [])
+        setMyVersionsLoading(false)
+      })
+      .catch(() => setMyVersionsLoading(false))
+  }, [user, activeTab])
+
   // Search + filter hook
   const {
     query,
@@ -113,38 +132,131 @@ export function Explore() {
     [recipes]
   )
 
-  const savedByYou = useMemo(
-    () => (favoritesLoaded ? recipes.filter((r) => savedRecipeIds.has(r.id)) : []),
-    [recipes, savedRecipeIds, favoritesLoaded]
-  )
-
   // ─────────────────────────────────────────────
   // Render
   // ─────────────────────────────────────────────
 
+  const savedByYouFull = useMemo(
+    () => (favoritesLoaded ? recipes.filter((r) => savedRecipeIds.has(r.id)) : []),
+    [recipes, savedRecipeIds, favoritesLoaded]
+  )
+  const myRecipesCount = myVersions.length + savedByYouFull.length
+
   return (
     <div className="max-w-4xl mx-auto py-6">
       {/* Header */}
-      <div className="px-4 md:px-0 mb-6">
-        <h1 className="font-heading text-2xl font-bold text-char mb-1">Explore</h1>
-        <p className="text-sm text-ash mb-4">
-          Discover your next bake — search, filter, or browse our curated collections.
-        </p>
+      <div className="px-4 md:px-0 mb-4">
+        <h1 className="font-heading text-2xl font-bold text-char mb-1">Recipes</h1>
 
-        {/* Search bar — sticky on scroll */}
-        <div className="sticky top-0 z-30 bg-crumb pb-3 -mx-4 px-4 md:mx-0 md:px-0">
-          <SearchBar value={query} onChange={setQuery} />
-        </div>
+        {/* Tab bar */}
+        {user && (
+          <div className="flex gap-1 mb-4 border-b border-dough">
+            <button
+              onClick={() => setActiveTab('explore')}
+              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px ${
+                activeTab === 'explore'
+                  ? 'border-crust text-crust'
+                  : 'border-transparent text-ash hover:text-char'
+              }`}
+            >
+              Explore
+            </button>
+            <button
+              onClick={() => setActiveTab('mine')}
+              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px ${
+                activeTab === 'mine'
+                  ? 'border-crust text-crust'
+                  : 'border-transparent text-ash hover:text-char'
+              }`}
+            >
+              My Recipes
+              {myRecipesCount > 0 && (
+                <span className="ml-1 text-xs text-ash-muted">({myRecipesCount})</span>
+              )}
+            </button>
+          </div>
+        )}
 
-        {/* Filter panel */}
-        <FilterPanel
-          filters={filters}
-          onFilterChange={setFilter}
-          onReset={resetFilters}
-          activeFilterCount={activeFilterCount}
-        />
+        {activeTab === 'explore' && (
+          <>
+            <p className="text-sm text-ash mb-4">
+              Discover your next bake — search, filter, or browse our curated collections.
+            </p>
+            {/* Search bar — sticky on scroll */}
+            <div className="sticky top-0 z-30 bg-crumb pb-3 -mx-4 px-4 md:mx-0 md:px-0">
+              <SearchBar value={query} onChange={setQuery} />
+            </div>
+            {/* Filter panel */}
+            <FilterPanel
+              filters={filters}
+              onFilterChange={setFilter}
+              onReset={resetFilters}
+              activeFilterCount={activeFilterCount}
+            />
+          </>
+        )}
       </div>
 
+      {/* ─── My Recipes tab ─── */}
+      {activeTab === 'mine' && user && (
+        <div className="px-4 md:px-0">
+          {/* My Versions */}
+          <div className="mb-8">
+            <h2 className="font-heading text-lg font-semibold text-char mb-3">My Versions</h2>
+            {myVersionsLoading ? (
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {Array.from({ length: 2 }).map((_, i) => <RecipeCardSkeleton key={i} />)}
+              </div>
+            ) : myVersions.length > 0 ? (
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {myVersions.map((recipe) => (
+                  <RecipeCard key={recipe.id} recipe={recipe} />
+                ))}
+              </div>
+            ) : (
+              <div className="py-6 text-center bg-steam rounded-xl border border-dough">
+                <p className="text-sm text-ash mb-2">Made a recipe your own? It'll live here.</p>
+                <button
+                  onClick={() => setActiveTab('explore')}
+                  className="text-sm text-crust font-medium hover:underline"
+                >
+                  Browse recipes →
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Saved */}
+          <div className="mb-8">
+            <h2 className="font-heading text-lg font-semibold text-char mb-3">Saved</h2>
+            {!favoritesLoaded ? (
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {Array.from({ length: 3 }).map((_, i) => <RecipeCardSkeleton key={i} />)}
+              </div>
+            ) : savedByYouFull.length > 0 ? (
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {savedByYouFull.map((recipe) => (
+                  <RecipeCard key={recipe.id} recipe={recipe} />
+                ))}
+              </div>
+            ) : (
+              <div className="py-6 text-center bg-steam rounded-xl border border-dough">
+                <p className="text-sm text-ash mb-2">Tap the ♡ on any recipe to save it.</p>
+                <button
+                  onClick={() => setActiveTab('explore')}
+                  className="text-sm text-crust font-medium hover:underline"
+                >
+                  Browse recipes →
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ─── Explore tab ─── */}
+      {activeTab === 'explore' && (
+      <>
       {/* Loading state */}
       {loading ? (
         <div className="px-4 md:px-0">
@@ -210,11 +322,11 @@ export function Explore() {
             />
           )}
 
-          {user && savedByYou.length > 0 && (
+          {user && savedByYouFull.length > 0 && (
             <RecipeSection
               title="Saved by You"
               emoji={'\u2764\uFE0F'}
-              recipes={savedByYou}
+              recipes={savedByYouFull}
             />
           )}
 
@@ -259,6 +371,8 @@ export function Explore() {
             </div>
           </div>
         </>
+      )}
+      </>
       )}
     </div>
   )

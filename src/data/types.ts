@@ -67,6 +67,7 @@ export interface Recipe {
   is_breadbook_original: boolean
   source_credit: string | null
   image_url?: string
+  forked_from_recipe_id?: string | null
 }
 
 export const fermentLabels: Record<FermentType, string> = {

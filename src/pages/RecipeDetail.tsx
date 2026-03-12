@@ -17,6 +17,7 @@ export function RecipeDetail() {
   const [loading, setLoading] = useState(true)
   const [bakeCount, setBakeCount] = useState<number | null>(null)
   const [avgRating, setAvgRating] = useState<number | null>(null)
+  const [sourceTitle, setSourceTitle] = useState<string | null>(null)
   const { requireAuth, modal } = useAuthGate()
 
   useEffect(() => {
@@ -36,6 +37,23 @@ export function RecipeDetail() {
         setRecipe(local || null)
       }
       setLoading(false)
+
+      // Load lineage title if this is a fork (non-blocking)
+      const loadedRecipe = (!error && data) ? (data as Recipe) : breadbookOriginals.find((r) => r.id === id)
+      if (loadedRecipe?.forked_from_recipe_id) {
+        const sourceId = loadedRecipe.forked_from_recipe_id
+        const local = breadbookOriginals.find((r) => r.id === sourceId)
+        if (local) {
+          setSourceTitle(local.title)
+        } else {
+          supabase
+            .from('recipes')
+            .select('title')
+            .eq('id', sourceId)
+            .single()
+            .then(({ data: src }) => { if (src) setSourceTitle(src.title) })
+        }
+      }
 
       // Load bake stats separately (non-blocking)
       supabase
@@ -144,6 +162,14 @@ export function RecipeDetail() {
         {recipe.source_credit && (
           <p className="text-xs text-ash-muted mt-2">Inspired by {recipe.source_credit}</p>
         )}
+        {sourceTitle && recipe.forked_from_recipe_id && (
+          <p className="text-xs text-ash-muted mt-2">
+            Based on{' '}
+            <Link to={`/recipes/${recipe.forked_from_recipe_id}`} className="text-crust hover:underline">
+              {sourceTitle}
+            </Link>
+          </p>
+        )}
       </div>
 
       {/* Ingredients */}
@@ -156,8 +182,8 @@ export function RecipeDetail() {
         <StepList steps={recipe.steps} />
       </div>
 
-      {/* Plan This Bake — secondary link */}
-      <div className="text-center mb-3">
+      {/* Secondary actions */}
+      <div className="flex items-center justify-center gap-6 mb-3">
         <button
           onClick={() => requireAuth(
             () => navigate(`/schedule/new?recipe=${recipe.id}`),
@@ -166,6 +192,16 @@ export function RecipeDetail() {
           className="text-crust text-sm font-medium hover:underline"
         >
           Plan This Bake
+        </button>
+        <button
+          onClick={() => requireAuth(
+            () => navigate(`/recipes/${recipe.id}/fork`),
+            { title: 'Make It Yours', message: 'Sign up to save your own version of this recipe — adjust amounts and make it yours.' }
+          )}
+          className="text-crust text-sm font-medium hover:underline"
+          aria-label="Customize this recipe"
+        >
+          ✏️ My Version
         </button>
       </div>
 

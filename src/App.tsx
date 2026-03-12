@@ -22,6 +22,7 @@ import { Schedule, ScheduleNew } from './pages/Schedule'
 import { Troubleshoot } from './pages/Troubleshoot'
 import { TroubleshootDetail } from './pages/TroubleshootDetail'
 import { StarterGuide } from './pages/StarterGuide'
+import { RecipeFork } from './pages/RecipeFork'
 
 export default function App() {
   return (
@@ -64,6 +65,7 @@ export default function App() {
             <Route path="/starters/:id" element={<StarterDetail />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/schedule/new" element={<ScheduleNew />} />
+            <Route path="/recipes/:id/fork" element={<RecipeFork />} />
           </Route>
 
           {/* Bake mode — full screen, no nav, hard protected */}
