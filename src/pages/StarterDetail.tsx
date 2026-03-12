@@ -94,7 +94,7 @@ export function StarterDetail() {
       setShowFeedingForm(false)
       // Reschedule reminder from the logged feed time
       if (starter && schedule) {
-        const fedAt = new Date(data.fed_at ?? Date.now()).getTime()
+        const fedAt = new Date(result.fed_at ?? Date.now()).getTime()
         const delayMs = fedAt + schedule.interval_hours * 60 * 60 * 1000 - Date.now()
         if (delayMs > 0) {
           scheduleReminder(starter.id, starter.name, delayMs, 'schedule')

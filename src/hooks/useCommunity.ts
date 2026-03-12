@@ -7,6 +7,7 @@ import type {
   BakerProfileData,
   Profile,
 } from '../data/community-types'
+import type { RecipeCategory, FermentType } from '../data/types'
 
 const FEED_PAGE_SIZE = 20
 
@@ -382,8 +383,8 @@ export function useCommunityRecipes(filters: {
       id: string
       title: string
       description: string
-      category: string
-      ferment_type: string
+      category: RecipeCategory
+      ferment_type: FermentType
       hydration_pct: number
       yield_amount: string
       tags: string[]

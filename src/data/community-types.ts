@@ -1,4 +1,5 @@
 // Community feature types for Recipe Sharing, Bake Feed, and Baker Profiles
+import type { RecipeCategory, FermentType } from './types'
 
 export interface Profile {
   id: string
@@ -65,9 +66,9 @@ export interface BakerProfileData {
   public_recipes: Array<{
     id: string
     title: string
-    category: string
+    category: RecipeCategory
     hydration_pct: number
-    ferment_type: string
+    ferment_type: FermentType
     like_count: number
   }>
   recent_posts: FeedPost[]
