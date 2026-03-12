@@ -6,6 +6,9 @@ export interface GuideDay {
   tip: string
   expectation: string
   feedingRatio: string | null // e.g., "1:1:1" — null if no feed today
+  feedingNote?: string        // plain-language gram amounts, e.g. "50g starter + 50g flour + 50g water"
+  reassurance?: string        // "don't panic" callout for tricky days (Days 3–5)
+  canBakeEarly?: boolean      // show "is it ready?" callout from this day onward
 }
 
 /**
@@ -37,9 +40,11 @@ export const starterGuide: GuideDay[] = [
     title: 'Day 3: First Feeding',
     emoji: '🍽️',
     instruction: 'Discard about half the mixture (you should have roughly 50g left). Add 50g all-purpose flour and 50g lukewarm water. Stir well. Cover loosely again.',
-    tip: 'The "discard" doesn\'t have to go in the trash. Save it in the fridge — you can use it for pancakes or crackers later.',
+    tip: 'Why discard? Removing some starter keeps the population manageable and prevents acid buildup that would make it too sour to rise. Think of it like pruning a plant — you remove to strengthen. The "discard" doesn\'t have to go in the trash either — save it in the fridge for pancakes or crackers.',
     expectation: 'You might see some bubbles and a slightly sour or yeasty smell. The mixture may look a bit puffier than yesterday. It might also smell funky — that\'s the bad bacteria getting outcompeted. Totally normal.',
     feedingRatio: '1:1:1',
+    feedingNote: '50g starter + 50g flour + 50g water',
+    reassurance: 'Nothing visible yet? That\'s completely normal. Most starters don\'t show real activity until Day 5–7. Keep going.',
   },
   {
     day: 4,
@@ -49,6 +54,8 @@ export const starterGuide: GuideDay[] = [
     tip: 'Consistency matters more than perfection. Try to feed at roughly the same time each day. Morning works well for most people.',
     expectation: 'More bubbles! The starter may start rising a bit after feeding. It might also have a strong sour or alcoholic smell. This is the "ugly phase" — it gets better.',
     feedingRatio: '1:1:1',
+    feedingNote: '50g starter + 50g flour + 50g water',
+    reassurance: 'Still not seeing much? Completely normal. The organisms need time to establish. Days 5–7 are when most starters really wake up.',
   },
   {
     day: 5,
@@ -58,6 +65,8 @@ export const starterGuide: GuideDay[] = [
     tip: 'If your starter smells really bad (like nail polish remover or vomit), don\'t panic. That\'s acetone from the bacteria. It goes away as the good organisms take over.',
     expectation: 'The starter should be showing consistent bubbles and possibly some rise (maybe 25–50% volume increase after feeding). The smell should be shifting from funky to mildly sour.',
     feedingRatio: '1:1:1',
+    feedingNote: '50g starter + 50g flour + 50g water',
+    reassurance: 'If it still looks flat and smells weird — that\'s okay. Some starters take until Day 7 or even Day 10 to show visible activity. Temperature is the biggest factor: below 70°F things move very slowly.',
   },
   {
     day: 6,
@@ -67,6 +76,7 @@ export const starterGuide: GuideDay[] = [
     tip: 'If it\'s not showing much activity yet, try moving it to a warmer spot. Temperature is the #1 factor in starter speed. Below 70°F, things move very slowly.',
     expectation: 'The rise should be more noticeable — 50% or more after feeding. Bubbles should be throughout the mixture, not just on top. It should smell pleasantly tangy.',
     feedingRatio: '1:1:1',
+    feedingNote: '50g starter + 50g flour + 50g water',
   },
   {
     day: 7,
@@ -76,6 +86,8 @@ export const starterGuide: GuideDay[] = [
     tip: 'Take a photo after feeding and again at peak rise. This helps you learn your starter\'s rhythm and gives you a reference for "what peak looks like" on your specific starter.',
     expectation: 'Your starter should be reliably rising 50–75% after feeding. It may not be doubling yet — that\'s normal for week 1. The smell should be pleasant and tangy, like yogurt.',
     feedingRatio: '1:1:1',
+    feedingNote: '50g starter + 50g flour + 50g water',
+    canBakeEarly: true,
   },
   {
     day: 8,
@@ -85,6 +97,8 @@ export const starterGuide: GuideDay[] = [
     tip: 'Log your feedings in BreadBook\'s Starter Tracker. The activity chart will show you patterns over time that are hard to spot day-to-day.',
     expectation: 'The starter should be rising predictably. At 75°F, peak should be around 4–8 hours after feeding. Cooler kitchens will be slower.',
     feedingRatio: '1:1:1',
+    feedingNote: '50g starter + 50g flour + 50g water',
+    canBakeEarly: true,
   },
   {
     day: 9,
@@ -94,6 +108,8 @@ export const starterGuide: GuideDay[] = [
     tip: 'A higher-ratio feed takes longer to peak but produces a stronger, more resilient starter. Think of it like interval training.',
     expectation: 'The starter should still rise, but it may take longer to peak (8–10 hours). If it barely rises, go back to 1:1:1 tomorrow — it needs more time to mature.',
     feedingRatio: '1:2:2',
+    feedingNote: '25g starter + 50g flour + 50g water',
+    canBakeEarly: true,
   },
   {
     day: 10,
@@ -103,15 +119,19 @@ export const starterGuide: GuideDay[] = [
     tip: 'The moment just before it starts falling is "peak." That\'s when you want to use it for baking. Learning to read this is the key skill.',
     expectation: 'You should see a clear rise-peak-fall cycle within 4–8 hours at room temperature. Lots of bubbles visible through the jar.',
     feedingRatio: '1:1:1',
+    feedingNote: '50g starter + 50g flour + 50g water',
+    canBakeEarly: true,
   },
   {
     day: 11,
     title: 'Day 11: The Float Test',
     emoji: '🫗',
-    instruction: 'Feed normally (1:1:1). When it looks like it\'s at peak, try the float test: drop a small spoonful into a glass of water. If it floats, it\'s ready to bake with.',
+    instruction: 'Feed normally (1:1:1). When it looks like it\'s at peak, try the float test: drop a small spoonful into a glass of water. If it floats, it\'s ready to bake with. An "active starter" means one that reliably doubles in size within 4–8 hours of feeding — that\'s what you\'re aiming for.',
     tip: 'The float test isn\'t 100% reliable — some healthy starters don\'t float, especially whole grain ones. But it\'s a good early indicator. Trust the rise pattern more than the float test.',
     expectation: 'If your starter doubles in 4–6 hours and passes the float test, congratulations — you could technically bake today. But a few more days of consistency will make your first bake better.',
     feedingRatio: '1:1:1',
+    feedingNote: '50g starter + 50g flour + 50g water',
+    canBakeEarly: true,
   },
   {
     day: 12,
@@ -121,6 +141,8 @@ export const starterGuide: GuideDay[] = [
     tip: 'If it\'s NOT consistently doubling yet, don\'t worry. Some starters take 2–3 weeks. Keep feeding daily. Every starter has its own timeline.',
     expectation: 'Consistent doubling within 4–8 hours. Pleasant, tangy smell. Lots of bubbles visible through the jar. Predictable rise-peak-fall cycle.',
     feedingRatio: '1:1:1',
+    feedingNote: '50g starter + 50g flour + 50g water',
+    canBakeEarly: true,
   },
   {
     day: 13,
@@ -130,6 +152,8 @@ export const starterGuide: GuideDay[] = [
     tip: 'The Classic Artisan Sourdough is a great first bake — it\'s forgiving and teaches fundamental techniques. Plan to mix tomorrow when your starter peaks.',
     expectation: 'Your starter is ready. Take a moment to feel proud — you created a living culture from just flour and water. That\'s genuinely amazing.',
     feedingRatio: '1:1:1',
+    feedingNote: '50g starter + 50g flour + 50g water',
+    canBakeEarly: true,
   },
   {
     day: 14,
@@ -139,6 +163,7 @@ export const starterGuide: GuideDay[] = [
     tip: 'Don\'t stress about perfection. Your first loaf won\'t be your best — and that\'s exactly how it should be. The whole point is to learn. Log everything in your bake journal.',
     expectation: 'You\'re a sourdough baker now. Your starter will keep getting stronger with regular feedings. Welcome to the community!',
     feedingRatio: '1:1:1',
+    feedingNote: '50g starter + 50g flour + 50g water',
   },
 ]
 

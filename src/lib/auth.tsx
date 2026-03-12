@@ -2,12 +2,16 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 import type { User, Session } from '@supabase/supabase-js'
 import { supabase } from './supabase'
 
+export type OnboardingPath = 'beginner' | 'has_kit' | 'has_starter' | 'experienced'
+
 interface AuthContextType {
   user: User | null
   session: Session | null
   loading: boolean
   hasOnboarded: boolean
   setHasOnboarded: (value: boolean) => void
+  onboardingPath: OnboardingPath | null
+  setOnboardingPath: (value: OnboardingPath) => void
   signUp: (email: string, password: string, username: string) => Promise<{ error: string | null }>
   signIn: (email: string, password: string) => Promise<{ error: string | null }>
   signOut: () => Promise<void>
@@ -20,6 +24,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
   const [hasOnboarded, setHasOnboarded] = useState(true) // default true to avoid flash
+  const [onboardingPath, setOnboardingPath] = useState<OnboardingPath | null>(null)
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -31,11 +36,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (session?.user) {
         supabase
           .from('profiles')
-          .select('has_onboarded')
+          .select('has_onboarded, onboarding_path')
           .eq('id', session.user.id)
           .single()
           .then(({ data }) => {
             setHasOnboarded(data?.has_onboarded ?? false)
+            setOnboardingPath(data?.onboarding_path ?? null)
           })
       }
     })
@@ -62,7 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, hasOnboarded, setHasOnboarded, signUp, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, session, loading, hasOnboarded, setHasOnboarded, onboardingPath, setOnboardingPath, signUp, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   )
