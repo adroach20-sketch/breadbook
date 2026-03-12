@@ -7,6 +7,7 @@ import { breadbookOriginals } from '../data/originals'
 import { supabase } from '../lib/supabase'
 import type { Recipe } from '../data/types'
 import { LikeButton } from '../features/community/LikeButton'
+import { useAuthGate } from '../hooks/useAuthGate'
 
 const fermentLabels: Record<string, string> = {
   long_ferment: 'Long Ferment',
@@ -19,6 +20,7 @@ export function RecipeDetail() {
   const navigate = useNavigate()
   const [recipe, setRecipe] = useState<Recipe | null>(null)
   const [loading, setLoading] = useState(true)
+  const { requireAuth, modal } = useAuthGate()
 
   useEffect(() => {
     async function loadRecipe() {
@@ -127,23 +129,31 @@ export function RecipeDetail() {
 
       {/* Plan This Bake — secondary link */}
       <div className="text-center mb-3">
-        <Link
-          to={`/schedule/new?recipe=${recipe.id}`}
+        <button
+          onClick={() => requireAuth(
+            () => navigate(`/schedule/new?recipe=${recipe.id}`),
+            { title: 'Plan This Bake', message: 'Sign up to plan your bake schedule — we reverse-engineer the timeline from when you want to eat.' }
+          )}
           className="text-crust text-sm font-medium hover:underline"
         >
           Plan This Bake
-        </Link>
+        </button>
       </div>
 
       {/* Start Bake CTA */}
       <div className="sticky bottom-20 md:bottom-4 z-40">
         <button
-          onClick={() => navigate(`/bake/${recipe.id}`)}
+          onClick={() => requireAuth(
+            () => navigate(`/bake/${recipe.id}`),
+            { title: 'Start Baking', message: 'Sign up to use Guided Bake Mode — step-by-step instructions, timers, and in-bake logging.' }
+          )}
           className="w-full bg-crust text-steam py-3.5 rounded-xl font-heading font-semibold text-lg hover:bg-crust-dark transition-colors shadow-lg"
         >
           Start Bake
         </button>
       </div>
+
+      {modal}
     </div>
   )
 }

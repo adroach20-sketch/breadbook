@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
 
 export function Login() {
@@ -9,6 +9,10 @@ export function Login() {
   const [loading, setLoading] = useState(false)
   const { signIn } = useAuth()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const rawRedirect = searchParams.get('redirectTo') || '/'
+  // Guard against open redirect — only allow relative paths
+  const redirectTo = rawRedirect.startsWith('/') && !rawRedirect.startsWith('//') ? rawRedirect : '/'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -25,7 +29,7 @@ export function Login() {
         setError(error)
       }
     } else {
-      navigate('/')
+      navigate(redirectTo)
     }
   }
 
@@ -82,8 +86,17 @@ export function Login() {
 
         <p className="text-center text-sm text-ash mt-4">
           New to BreadBook?{' '}
-          <Link to="/signup" className="text-crust font-medium hover:underline">
+          <Link
+            to={`/signup${redirectTo !== '/' ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`}
+            className="text-crust font-medium hover:underline"
+          >
             Create an account
+          </Link>
+        </p>
+
+        <p className="text-center mt-3">
+          <Link to="/recipes" className="text-sm text-ash-muted hover:text-ash transition-colors">
+            ← Browse recipes without an account
           </Link>
         </p>
       </div>

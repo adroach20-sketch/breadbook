@@ -33,7 +33,19 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
 
-          {/* Protected routes with layout */}
+          {/* Open routes — no auth required, soft gates on write actions */}
+          <Route element={<Layout />}>
+            <Route path="/recipes" element={<Explore />} />
+            <Route path="/explore" element={<Navigate to="/recipes" replace />} />
+            <Route path="/recipes/:id" element={<RecipeDetail />} />
+            <Route path="/community" element={<Feed />} />
+            <Route path="/community/recipes" element={<CommunityRecipes />} />
+            <Route path="/@:username" element={<BakerProfile />} />
+            <Route path="/troubleshoot" element={<Troubleshoot />} />
+            <Route path="/troubleshoot/:symptomId" element={<TroubleshootDetail />} />
+          </Route>
+
+          {/* Protected routes — hard redirect to login */}
           <Route
             element={
               <ProtectedRoute>
@@ -42,27 +54,19 @@ export default function App() {
             }
           >
             <Route path="/" element={<Home />} />
-            <Route path="/recipes" element={<Explore />} />
-            <Route path="/explore" element={<Navigate to="/recipes" replace />} />
-            <Route path="/recipes/:id" element={<RecipeDetail />} />
             <Route path="/journal" element={<JournalList />} />
             <Route path="/journal/new" element={<JournalForm />} />
             <Route path="/journal/:id" element={<JournalDetail />} />
             <Route path="/journal/:id/edit" element={<JournalForm />} />
-            <Route path="/community" element={<Feed />} />
-            <Route path="/community/recipes" element={<CommunityRecipes />} />
-            <Route path="/@:username" element={<BakerProfile />} />
             <Route path="/profile/edit" element={<ProfileEdit />} />
             <Route path="/starters" element={<StarterDashboard />} />
             <Route path="/starters/guide" element={<StarterGuide />} />
             <Route path="/starters/:id" element={<StarterDetail />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/schedule/new" element={<ScheduleNew />} />
-            <Route path="/troubleshoot" element={<Troubleshoot />} />
-            <Route path="/troubleshoot/:symptomId" element={<TroubleshootDetail />} />
           </Route>
 
-          {/* Bake mode — full screen, no nav (but still protected) */}
+          {/* Bake mode — full screen, no nav, hard protected */}
           <Route
             path="/bake/:id"
             element={
@@ -72,8 +76,8 @@ export default function App() {
             }
           />
 
-          {/* Catch-all */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* Catch-all — send guests to recipes, not the auth-gated home */}
+          <Route path="*" element={<Navigate to="/recipes" replace />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

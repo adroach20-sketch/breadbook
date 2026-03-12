@@ -1,5 +1,6 @@
 import { useAuth } from '../lib/auth'
 import { useFavorites } from '../store/favorites'
+import { useAuthGate } from '../hooks/useAuthGate'
 
 interface FavoriteButtonProps {
   recipeId: string
@@ -30,6 +31,7 @@ function HeartFilled({ className }: { className?: string }) {
 export function FavoriteButton({ recipeId, size = 'sm', showCount = false }: FavoriteButtonProps) {
   const { user } = useAuth()
   const { isFavorited, toggleFavorite, getSaveCount } = useFavorites()
+  const { requireAuth, modal } = useAuthGate()
 
   const saved = isFavorited(recipeId)
   const count = getSaveCount(recipeId)
@@ -37,29 +39,31 @@ export function FavoriteButton({ recipeId, size = 'sm', showCount = false }: Fav
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    if (!user) return
-    toggleFavorite(user.id, recipeId)
+    requireAuth(
+      () => toggleFavorite(user!.id, recipeId),
+      { title: 'Save Your Favorites', message: 'Sign up to save recipes and build your personal collection.' }
+    )
   }
 
   const iconSize = size === 'md' ? 'w-6 h-6' : 'w-4 h-4'
   const buttonSize = size === 'md' ? 'w-10 h-10' : 'w-8 h-8'
 
   return (
-    <button
-      onClick={handleClick}
-      className={`${buttonSize} flex items-center justify-center rounded-full transition-all duration-200 ${
-        saved
-          ? 'text-red-500'
-          : 'text-ash/40 hover:text-ash-muted'
-      } ${!user ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer active:scale-125'}`}
-      aria-label={saved ? 'Remove from favorites' : 'Add to favorites'}
-      title={saved ? 'Remove from favorites' : 'Save to favorites'}
-      disabled={!user}
-    >
-      {saved ? <HeartFilled className={iconSize} /> : <HeartOutline className={iconSize} />}
-      {showCount && count > 0 && (
-        <span className="text-xs text-ash ml-0.5">{count}</span>
-      )}
-    </button>
+    <>
+      <button
+        onClick={handleClick}
+        className={`${buttonSize} flex items-center justify-center rounded-full transition-all duration-200 cursor-pointer active:scale-125 ${
+          saved ? 'text-red-500' : 'text-ash/40 hover:text-ash-muted'
+        }`}
+        aria-label={saved ? 'Remove from favorites' : 'Add to favorites'}
+        title={saved ? 'Remove from favorites' : 'Save to favorites'}
+      >
+        {saved ? <HeartFilled className={iconSize} /> : <HeartOutline className={iconSize} />}
+        {showCount && count > 0 && (
+          <span className="text-xs text-ash ml-0.5">{count}</span>
+        )}
+      </button>
+      {modal}
+    </>
   )
 }
