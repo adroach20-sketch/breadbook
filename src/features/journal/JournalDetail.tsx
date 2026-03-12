@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ShareToFeedModal } from '../community/ShareToFeedModal'
+import { ShareCardModal } from '../../components/ShareCardModal'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 import { StarRating } from './StarRating'
@@ -13,6 +14,7 @@ export function JournalDetail() {
   const [deleting, setDeleting] = useState(false)
   const [showShareModal, setShowShareModal] = useState(false)
   const [isShared, setIsShared] = useState(false)
+  const [showShareCard, setShowShareCard] = useState(false)
 
   useEffect(() => {
     async function fetchLog() {
@@ -159,6 +161,23 @@ export function JournalDetail() {
           onShared={() => { setShowShareModal(false); setIsShared(true) }}
         />
       )}
+
+      {showShareCard && (
+        <ShareCardModal
+          recipeTitle={log.recipes?.title || 'My Bake'}
+          rating={log.rating}
+          date={date}
+          onClose={() => setShowShareCard(false)}
+        />
+      )}
+
+      {/* Share card */}
+      <button
+        onClick={() => setShowShareCard(true)}
+        className="mt-4 w-full text-center border border-dough text-ash py-3 rounded-xl font-medium hover:bg-dough/30 transition-colors text-sm"
+      >
+        <span aria-hidden="true">🖼 </span>Create Share Card
+      </button>
 
       {/* Actions */}
       <div className="mt-4 flex gap-3">

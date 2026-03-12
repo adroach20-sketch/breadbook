@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { ShareCardModal } from '../../components/ShareCardModal'
 
 interface BakeCompleteProps {
   recipeTitle: string
@@ -8,6 +10,8 @@ interface BakeCompleteProps {
 }
 
 export function BakeComplete({ recipeTitle, recipeId, sessionId, isFirstBake }: BakeCompleteProps) {
+  const [showShareCard, setShowShareCard] = useState(false)
+
   return (
     <div className="min-h-screen bg-crumb flex items-center justify-center px-6">
       <div className="text-center max-w-sm">
@@ -58,8 +62,24 @@ export function BakeComplete({ recipeTitle, recipeId, sessionId, isFirstBake }: 
               Something didn't look right? Troubleshoot
             </Link>
           )}
+
+          {/* Share card — no rating/date here since the journal entry hasn't been logged yet */}
+          <button
+            onClick={() => setShowShareCard(true)}
+            className="block w-full text-ash-muted text-sm hover:text-ash transition-colors"
+          >
+            <span aria-hidden="true">🖼 </span>Share this bake
+          </button>
         </div>
       </div>
+
+      {showShareCard && (
+        <ShareCardModal
+          recipeTitle={recipeTitle}
+          isFirstBake={isFirstBake}
+          onClose={() => setShowShareCard(false)}
+        />
+      )}
     </div>
   )
 }
