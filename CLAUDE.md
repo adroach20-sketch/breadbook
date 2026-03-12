@@ -47,7 +47,7 @@ Live at **breadbook.app** and **breadbook.onrender.com**. See `ROADMAP.md` for t
 
 ### What's Built (v0.3 — "The Front Door") — COMPLETE
 - Project scaffold, Tailwind v4, routing, auth, onboarding (3-step welcome flow)
-- 19 BreadBook Originals seeded
+- 27 BreadBook Originals seeded (with Unsplash photos)
 - Recipe list + detail + baker's % toggle + favorites + explorer (search + filters)
 - Guided Bake Mode with useBakeSession hook (timers, notifications, wake lock, session persistence)
 - Bake Journal (star rating, notes, photos, edit/delete)
@@ -71,16 +71,16 @@ Live at **breadbook.app** and **breadbook.onrender.com**. See `ROADMAP.md` for t
 ### What's Built (v0.4 — "Make It Yours") — IN PROGRESS
 - **v0.4:** Guest access + auth gate — open-tier routing, ghost nav with contextual modals, redirectTo intent preservation, open redirect hardened
 - **v0.4:** Shareable bake result card (ShareCard + ShareCardModal, html2canvas PNG, available from BakeComplete + JournalDetail)
+- **v0.4:** Recipe photography — `image_url` column (migration 011), Unsplash photos on all 27 originals, hero image on RecipeCard (h-44) + RecipeDetail (aspect-video). Seed script now upserts.
+- **v0.4:** 8 new Originals — 27 total. Waffles, Chocolate Chip Cookies, Brioche, Dinner Rolls, Blueberry Muffins, English Muffins, Pita Bread, Cardamom Buns.
 
 ### What's Next (v0.4 — continued, priority order)
 Fast wins:
-1. Recipe photography — `image_url` on recipes table, 19+ bread photos, render on cards + detail hero
-2. Bake session → journal pre-fill — read `bake_event_logs` by session_id at JournalForm load, pre-populate room temp + observations
-3. Starter-aware Explore suggestion — replace "Coming soon" stub with real conditional (activity level already calculated)
+1. Bake session → journal pre-fill — read `bake_event_logs` by session_id at JournalForm load, pre-populate room temp + observations
+2. Starter-aware Explore suggestion — replace "Coming soon" stub with real conditional (activity level already calculated)
 
-Content + flow fixes:
-4. 8–10 new Originals batch (same-day discard + enriched, target 27–29 total)
-5. Recipe social proof (bake count + avg rating on detail page)
+Flow fixes:
+3. Recipe social proof (bake count + avg rating on detail page)
 6. Starter guide Day 13 → first bake CTA deep-link
 7. Troubleshooter → journal link (append diagnosis to what_to_change)
 
@@ -96,7 +96,7 @@ Personalization:
 - See `plans/monetization-strategy.md` and `plans/mobile-app-capacitor.md` for full details.
 
 ## Database
-Tables in `supabase/migrations/`: profiles, recipes, bake_sessions (001), bake_logs (002), bake_event_logs (003), starters, starter_logs, starter_schedules, bake_schedules, recipe_likes, recipe_saves.
+Tables in `supabase/migrations/`: profiles, recipes, bake_sessions (001), bake_logs (002), bake_event_logs (003), starters, starter_logs, starter_schedules, bake_schedules, recipe_likes, recipe_saves. Migration 011: `image_url text` on recipes.
 Storage bucket: `breadbook-photos` (public read, authenticated upload).
 Supabase MCP server configured in `~/.claude.json` — can run SQL directly against the project.
 
