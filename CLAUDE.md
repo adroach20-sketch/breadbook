@@ -45,7 +45,7 @@ A sourdough lifestyle app. Users browse curated recipes (BreadBook Originals), f
 ## Current Status
 Live at **breadbook.app** and **breadbook.onrender.com**. See `ROADMAP.md` for the full build plan.
 
-### What's Built (v0.2.1)
+### What's Built (v0.3 — "The Front Door") — COMPLETE
 - Project scaffold, Tailwind v4, routing, auth, onboarding (3-step welcome flow)
 - 19 BreadBook Originals seeded
 - Recipe list + detail + baker's % toggle + favorites + explorer (search + filters)
@@ -59,16 +59,24 @@ Live at **breadbook.app** and **breadbook.onrender.com**. See `ROADMAP.md` for t
 - Smart Schedule Planner v2 (reverse timeline, ratio-aware feeding, quiet hours, linked to Bake Mode)
 - Community MVP (bake feed, photo sharing, comments, baker profiles, community recipes)
 - ErrorBoundary, Timer aria-live, security fixes (RLS verified, views + functions patched)
+- **v0.3:** Cross-feature nav (bake→journal, journal→recipe, schedule→bake)
+- **v0.3:** Home dashboard smart slot (resume bake, log bake, starter needs feeding, guide progress)
+- **v0.3:** Simple Loaf Troubleshooter (searchable symptom KB, 20+ symptoms)
+- **v0.3:** Start Your Starter — 14-day guided path (`/starters/guide`)
+- **v0.3:** Starter feeding reminders wired (`useStarterReminderSync`, reschedules on feed/save)
+- **v0.3:** Baking stats on profile (streak, avg rating, favorite recipe)
+- **v0.3:** Stop Bake (abandon session, clears localStorage + Supabase)
+- **v0.3:** Starters added to nav; mobile nav icons-only (6 items, all screen sizes)
 
-### What's Next (v0.3 — "The Front Door")
-1. Connect existing flows (bake→journal prompt, starter→schedule, journal→recipe)
-2. "First Bake" guided path (beginner activation loop)
-3. Starter feeding plans (repeating schedules + reminders)
-4. Simple Loaf Troubleshooter (searchable symptom KB)
-5. Basic baking stats on profile
+### What's Next (v0.4 — "Make It Yours")
+1. Recipe Fork & Customize
+2. Shareable bake results (photo share card for Instagram/link sharing)
+3. Interactive Loaf Troubleshooter (decision-tree diagnostic)
+4. Full filter panel + Explore tab editorial sections
+5. Baking dashboard / analytics (history timeline, improvement trends)
 6. DB migrations (expand profiles + recipes tables)
 7. Capacitor shell (native iOS + Android with timer notifications)
-8. 10+ new Originals (target 25-30 total)
+8. 5-8 more Originals (target 30+)
 
 ### Product Strategy
 - **App is 100% free.** No paywalls, no IAP, no premium tiers.

@@ -360,17 +360,20 @@ Revised after full team debate (roadmap team, monetization team, baker interview
 - ~~Dark mode (WCAG AA)~~
 - ~~Deploy to Render + custom domain (breadbook.app)~~
 
-### v0.3 — "The Front Door"
-Goal: Convert signups into active bakers. Make the first session magical. Ship native app.
+### ~~v0.3 — "The Front Door"~~ — SHIPPED 2026-03-11
+Goal: Convert signups into active bakers. Make the first session magical.
 
-1. Connect existing flows (bake complete → journal prompt, starter status in schedule, journal → recipe link, schedule → bake mode)
-2. "First Bake" guided path (beginner recipe → schedule → bake → journal → celebration)
-3. Starter feeding plans (repeating schedules + reminders) — daily retention hook
-4. Simple Loaf Troubleshooter (searchable symptom KB, linked from bad journal ratings)
-5. Basic baking stats on profile (loaves baked, favorite recipe, streak)
-6. DB migrations (expand profiles + recipes tables for v0.4 features)
-7. **Capacitor shell** — wrap app as native iOS + Android, native timer notifications (see `plans/mobile-app-capacitor.md`)
-8. **Parallel:** 10+ new Originals (target 25-30 total — flatbreads, enriched, discard)
+- ✅ Connect existing flows (bake→journal, journal→recipe, schedule→bake, starter→guide)
+- ✅ Home dashboard smart slot (resume bake, log bake, starter needs feeding, guide progress)
+- ✅ Start Your Starter — 14-day guided path for beginners (`/starters/guide`)
+- ✅ Starter feeding reminders wired (`useStarterReminderSync` + reschedule on feed/save)
+- ✅ Simple Loaf Troubleshooter (searchable symptom KB, 20+ symptoms)
+- ✅ Baking stats on profile (streak, avg rating, favorite recipe)
+- ✅ Stop Bake flow (abandon session cleanly)
+- ✅ Starters added to nav; mobile nav icons-only
+- ⏭ DB migrations — deferred to v0.4 (no blocking need yet)
+- ⏭ Capacitor shell — deferred to v0.4 (no blocker, just not started)
+- ⏭ 10+ new Originals — deferred to v0.4
 
 ### v0.4 — "Make It Yours"
 Goal: Let bakers personalize. Deepen engagement.
@@ -423,4 +426,5 @@ Build order depends on user data and growth trajectory.
 | 2026-03-10 | Schedule Planner v2: smarter feeding + quiet hours | Baker interviews → simplified starter status to 3 options, added ratio-aware feed timing with temp adjustment, quiet hours enforcement (extends passive steps), feed step active/passive split for overnight compatibility. Fixed nested button a11y issue, added starter_feed Academy card. See `plans/schedule-planner-v2.md`. |
 | 2026-03-10 | v0.2.1: Full team review + stability pass | 5-expert team review (Engineer, UX, Baker, Security, A11y). Fixed: SECURITY DEFINER view, search_path vuln, added ErrorBoundary, Timer aria-live. Added: 8 new sourdough loaf recipes (19 total), Schedule→Bake link, onboarding flow, useBakeSession hook extraction. Supabase MCP connected for direct DB operations. |
 | 2026-03-10 | Monetization strategy: free app + brand partnerships | Full team debate (roadmap, monetization, baker interviews). Decision: app is 100% free, no paywalls, no IAP. Revenue from brand partnerships/affiliate, optional Baker's Circle ($5/yr voluntary support), and creator tip jar (15% cut). React Native cut. Roadmap reordered: onboarding/retention before new features, community frozen until 50+ MAU. See `plans/monetization-strategy.md`. |
-| 2026-03-10 | Mobile strategy: Capacitor (not RN, not PWA-only) | PWA timers unreliable when backgrounded on iOS. React Native = full rewrite. Capacitor wraps existing React app with ~95% code reuse, adds native local notifications (timers), push notifications (feeding reminders), and App Store/Play Store presence. Phase 1 (shell + timer notifications) targets v0.3. Push notifications + store submission targets v1.0. See `plans/mobile-app-capacitor.md`. |
+| 2026-03-10 | Mobile strategy: Capacitor (not RN, not PWA-only) | PWA timers unreliable when backgrounded on iOS. React Native = full rewrite. Capacitor wraps existing React app with ~95% code reuse, adds native local notifications (timers), push notifications (feeding reminders), and App Store/Play Store presence. Phase 1 (shell + timer notifications) targets v0.4. Push notifications + store submission targets v1.0. See `plans/mobile-app-capacitor.md`. |
+| 2026-03-11 | v0.3 feature batch shipped | A1–A6 + fixes: cross-feature nav, home dashboard slot, 14-day starter guide, feeding reminders wired (useStarterReminderSync), troubleshooter, profile stats, stop-bake flow, Starters in nav, mobile nav icons-only. DB migrations + Capacitor + new Originals deferred to v0.4. |
