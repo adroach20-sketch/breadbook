@@ -136,23 +136,7 @@ export function useHomeDashboard() {
         }
       }
 
-      // Priority 3: Starter setup nudge — has_starter user who hasn't logged a single feed yet
-      if (onboardingPath === 'has_starter' && starters.length > 0) {
-        const starter = starters[0]
-        const { data: anyLog } = await supabase
-          .from('starter_logs')
-          .select('id')
-          .eq('starter_id', starter.id)
-          .limit(1)
-
-        if (!anyLog?.length) {
-          setCard({ type: 'starter_setup_nudge', starterName: starter.name, starterId: starter.id })
-          setLoading(false)
-          return
-        }
-      }
-
-      // Priority 4: Starter needs feeding
+      // Priority 3+4: Single query serves both nudge check and feeding status
       if (starters.length > 0) {
         const starter = starters[0]
         const { data: logs, error: logsError } = await supabase
@@ -166,6 +150,15 @@ export function useHomeDashboard() {
           console.warn('Dashboard: failed to fetch starter logs', logsError.message)
         }
 
+        // Priority 3: no logs yet — show setup nudge for has_starter users
+        if (onboardingPath === 'has_starter' && !logs?.length) {
+          setCard({ type: 'starter_setup_nudge', starterName: starter.name, starterId: starter.id })
+          resolvedRef.current = true
+          setLoading(false)
+          return
+        }
+
+        // Priority 4: check feeding health
         const lastLog = logs?.[0] || null
         const activity = getActivityLevel(lastLog)
         const health = getHealthStatus(lastLog, null)

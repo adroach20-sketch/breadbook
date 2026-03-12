@@ -14,6 +14,12 @@ interface WelcomeFlowProps {
 // Steps: 1=routing, 2=expectation (beginner/kit only), 3=name starter, 5=last fed (has_starter only), 4=pick recipe
 type Step = 1 | 2 | 3 | 4 | 5
 
+const LAST_FED_OPTIONS = [
+  { label: 'Earlier today',  hoursAgo: 2  },
+  { label: 'Yesterday',      hoursAgo: 26 },
+  { label: '2–3 days ago',   hoursAgo: 60 },
+]
+
 const PATH_OPTIONS: { value: OnboardingPath; emoji: string; label: string; sub: string }[] = [
   { value: 'beginner',     emoji: '🌱', label: "I'm brand new",          sub: "Never made a sourdough starter" },
   { value: 'has_kit',      emoji: '📦', label: 'I have a starter kit',   sub: "Got a kit or dried starter" },
@@ -77,12 +83,6 @@ export function WelcomeFlow({ onComplete }: WelcomeFlowProps) {
       setStep(4)
     }
   }
-
-  const LAST_FED_OPTIONS = [
-    { label: 'Earlier today',  hoursAgo: 2  },
-    { label: 'Yesterday',      hoursAgo: 26 },
-    { label: '2–3 days ago',   hoursAgo: 60 },
-  ]
 
   const handleLastFed = async (hoursAgo: number | null) => {
     if (hoursAgo !== null && createdStarterId && user) {

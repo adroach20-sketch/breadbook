@@ -38,7 +38,7 @@ function StarterSetupNudge({ card, onRefresh }: { card: DashboardCard; onRefresh
     <div className="bg-wheat/10 border border-wheat/30 rounded-xl p-4">
       <div className="flex items-start justify-between mb-3">
         <div>
-          <p className="text-sm font-medium text-char">When did you last feed {card?.starterName}?</p>
+          <p className="text-sm font-medium text-char">When did you last feed {card.starterName}?</p>
           <p className="text-xs text-ash mt-0.5">So we know when to remind you next.</p>
         </div>
         <span className="text-2xl ml-2">🫙</span>
