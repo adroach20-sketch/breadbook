@@ -20,6 +20,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['beginner', 'classic', 'overnight', 'simple'],
     is_breadbook_original: false,
     source_credit: 'Alexandra Stafford / alexandracooks.com',
+    image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'as-1', name: 'Bubbly Active Starter', amount: 100, unit: 'g', bakers_pct: 20 },
       { id: 'as-2', name: 'Warm Water', amount: 375, unit: 'g', bakers_pct: 75 },
@@ -115,6 +116,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['beginner', 'classic', 'crusty'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'ccl-1', name: 'Bread Flour', amount: 450, unit: 'g', bakers_pct: 90 },
       { id: 'ccl-2', name: 'Whole Wheat Flour', amount: 50, unit: 'g', bakers_pct: 10 },
@@ -216,6 +218,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['whole wheat', 'hearty', 'intermediate'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'wws-1', name: 'Bread Flour', amount: 250, unit: 'g', bakers_pct: 50 },
       { id: 'wws-2', name: 'Whole Wheat Flour', amount: 250, unit: 'g', bakers_pct: 50 },
@@ -313,6 +316,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['beginner', 'crowd pleaser', 'olive oil'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1571748982800-fa51082c2224?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'rf-1', name: 'Bread Flour', amount: 500, unit: 'g', bakers_pct: 100 },
       { id: 'rf-2', name: 'Water', amount: 400, unit: 'g', bakers_pct: 80 },
@@ -401,6 +405,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['pizza night', 'overnight', 'family favorite'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'spd-1', name: 'Bread Flour', amount: 500, unit: 'g', bakers_pct: 100 },
       { id: 'spd-2', name: 'Water', amount: 340, unit: 'g', bakers_pct: 68 },
@@ -467,6 +472,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['discard', 'quick', 'breakfast', 'beginner', 'gateway'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'sp-1', name: 'Sourdough Discard', amount: 200, unit: 'g', bakers_pct: 0 },
       { id: 'sp-2', name: 'All-Purpose Flour', amount: 100, unit: 'g', bakers_pct: 100 },
@@ -522,6 +528,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['discard', 'snack', 'quick', 'customizable'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'sc-1', name: 'Sourdough Discard', amount: 200, unit: 'g', bakers_pct: 0 },
       { id: 'sc-2', name: 'Olive Oil', amount: 30, unit: 'ml', bakers_pct: 0 },
@@ -577,6 +584,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['discard', 'quick bread', 'sweet', 'beginner'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'sbb-1', name: 'Ripe Bananas', amount: 3, unit: 'large', bakers_pct: 0 },
       { id: 'sbb-2', name: 'Sourdough Discard', amount: 120, unit: 'g', bakers_pct: 0 },
@@ -633,6 +641,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['discard', 'flatbread', 'quick', 'family favorite'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'st-1', name: 'Sourdough Discard', amount: 150, unit: 'g', bakers_pct: 0 },
       { id: 'st-2', name: 'All-Purpose Flour', amount: 200, unit: 'g', bakers_pct: 100 },
@@ -679,6 +688,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['enriched', 'weekend project', 'sweet', 'impressive'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1546549037-ebe0a0c4c12e?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'scr-1', name: 'All-Purpose Flour', amount: 500, unit: 'g', bakers_pct: 100 },
       { id: 'scr-2', name: 'Whole Milk (warm)', amount: 180, unit: 'ml', bakers_pct: 36 },
@@ -760,6 +770,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['bagels', 'overnight', 'boiled', 'intermediate'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1622711310823-b20d57d7bed3?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'sb-1', name: 'Bread Flour', amount: 500, unit: 'g', bakers_pct: 100 },
       { id: 'sb-2', name: 'Water', amount: 290, unit: 'g', bakers_pct: 58 },
@@ -828,6 +839,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['advanced', 'open crumb', 'high hydration', 'crusty'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'hhoc-1', name: 'Bread Flour', amount: 450, unit: 'g', bakers_pct: 90 },
       { id: 'hhoc-2', name: 'Whole Wheat Flour', amount: 50, unit: 'g', bakers_pct: 10 },
@@ -919,6 +931,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['intermediate', 'rye', 'flavorful', 'hearty'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1598373182133-52452f7691ef?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'rc-1', name: 'Bread Flour', amount: 350, unit: 'g', bakers_pct: 70 },
       { id: 'rc-2', name: 'Dark Rye Flour', amount: 150, unit: 'g', bakers_pct: 30 },
@@ -1011,6 +1024,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['intermediate', 'seeds', 'crusty', 'nutritious'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1583835746434-cf1534674b41?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'sc-1', name: 'Bread Flour', amount: 425, unit: 'g', bakers_pct: 85 },
       { id: 'sc-2', name: 'Whole Wheat Flour', amount: 75, unit: 'g', bakers_pct: 15 },
@@ -1115,6 +1129,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['intermediate', 'spelt', 'nutty', 'ancient grain'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'ws-1', name: 'Bread Flour', amount: 250, unit: 'g', bakers_pct: 50 },
       { id: 'ws-2', name: 'Whole Spelt Flour', amount: 250, unit: 'g', bakers_pct: 50 },
@@ -1202,6 +1217,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['beginner', 'sandwich', 'everyday', 'soft crust', 'contains dairy'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1596097635121-14b63b7a0c19?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'sl-1', name: 'Bread Flour', amount: 500, unit: 'g', bakers_pct: 100 },
       { id: 'sl-2', name: 'Whole Milk', amount: 340, unit: 'g', bakers_pct: 68 },
@@ -1279,6 +1295,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['advanced', 'croissant', 'flaky', 'enriched', 'contains dairy', 'contains egg', '2-day'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc7c?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'cl-1', name: 'Bread Flour', amount: 500, unit: 'g', bakers_pct: 100 },
       { id: 'cl-2', name: 'Whole Milk', amount: 325, unit: 'g', bakers_pct: 65 },
@@ -1367,6 +1384,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['intermediate', 'cinnamon', 'sweet', 'enriched', 'contains dairy'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1614838832645-a01db55f8ccb?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'cs-1', name: 'Bread Flour', amount: 500, unit: 'g', bakers_pct: 100 },
       { id: 'cs-2', name: 'Whole Milk', amount: 340, unit: 'g', bakers_pct: 68 },
@@ -1452,6 +1470,7 @@ export const breadbookOriginals: Recipe[] = [
     tags: ['intermediate', 'savory', 'cheese', 'spicy', 'contains dairy'],
     is_breadbook_original: true,
     source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&q=80&auto=format&fit=crop',
     ingredients: [
       { id: 'jc-1', name: 'Bread Flour', amount: 425, unit: 'g', bakers_pct: 85 },
       { id: 'jc-2', name: 'Whole Wheat Flour', amount: 75, unit: 'g', bakers_pct: 15 },
@@ -1526,6 +1545,534 @@ export const breadbookOriginals: Recipe[] = [
         id: 'jc-s13', order: 13, type: 'cool', title: 'Cool',
         instruction: 'Cool on a wire rack for at least 1 hour. The cheese inside is molten right out of the oven and needs time to set. When you slice it, you\'ll see melty cheddar pockets and flecks of green jalapeño throughout. This bread with a bowl of soup? Unbeatable.',
         timer_minutes: 60, timer_label: 'Cooling', is_optional: false, academy_key: 'cool',
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────
+  // 20. Sourdough Waffles
+  // ─────────────────────────────────────
+  {
+    id: 'bb-sourdough-waffles',
+    title: 'Sourdough Waffles',
+    description:
+      'Crispy on the outside, tender and fluffy inside. The overnight rest develops a light tang that makes these waffles taste like they came from a good brunch spot. Use your discard — no active starter needed.',
+    category: 'pancakes_waffles',
+    ferment_type: 'same_day_discard',
+    hydration_pct: 100,
+    yield_amount: '6–8 waffles',
+    tags: ['discard', 'quick', 'breakfast', 'beginner', 'crispy'],
+    is_breadbook_original: true,
+    source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1562376552-0d160a2f238d?w=800&q=80&auto=format&fit=crop',
+    ingredients: [
+      { id: 'sw-1', name: 'Sourdough Discard', amount: 240, unit: 'g', bakers_pct: 0 },
+      { id: 'sw-2', name: 'All-Purpose Flour', amount: 120, unit: 'g', bakers_pct: 100 },
+      { id: 'sw-3', name: 'Milk', amount: 120, unit: 'ml', bakers_pct: 0 },
+      { id: 'sw-4', name: 'Egg', amount: 2, unit: 'large', bakers_pct: 0 },
+      { id: 'sw-5', name: 'Butter (melted)', amount: 60, unit: 'g', bakers_pct: 50 },
+      { id: 'sw-6', name: 'Sugar', amount: 15, unit: 'g', bakers_pct: 12.5 },
+      { id: 'sw-7', name: 'Baking Powder', amount: 5, unit: 'g', bakers_pct: 0 },
+      { id: 'sw-8', name: 'Baking Soda', amount: 2, unit: 'g', bakers_pct: 0 },
+      { id: 'sw-9', name: 'Salt', amount: 3, unit: 'g', bakers_pct: 2.5 },
+      { id: 'sw-10', name: 'Vanilla Extract', amount: 5, unit: 'ml', bakers_pct: 0 },
+    ],
+    steps: [
+      {
+        id: 'sw-s1', order: 1, type: 'mix', title: 'Mix Wet Ingredients',
+        instruction: 'In a large bowl, whisk together 240g sourdough discard, 2 eggs, 120ml milk, 60g melted butter, 15g sugar, and 5ml vanilla extract until smooth.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sw-1', 'sw-3', 'sw-4', 'sw-5', 'sw-6', 'sw-10'],
+      },
+      {
+        id: 'sw-s2', order: 2, type: 'mix', title: 'Add Dry Ingredients',
+        instruction: 'Add 120g flour, 5g baking powder, 2g baking soda, and 3g salt. Stir gently until just combined — a few small lumps are OK. Do not overmix.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sw-2', 'sw-7', 'sw-8', 'sw-9'],
+      },
+      {
+        id: 'sw-s3', order: 3, type: 'custom', title: 'Preheat Waffle Iron',
+        instruction: 'Preheat your waffle iron to medium-high. Brush lightly with butter or non-stick spray.',
+        timer_minutes: 3, timer_label: 'Preheat', is_optional: false, academy_key: null,
+      },
+      {
+        id: 'sw-s4', order: 4, type: 'bake', title: 'Cook Waffles',
+        instruction: 'Pour enough batter to fill your waffle iron (about ¾ cup for most irons). Close and cook until the steam slows and the waffle is deep golden brown and crisp. Do not open early — the waffle is still steaming through.',
+        timer_minutes: 5, timer_label: 'Per waffle', is_optional: false, academy_key: null,
+      },
+      {
+        id: 'sw-s5', order: 5, type: 'custom', title: 'Keep Warm & Serve',
+        instruction: 'Place cooked waffles directly on an oven rack at 200°F (90°C) to stay crispy while you cook the rest. Serve with maple syrup, fresh berries, or whipped cream.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────
+  // 21. Sourdough Chocolate Chip Cookies
+  // ─────────────────────────────────────
+  {
+    id: 'bb-sourdough-chocolate-chip-cookies',
+    title: 'Sourdough Chocolate Chip Cookies',
+    description:
+      'Thick, chewy, bakery-style cookies with crisp edges and gooey centers. The sourdough discard adds a subtle complexity that makes people ask "what\'s your secret?" Easy to make, impossible to stop eating.',
+    category: 'other_discard',
+    ferment_type: 'same_day_discard',
+    hydration_pct: 0,
+    yield_amount: '16–18 cookies',
+    tags: ['discard', 'sweet', 'crowd pleaser', 'beginner', 'cookies'],
+    is_breadbook_original: true,
+    source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80&auto=format&fit=crop',
+    ingredients: [
+      { id: 'scc-1', name: 'Butter (softened)', amount: 170, unit: 'g', bakers_pct: 0 },
+      { id: 'scc-2', name: 'Brown Sugar', amount: 150, unit: 'g', bakers_pct: 0 },
+      { id: 'scc-3', name: 'Granulated Sugar', amount: 50, unit: 'g', bakers_pct: 0 },
+      { id: 'scc-4', name: 'Sourdough Discard', amount: 100, unit: 'g', bakers_pct: 0 },
+      { id: 'scc-5', name: 'Egg', amount: 1, unit: 'large', bakers_pct: 0 },
+      { id: 'scc-6', name: 'Vanilla Extract', amount: 8, unit: 'ml', bakers_pct: 0 },
+      { id: 'scc-7', name: 'All-Purpose Flour', amount: 240, unit: 'g', bakers_pct: 100 },
+      { id: 'scc-8', name: 'Baking Soda', amount: 4, unit: 'g', bakers_pct: 0 },
+      { id: 'scc-9', name: 'Salt', amount: 5, unit: 'g', bakers_pct: 0 },
+      { id: 'scc-10', name: 'Chocolate Chips', amount: 200, unit: 'g', bakers_pct: 0 },
+    ],
+    steps: [
+      {
+        id: 'scc-s1', order: 1, type: 'preheat', title: 'Preheat Oven',
+        instruction: 'Preheat oven to 375°F (190°C). Line two baking sheets with parchment paper.',
+        timer_minutes: 10, timer_label: 'Preheat', is_optional: false, academy_key: 'preheat',
+      },
+      {
+        id: 'scc-s2', order: 2, type: 'mix', title: 'Cream Butter & Sugars',
+        instruction: 'Beat 170g softened butter with 150g brown sugar and 50g granulated sugar until light and fluffy, about 2–3 minutes. You can use a hand mixer or stand mixer.',
+        timer_minutes: 3, timer_label: 'Cream', is_optional: false, academy_key: null, ingredient_ids: ['scc-1', 'scc-2', 'scc-3'],
+      },
+      {
+        id: 'scc-s3', order: 3, type: 'mix', title: 'Add Wet Ingredients',
+        instruction: 'Mix in 100g sourdough discard, 1 egg, and 8ml vanilla extract. Beat until smooth and combined.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['scc-4', 'scc-5', 'scc-6'],
+      },
+      {
+        id: 'scc-s4', order: 4, type: 'mix', title: 'Add Dry Ingredients & Chips',
+        instruction: 'Add 240g flour, 4g baking soda, and 5g salt. Stir until just combined. Fold in 200g chocolate chips.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['scc-7', 'scc-8', 'scc-9', 'scc-10'],
+      },
+      {
+        id: 'scc-s5', order: 5, type: 'bake', title: 'Scoop & Bake',
+        instruction: 'Scoop dough into balls (~2 tablespoons each) onto the prepared baking sheets, spacing 2 inches apart. Bake for 10–12 minutes until edges are set and golden but centers still look slightly underdone. They firm up as they cool.',
+        timer_minutes: 11, timer_label: 'Bake', is_optional: false, academy_key: 'bake',
+      },
+      {
+        id: 'scc-s6', order: 6, type: 'cool', title: 'Cool on Pan',
+        instruction: 'Let cookies cool on the baking sheet for 5 minutes before transferring to a wire rack. They are extremely fragile when hot — patience is rewarded with cookies that hold together.',
+        timer_minutes: 5, timer_label: 'Cool on pan', is_optional: false, academy_key: null,
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────
+  // 22. Sourdough Brioche
+  // ─────────────────────────────────────
+  {
+    id: 'bb-sourdough-brioche',
+    title: 'Sourdough Brioche',
+    description:
+      'Rich, buttery, impossibly tender. Brioche is the gateway to enriched baking — once you\'ve made it, you\'ll never buy it again. The sourdough ferment replaces commercial yeast and adds a subtle depth of flavor that store-bought brioche never has.',
+    category: 'enriched',
+    ferment_type: 'overnight',
+    hydration_pct: 60,
+    yield_amount: '1 loaf',
+    tags: ['enriched', 'weekend project', 'butter', 'intermediate', 'contains dairy', 'contains egg'],
+    is_breadbook_original: true,
+    source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=800&q=80&auto=format&fit=crop',
+    ingredients: [
+      { id: 'sbr-1', name: 'Bread Flour', amount: 350, unit: 'g', bakers_pct: 100 },
+      { id: 'sbr-2', name: 'Active Sourdough Starter', amount: 70, unit: 'g', bakers_pct: 20 },
+      { id: 'sbr-3', name: 'Eggs', amount: 3, unit: 'large', bakers_pct: 0 },
+      { id: 'sbr-4', name: 'Milk (warm)', amount: 60, unit: 'ml', bakers_pct: 17 },
+      { id: 'sbr-5', name: 'Sugar', amount: 40, unit: 'g', bakers_pct: 11 },
+      { id: 'sbr-6', name: 'Salt', amount: 8, unit: 'g', bakers_pct: 2.3 },
+      { id: 'sbr-7', name: 'Unsalted Butter (softened, cubed)', amount: 140, unit: 'g', bakers_pct: 40 },
+      { id: 'sbr-8', name: 'Egg (for egg wash)', amount: 1, unit: 'large', bakers_pct: 0 },
+    ],
+    steps: [
+      {
+        id: 'sbr-s1', order: 1, type: 'mix', title: 'Mix Dough (Except Butter)',
+        instruction: 'Combine 350g flour, 70g active starter, 3 eggs, 60ml warm milk, 40g sugar, and 8g salt. Mix until a shaggy dough forms. Knead for 5–8 minutes until smooth and elastic.',
+        timer_minutes: 8, timer_label: 'Knead', is_optional: false, academy_key: null, ingredient_ids: ['sbr-1', 'sbr-2', 'sbr-3', 'sbr-4', 'sbr-5', 'sbr-6'],
+      },
+      {
+        id: 'sbr-s2', order: 2, type: 'custom', title: 'Add Butter (Beurrage)',
+        instruction: 'Add 140g softened butter one cube at a time, mixing between additions. This takes 10–15 minutes — the dough will look broken and greasy at first, then come back together into a silky, shiny dough. This is normal. Keep going.',
+        timer_minutes: 15, timer_label: 'Incorporate butter', is_optional: false, academy_key: null, ingredient_ids: ['sbr-7'],
+      },
+      {
+        id: 'sbr-s3', order: 3, type: 'bulk_ferment', title: 'Bulk Ferment',
+        instruction: 'Cover the bowl and let the dough rise at room temperature for 2–3 hours until visibly puffed. Brioche is slow — the fat coats the yeast and slows fermentation. Be patient.',
+        timer_minutes: 150, timer_label: 'Bulk ferment (2–3 hrs)', is_optional: false, academy_key: 'bulk_ferment',
+      },
+      {
+        id: 'sbr-s4', order: 4, type: 'cold_proof', title: 'Overnight Chill',
+        instruction: 'Press the dough flat in the bowl, cover tightly, and refrigerate overnight (8–12 hours). The cold firms up the butter and develops flavor. This step is what makes brioche so workable.',
+        timer_minutes: 480, timer_label: 'Overnight chill (8 hrs)', is_optional: false, academy_key: 'cold_proof',
+      },
+      {
+        id: 'sbr-s5', order: 5, type: 'shape', title: 'Shape & Pan',
+        instruction: 'Remove dough from fridge. Divide into 3 equal pieces, roll each into a smooth ball. Place side by side in a buttered 9×5 loaf pan.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: 'shape',
+      },
+      {
+        id: 'sbr-s6', order: 6, type: 'proof', title: 'Final Proof',
+        instruction: 'Cover loosely and proof at room temperature until the dough domes above the pan rim, about 3–5 hours depending on your kitchen temperature. Do not rush this.',
+        timer_minutes: 240, timer_label: 'Final proof (3–5 hrs)', is_optional: false, academy_key: null,
+      },
+      {
+        id: 'sbr-s7', order: 7, type: 'preheat', title: 'Preheat & Egg Wash',
+        instruction: 'Preheat oven to 350°F (175°C). Brush the top of the loaf gently with egg wash (1 egg beaten with a splash of milk).',
+        timer_minutes: 15, timer_label: 'Preheat', is_optional: false, academy_key: 'preheat', ingredient_ids: ['sbr-8'],
+      },
+      {
+        id: 'sbr-s8', order: 8, type: 'bake', title: 'Bake',
+        instruction: 'Bake for 30–35 minutes until deep golden brown. An instant-read thermometer should read 190°F (88°C) in the center.',
+        timer_minutes: 33, timer_label: 'Bake', is_optional: false, academy_key: 'bake',
+      },
+      {
+        id: 'sbr-s9', order: 9, type: 'cool', title: 'Cool',
+        instruction: 'Cool in the pan for 10 minutes, then turn out onto a wire rack. Let cool for at least 30 minutes before slicing — brioche tears easily when warm.',
+        timer_minutes: 30, timer_label: 'Cool before slicing', is_optional: false, academy_key: null,
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────
+  // 23. Sourdough Dinner Rolls
+  // ─────────────────────────────────────
+  {
+    id: 'bb-sourdough-dinner-rolls',
+    title: 'Sourdough Dinner Rolls',
+    description:
+      'Soft, pillowy rolls with a golden crust and subtle sourdough flavor. The kind that disappear within minutes at the dinner table. Make them the night before and bake fresh — your family will think you\'re a professional.',
+    category: 'enriched',
+    ferment_type: 'overnight',
+    hydration_pct: 65,
+    yield_amount: '12 rolls',
+    tags: ['enriched', 'beginner', 'crowd pleaser', 'holiday', 'soft', 'contains dairy', 'contains egg'],
+    is_breadbook_original: true,
+    source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc7c?w=800&q=80&auto=format&fit=crop',
+    ingredients: [
+      { id: 'sdr-1', name: 'Bread Flour', amount: 400, unit: 'g', bakers_pct: 100 },
+      { id: 'sdr-2', name: 'Active Sourdough Starter', amount: 80, unit: 'g', bakers_pct: 20 },
+      { id: 'sdr-3', name: 'Milk (warm)', amount: 180, unit: 'ml', bakers_pct: 45 },
+      { id: 'sdr-4', name: 'Egg', amount: 1, unit: 'large', bakers_pct: 0 },
+      { id: 'sdr-5', name: 'Butter (softened)', amount: 50, unit: 'g', bakers_pct: 12.5 },
+      { id: 'sdr-6', name: 'Sugar', amount: 25, unit: 'g', bakers_pct: 6.25 },
+      { id: 'sdr-7', name: 'Salt', amount: 8, unit: 'g', bakers_pct: 2 },
+      { id: 'sdr-8', name: 'Butter (for brushing)', amount: 30, unit: 'g', bakers_pct: 0 },
+    ],
+    steps: [
+      {
+        id: 'sdr-s1', order: 1, type: 'mix', title: 'Mix Dough',
+        instruction: 'Combine 400g flour, 80g active starter, 180ml warm milk, 1 egg, 25g sugar, and 8g salt. Mix until a dough forms, then knead for 5 minutes.',
+        timer_minutes: 5, timer_label: 'Knead', is_optional: false, academy_key: null, ingredient_ids: ['sdr-1', 'sdr-2', 'sdr-3', 'sdr-4', 'sdr-6', 'sdr-7'],
+      },
+      {
+        id: 'sdr-s2', order: 2, type: 'custom', title: 'Add Butter',
+        instruction: 'Add 50g softened butter in small pieces, kneading between additions. Continue kneading until the dough is smooth and slightly tacky, about 5 more minutes.',
+        timer_minutes: 5, timer_label: 'Add butter', is_optional: false, academy_key: null, ingredient_ids: ['sdr-5'],
+      },
+      {
+        id: 'sdr-s3', order: 3, type: 'bulk_ferment', title: 'Bulk Ferment',
+        instruction: 'Cover and let rise at room temperature for 3–4 hours. The dough should increase in volume by about 50%.',
+        timer_minutes: 210, timer_label: 'Bulk ferment', is_optional: false, academy_key: 'bulk_ferment',
+      },
+      {
+        id: 'sdr-s4', order: 4, type: 'cold_proof', title: 'Overnight Cold Proof',
+        instruction: 'Cover tightly and refrigerate overnight (8–12 hours). The cold ferment develops flavor and makes the dough easy to shape.',
+        timer_minutes: 480, timer_label: 'Overnight', is_optional: false, academy_key: 'cold_proof',
+      },
+      {
+        id: 'sdr-s5', order: 5, type: 'shape', title: 'Divide & Shape',
+        instruction: 'Remove dough from fridge. Divide into 12 equal pieces (~65g each). Shape each into a tight ball by pulling the edges underneath and rolling against the counter. Place in a greased 9×13 pan.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: 'shape',
+      },
+      {
+        id: 'sdr-s6', order: 6, type: 'proof', title: 'Final Proof',
+        instruction: 'Cover loosely and proof at room temperature for 2–4 hours until rolls are puffy and touching each other.',
+        timer_minutes: 180, timer_label: 'Final proof', is_optional: false, academy_key: null,
+      },
+      {
+        id: 'sdr-s7', order: 7, type: 'preheat', title: 'Preheat Oven',
+        instruction: 'Preheat oven to 375°F (190°C).',
+        timer_minutes: 15, timer_label: 'Preheat', is_optional: false, academy_key: 'preheat',
+      },
+      {
+        id: 'sdr-s8', order: 8, type: 'bake', title: 'Bake',
+        instruction: 'Bake for 18–22 minutes until golden brown on top.',
+        timer_minutes: 20, timer_label: 'Bake', is_optional: false, academy_key: 'bake',
+      },
+      {
+        id: 'sdr-s9', order: 9, type: 'custom', title: 'Butter Brush & Serve',
+        instruction: 'Brush immediately with 30g melted butter as soon as they come out of the oven. Serve warm.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sdr-8'],
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────
+  // 24. Sourdough Blueberry Muffins
+  // ─────────────────────────────────────
+  {
+    id: 'bb-sourdough-blueberry-muffins',
+    title: 'Sourdough Blueberry Muffins',
+    description:
+      'Bakery-style muffins with a domed top, moist crumb, and bursting blueberries. The discard adds a slight tang that balances the sweetness perfectly. Ready in under an hour — no planning required.',
+    category: 'quick_bread',
+    ferment_type: 'same_day_discard',
+    hydration_pct: 0,
+    yield_amount: '12 muffins',
+    tags: ['discard', 'sweet', 'beginner', 'breakfast', 'fruit', 'contains dairy', 'contains egg'],
+    is_breadbook_original: true,
+    source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1607958996333-41aef7caefaa?w=800&q=80&auto=format&fit=crop',
+    ingredients: [
+      { id: 'sbm-1', name: 'All-Purpose Flour', amount: 240, unit: 'g', bakers_pct: 100 },
+      { id: 'sbm-2', name: 'Sourdough Discard', amount: 150, unit: 'g', bakers_pct: 0 },
+      { id: 'sbm-3', name: 'Sugar', amount: 150, unit: 'g', bakers_pct: 0 },
+      { id: 'sbm-4', name: 'Eggs', amount: 2, unit: 'large', bakers_pct: 0 },
+      { id: 'sbm-5', name: 'Neutral Oil (or melted butter)', amount: 80, unit: 'ml', bakers_pct: 0 },
+      { id: 'sbm-6', name: 'Milk', amount: 60, unit: 'ml', bakers_pct: 0 },
+      { id: 'sbm-7', name: 'Vanilla Extract', amount: 5, unit: 'ml', bakers_pct: 0 },
+      { id: 'sbm-8', name: 'Baking Powder', amount: 8, unit: 'g', bakers_pct: 0 },
+      { id: 'sbm-9', name: 'Salt', amount: 3, unit: 'g', bakers_pct: 0 },
+      { id: 'sbm-10', name: 'Fresh or Frozen Blueberries', amount: 200, unit: 'g', bakers_pct: 0 },
+    ],
+    steps: [
+      {
+        id: 'sbm-s1', order: 1, type: 'preheat', title: 'Preheat Oven',
+        instruction: 'Preheat oven to 400°F (200°C). Line a 12-cup muffin tin with paper liners or grease well.',
+        timer_minutes: 10, timer_label: 'Preheat', is_optional: false, academy_key: 'preheat',
+      },
+      {
+        id: 'sbm-s2', order: 2, type: 'mix', title: 'Mix Wet Ingredients',
+        instruction: 'Whisk together 150g sourdough discard, 2 eggs, 80ml oil, 60ml milk, and 5ml vanilla until smooth.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sbm-2', 'sbm-4', 'sbm-5', 'sbm-6', 'sbm-7'],
+      },
+      {
+        id: 'sbm-s3', order: 3, type: 'mix', title: 'Add Sugar & Dry Ingredients',
+        instruction: 'Stir in 150g sugar. Add 240g flour, 8g baking powder, and 3g salt. Fold until just combined — lumps are fine. Overmixing makes muffins dense.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sbm-1', 'sbm-3', 'sbm-8', 'sbm-9'],
+      },
+      {
+        id: 'sbm-s4', order: 4, type: 'custom', title: 'Fold in Blueberries',
+        instruction: 'Gently fold in 200g blueberries. If using frozen, do not thaw first — they\'ll bleed less color.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sbm-10'],
+      },
+      {
+        id: 'sbm-s5', order: 5, type: 'bake', title: 'Fill & Bake',
+        instruction: 'Divide batter evenly among 12 muffin cups, filling each nearly full for bakery-style domed tops. Bake for 20–23 minutes until a toothpick inserted in the center comes out clean.',
+        timer_minutes: 22, timer_label: 'Bake', is_optional: false, academy_key: 'bake',
+      },
+      {
+        id: 'sbm-s6', order: 6, type: 'cool', title: 'Cool',
+        instruction: 'Cool in the tin for 5 minutes, then transfer to a wire rack. Best eaten the day they\'re baked.',
+        timer_minutes: 5, timer_label: 'Cool in tin', is_optional: false, academy_key: null,
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────
+  // 25. Sourdough English Muffins
+  // ─────────────────────────────────────
+  {
+    id: 'bb-sourdough-english-muffins',
+    title: 'Sourdough English Muffins',
+    description:
+      'All those nooks and crannies that trap melted butter — those come from sourdough fermentation. Cooked on a griddle, not in an oven. Once you\'ve made homemade English muffins, store-bought will disappoint you forever.',
+    category: 'sandwich',
+    ferment_type: 'overnight',
+    hydration_pct: 70,
+    yield_amount: '8–10 muffins',
+    tags: ['overnight', 'beginner', 'breakfast', 'griddle', 'contains dairy'],
+    is_breadbook_original: true,
+    source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1600628421055-4d30de868b8f?w=800&q=80&auto=format&fit=crop',
+    ingredients: [
+      { id: 'sem-1', name: 'All-Purpose Flour', amount: 350, unit: 'g', bakers_pct: 100 },
+      { id: 'sem-2', name: 'Active Sourdough Starter', amount: 100, unit: 'g', bakers_pct: 28.5 },
+      { id: 'sem-3', name: 'Milk (warm)', amount: 180, unit: 'ml', bakers_pct: 51 },
+      { id: 'sem-4', name: 'Water (warm)', amount: 60, unit: 'ml', bakers_pct: 17 },
+      { id: 'sem-5', name: 'Butter (softened)', amount: 30, unit: 'g', bakers_pct: 8.5 },
+      { id: 'sem-6', name: 'Sugar', amount: 10, unit: 'g', bakers_pct: 2.8 },
+      { id: 'sem-7', name: 'Salt', amount: 8, unit: 'g', bakers_pct: 2.3 },
+      { id: 'sem-8', name: 'Semolina or Cornmeal (for dusting)', amount: 30, unit: 'g', bakers_pct: 0 },
+    ],
+    steps: [
+      {
+        id: 'sem-s1', order: 1, type: 'mix', title: 'Mix Dough',
+        instruction: 'Combine 350g flour, 100g active starter, 180ml warm milk, 60ml warm water, 30g softened butter, 10g sugar, and 8g salt. Mix until a soft, slightly sticky dough forms. Knead for 5 minutes.',
+        timer_minutes: 5, timer_label: 'Knead', is_optional: false, academy_key: null, ingredient_ids: ['sem-1', 'sem-2', 'sem-3', 'sem-4', 'sem-5', 'sem-6', 'sem-7'],
+      },
+      {
+        id: 'sem-s2', order: 2, type: 'bulk_ferment', title: 'Bulk Ferment',
+        instruction: 'Cover and let rise at room temperature for 3–4 hours until doubled.',
+        timer_minutes: 210, timer_label: 'Bulk ferment', is_optional: false, academy_key: 'bulk_ferment',
+      },
+      {
+        id: 'sem-s3', order: 3, type: 'cold_proof', title: 'Overnight Chill',
+        instruction: 'Cover and refrigerate overnight (8–12 hours). The cold makes the dough firm and easy to cut.',
+        timer_minutes: 480, timer_label: 'Overnight chill', is_optional: false, academy_key: 'cold_proof',
+      },
+      {
+        id: 'sem-s4', order: 4, type: 'shape', title: 'Roll & Cut',
+        instruction: 'Roll dough out on a lightly floured surface to about ¾ inch thick. Cut rounds with a 3-inch biscuit cutter or glass. Place on a parchment-lined sheet dusted with semolina/cornmeal. Dust tops too.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['sem-8'],
+      },
+      {
+        id: 'sem-s5', order: 5, type: 'proof', title: 'Final Proof',
+        instruction: 'Cover loosely and proof at room temperature for 1–2 hours until slightly puffed.',
+        timer_minutes: 90, timer_label: 'Final proof', is_optional: false, academy_key: null,
+      },
+      {
+        id: 'sem-s6', order: 6, type: 'bake', title: 'Cook on Griddle',
+        instruction: 'Heat a dry griddle or heavy pan over medium-low heat. Cook muffins in batches, covered, for 5–7 minutes per side until golden brown. The interior will reach 200°F (93°C). Adjust heat if browning too quickly before they cook through.',
+        timer_minutes: 12, timer_label: 'Per batch', is_optional: false, academy_key: null,
+      },
+      {
+        id: 'sem-s7', order: 7, type: 'cool', title: 'Cool & Fork-Split',
+        instruction: 'Cool on a wire rack for 10 minutes. Fork-split (never knife-cut) to expose those nooks and crannies. Toast until golden, butter liberally.',
+        timer_minutes: 10, timer_label: 'Cool', is_optional: false, academy_key: null,
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────
+  // 26. Sourdough Pita Bread
+  // ─────────────────────────────────────
+  {
+    id: 'bb-sourdough-pita',
+    title: 'Sourdough Pita Bread',
+    description:
+      'Pillowy flatbreads that puff up dramatically in the oven — that pocket is pure magic. Ready in a few hours, and the leftover discard version works beautifully too. Use for sandwiches, dipping, or just eating warm from the oven with olive oil.',
+    category: 'flatbread',
+    ferment_type: 'same_day_discard',
+    hydration_pct: 65,
+    yield_amount: '8 pitas',
+    tags: ['discard', 'flatbread', 'beginner', 'quick', 'versatile'],
+    is_breadbook_original: true,
+    source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80&auto=format&fit=crop',
+    ingredients: [
+      { id: 'spi-1', name: 'All-Purpose Flour', amount: 300, unit: 'g', bakers_pct: 100 },
+      { id: 'spi-2', name: 'Sourdough Discard (or active starter)', amount: 100, unit: 'g', bakers_pct: 33 },
+      { id: 'spi-3', name: 'Warm Water', amount: 95, unit: 'ml', bakers_pct: 32 },
+      { id: 'spi-4', name: 'Olive Oil', amount: 20, unit: 'ml', bakers_pct: 6.7 },
+      { id: 'spi-5', name: 'Salt', amount: 7, unit: 'g', bakers_pct: 2.3 },
+      { id: 'spi-6', name: 'Sugar', amount: 5, unit: 'g', bakers_pct: 1.7 },
+    ],
+    steps: [
+      {
+        id: 'spi-s1', order: 1, type: 'mix', title: 'Mix & Knead Dough',
+        instruction: 'Combine 300g flour, 100g discard, 95ml warm water, 20ml olive oil, 7g salt, and 5g sugar. Mix until a dough forms, then knead for 8 minutes until smooth and elastic.',
+        timer_minutes: 8, timer_label: 'Knead', is_optional: false, academy_key: null, ingredient_ids: ['spi-1', 'spi-2', 'spi-3', 'spi-4', 'spi-5', 'spi-6'],
+      },
+      {
+        id: 'spi-s2', order: 2, type: 'bulk_ferment', title: 'Rest',
+        instruction: 'Cover and rest at room temperature for 1–2 hours. The dough will relax and become easier to roll.',
+        timer_minutes: 90, timer_label: 'Rest', is_optional: false, academy_key: 'bulk_ferment',
+      },
+      {
+        id: 'spi-s3', order: 3, type: 'preheat', title: 'Preheat Oven',
+        instruction: 'Place a baking stone, steel, or heavy baking sheet on the top rack. Preheat oven to 500°F (260°C). Let it preheat for at least 30 minutes — the surface must be ripping hot to create the puff.',
+        timer_minutes: 30, timer_label: 'Preheat', is_optional: false, academy_key: 'preheat',
+      },
+      {
+        id: 'spi-s4', order: 4, type: 'shape', title: 'Divide & Roll',
+        instruction: 'Divide dough into 8 equal pieces. On a lightly floured surface, roll each into a round about 7 inches wide and ¼ inch thick. Even thickness is key to even puffing.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+      },
+      {
+        id: 'spi-s5', order: 5, type: 'bake', title: 'Bake (& Watch Them Puff)',
+        instruction: 'Slide pitas directly onto the hot surface, 2–3 at a time. Bake for 3–4 minutes — they will puff up dramatically. Remove when puffed and just beginning to color. They deflate slightly as they cool — that\'s normal.',
+        timer_minutes: 4, timer_label: 'Per batch', is_optional: false, academy_key: 'bake',
+      },
+      {
+        id: 'spi-s6', order: 6, type: 'cool', title: 'Stack & Cover',
+        instruction: 'Stack pitas and cover with a clean towel as they come out. This traps steam and keeps them soft and pliable. Serve warm or store in an airtight bag for up to 3 days.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null,
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────
+  // 27. Sourdough Cardamom Buns
+  // ─────────────────────────────────────
+  {
+    id: 'bb-sourdough-cardamom-buns',
+    title: 'Sourdough Cardamom Buns',
+    description:
+      'A Swedish-inspired enriched bun with a fragrant cardamom-butter filling, twisted into an elegant knot. The sourdough ferment makes them less sweet and more complex than a typical cinnamon roll. Perfect with strong coffee.',
+    category: 'enriched',
+    ferment_type: 'overnight',
+    hydration_pct: 55,
+    yield_amount: '10–12 buns',
+    tags: ['enriched', 'weekend project', 'cardamom', 'advanced', 'swedish', 'contains dairy', 'contains egg'],
+    is_breadbook_original: true,
+    source_credit: null,
+    image_url: 'https://images.unsplash.com/photo-1546549037-ebe0a0c4c12e?w=800&q=80&auto=format&fit=crop',
+    ingredients: [
+      { id: 'scb-1', name: 'Bread Flour', amount: 400, unit: 'g', bakers_pct: 100 },
+      { id: 'scb-2', name: 'Active Sourdough Starter', amount: 80, unit: 'g', bakers_pct: 20 },
+      { id: 'scb-3', name: 'Milk (warm)', amount: 160, unit: 'ml', bakers_pct: 40 },
+      { id: 'scb-4', name: 'Egg', amount: 1, unit: 'large', bakers_pct: 0 },
+      { id: 'scb-5', name: 'Butter (softened)', amount: 60, unit: 'g', bakers_pct: 15 },
+      { id: 'scb-6', name: 'Sugar', amount: 50, unit: 'g', bakers_pct: 12.5 },
+      { id: 'scb-7', name: 'Salt', amount: 7, unit: 'g', bakers_pct: 1.75 },
+      { id: 'scb-8', name: 'Ground Cardamom', amount: 4, unit: 'g', bakers_pct: 0 },
+      { id: 'scb-9', name: 'Butter (for filling, softened)', amount: 80, unit: 'g', bakers_pct: 0 },
+      { id: 'scb-10', name: 'Sugar (for filling)', amount: 60, unit: 'g', bakers_pct: 0 },
+      { id: 'scb-11', name: 'Ground Cardamom (for filling)', amount: 6, unit: 'g', bakers_pct: 0 },
+      { id: 'scb-12', name: 'Pearl Sugar (for topping)', amount: 30, unit: 'g', bakers_pct: 0 },
+    ],
+    steps: [
+      {
+        id: 'scb-s1', order: 1, type: 'mix', title: 'Mix Dough',
+        instruction: 'Combine 400g flour, 80g active starter, 160ml warm milk, 1 egg, 50g sugar, 7g salt, and 4g cardamom. Knead until smooth, about 5 minutes. Add 60g softened butter piece by piece, kneading until incorporated.',
+        timer_minutes: 10, timer_label: 'Mix & knead', is_optional: false, academy_key: null, ingredient_ids: ['scb-1', 'scb-2', 'scb-3', 'scb-4', 'scb-5', 'scb-6', 'scb-7', 'scb-8'],
+      },
+      {
+        id: 'scb-s2', order: 2, type: 'bulk_ferment', title: 'Bulk Ferment',
+        instruction: 'Cover and let rise at room temperature for 3–4 hours until visibly puffed.',
+        timer_minutes: 210, timer_label: 'Bulk ferment', is_optional: false, academy_key: 'bulk_ferment',
+      },
+      {
+        id: 'scb-s3', order: 3, type: 'cold_proof', title: 'Overnight Chill',
+        instruction: 'Press flat in the bowl, cover tightly, and refrigerate overnight.',
+        timer_minutes: 480, timer_label: 'Overnight chill', is_optional: false, academy_key: 'cold_proof',
+      },
+      {
+        id: 'scb-s4', order: 4, type: 'shape', title: 'Fill & Twist',
+        instruction: 'Mix filling: 80g softened butter with 60g sugar and 6g cardamom. Roll dough into a large rectangle (~40×30 cm). Spread filling evenly across half the rectangle, then fold the other half over. Cut into 10–12 strips. Twist each strip and tie into a knot.',
+        timer_minutes: null, timer_label: null, is_optional: false, academy_key: null, ingredient_ids: ['scb-9', 'scb-10', 'scb-11'],
+      },
+      {
+        id: 'scb-s5', order: 5, type: 'proof', title: 'Final Proof',
+        instruction: 'Place buns on lined baking sheets, cover loosely, and proof at room temperature for 2–3 hours until puffy.',
+        timer_minutes: 150, timer_label: 'Final proof', is_optional: false, academy_key: null,
+      },
+      {
+        id: 'scb-s6', order: 6, type: 'preheat', title: 'Preheat Oven',
+        instruction: 'Preheat oven to 400°F (200°C).',
+        timer_minutes: 15, timer_label: 'Preheat', is_optional: false, academy_key: 'preheat',
+      },
+      {
+        id: 'scb-s7', order: 7, type: 'bake', title: 'Top & Bake',
+        instruction: 'Sprinkle buns with 30g pearl sugar. Bake for 12–15 minutes until golden.',
+        timer_minutes: 13, timer_label: 'Bake', is_optional: false, academy_key: 'bake', ingredient_ids: ['scb-12'],
+      },
+      {
+        id: 'scb-s8', order: 8, type: 'cool', title: 'Cool & Serve',
+        instruction: 'Cool for 10 minutes. Best served the same day, still slightly warm. Store covered at room temperature for up to 2 days.',
+        timer_minutes: 10, timer_label: 'Cool', is_optional: false, academy_key: null,
       },
     ],
   },

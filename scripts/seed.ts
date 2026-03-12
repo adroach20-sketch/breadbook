@@ -78,28 +78,24 @@ async function seed() {
 
   console.log(`   ✓ @BreadBook account ready (${userId})\n`)
 
-  // Step 2: Check for existing recipes by title (since IDs are auto-generated)
+  // Step 2: Fetch existing recipes by title to determine insert vs update
   console.log('2. Checking for existing BreadBook Originals...')
   const { data: existingRecipes } = await supabase
     .from('recipes')
-    .select('title')
+    .select('id, title')
 
-  const existingTitles = new Set((existingRecipes || []).map((r: { title: string }) => r.title))
+  const existingByTitle = new Map(
+    (existingRecipes || []).map((r: { id: string; title: string }) => [r.title, r.id])
+  )
 
-  // Step 3: Insert recipes (let Supabase generate UUIDs)
+  // Step 3: Upsert recipes — insert new, update existing (backfills image_url and new fields)
   console.log(`3. Seeding ${breadbookOriginals.length} recipes...\n`)
 
   let inserted = 0
-  let skipped = 0
+  let updated = 0
 
   for (const recipe of breadbookOriginals) {
-    if (existingTitles.has(recipe.title)) {
-      console.log(`   ⏭  ${recipe.title} (already exists)`)
-      skipped++
-      continue
-    }
-
-    const { error } = await supabase.from('recipes').insert({
+    const payload = {
       user_id: userId,
       title: recipe.title,
       description: recipe.description,
@@ -113,17 +109,35 @@ async function seed() {
       is_public: true,
       is_breadbook_original: recipe.is_breadbook_original,
       source_credit: recipe.source_credit,
-    })
+      image_url: recipe.image_url ?? null,
+    }
 
-    if (error) {
-      console.error(`   ✗ ${recipe.title}: ${error.message}`)
+    const existingId = existingByTitle.get(recipe.title)
+
+    if (existingId) {
+      // Update existing record to backfill image_url and any other new fields
+      const { error } = await supabase
+        .from('recipes')
+        .update(payload)
+        .eq('id', existingId)
+      if (error) {
+        console.error(`   ✗ ${recipe.title} (update): ${error.message}`)
+      } else {
+        console.log(`   ↺  ${recipe.title} (updated)`)
+        updated++
+      }
     } else {
-      console.log(`   ✓ ${recipe.title}`)
-      inserted++
+      const { error } = await supabase.from('recipes').insert(payload)
+      if (error) {
+        console.error(`   ✗ ${recipe.title}: ${error.message}`)
+      } else {
+        console.log(`   ✓  ${recipe.title} (inserted)`)
+        inserted++
+      }
     }
   }
 
-  console.log(`\n🎉 Done! Inserted: ${inserted}, Skipped: ${skipped}`)
+  console.log(`\n🎉 Done! Inserted: ${inserted}, Updated: ${updated}`)
 
   // Sign out
   await supabase.auth.signOut()

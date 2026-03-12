@@ -66,6 +66,7 @@ export interface Recipe {
   tags: string[]
   is_breadbook_original: boolean
   source_credit: string | null
+  image_url?: string
 }
 
 export interface AcademyCard {

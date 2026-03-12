@@ -32,42 +32,65 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
     <Link
       to={`/recipes/${recipe.id}`}
-      className="relative block bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] hover:shadow-md transition-shadow p-4 border border-dough"
+      className="relative block bg-steam rounded-xl shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] hover:shadow-md transition-shadow border border-dough overflow-hidden"
     >
-      {/* Favorite button — absolute top-right, sits above the Link */}
+      {/* Favorite button — absolute top-right */}
       <div className="absolute top-2 right-2 z-10">
         <FavoriteButton recipeId={recipe.id} size="sm" />
       </div>
 
-      <div className="flex items-start justify-between mb-2 pr-8">
-        <span className="text-3xl">{emoji}</span>
-        <span className="text-xs bg-dough text-ash px-2 py-0.5 rounded-full">
-          {fermentLabels[recipe.ferment_type] || recipe.ferment_type}
-        </span>
-      </div>
-      <h3 className="font-heading font-semibold text-char text-lg leading-tight mb-1">
-        {recipe.title}
-      </h3>
-      {recipe.is_breadbook_original && (
-        <p className="text-xs text-ash mb-1">{'\u{1F35E}'} @BreadBook Original</p>
+      {/* Hero image or emoji fallback */}
+      {recipe.image_url ? (
+        <div className="h-44 w-full">
+          <img
+            src={recipe.image_url}
+            alt={recipe.title}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      ) : (
+        <div className="flex items-center justify-center h-24 bg-dough/40">
+          <span className="text-4xl">{emoji}</span>
+        </div>
       )}
-      <p className="text-sm text-ash line-clamp-2 mb-3">{recipe.description}</p>
-      <div className="flex items-center gap-3 text-xs text-ash">
-        {recipe.hydration_pct > 0 && <span>{recipe.hydration_pct}% hydration</span>}
-        <span>{recipe.yield_amount}</span>
-        {totalTime > 0 && (
-          <span>
-            {totalTime >= 60 ? `${Math.round(totalTime / 60)}h` : `${totalTime}m`} active
+
+      {/* Card body */}
+      <div className="p-4">
+        <div className="flex items-start justify-between mb-2 pr-8">
+          {!recipe.image_url ? (
+            <span className="sr-only">{emoji}</span>
+          ) : (
+            <span />
+          )}
+          <span className="text-xs bg-dough text-ash px-2 py-0.5 rounded-full">
+            {fermentLabels[recipe.ferment_type] || recipe.ferment_type}
           </span>
+        </div>
+        <h3 className="font-heading font-semibold text-char text-lg leading-tight mb-1">
+          {recipe.title}
+        </h3>
+        {recipe.is_breadbook_original && (
+          <p className="text-xs text-ash mb-1">{'\u{1F35E}'} @BreadBook Original</p>
         )}
-        {saveCount > 0 && (
-          <span className="flex items-center gap-0.5">
-            <svg className="w-3 h-3 text-red-400" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-            </svg>
-            {saveCount}
-          </span>
-        )}
+        <p className="text-sm text-ash line-clamp-2 mb-3">{recipe.description}</p>
+        <div className="flex items-center gap-3 text-xs text-ash">
+          {recipe.hydration_pct > 0 && <span>{recipe.hydration_pct}% hydration</span>}
+          <span>{recipe.yield_amount}</span>
+          {totalTime > 0 && (
+            <span>
+              {totalTime >= 60 ? `${Math.round(totalTime / 60)}h` : `${totalTime}m`} active
+            </span>
+          )}
+          {saveCount > 0 && (
+            <span className="flex items-center gap-0.5">
+              <svg className="w-3 h-3 text-red-400" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+              </svg>
+              {saveCount}
+            </span>
+          )}
+        </div>
       </div>
     </Link>
   )

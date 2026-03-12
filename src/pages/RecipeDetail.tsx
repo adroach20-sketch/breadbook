@@ -86,6 +86,17 @@ export function RecipeDetail() {
         {'\u2190'} All Recipes
       </Link>
 
+      {/* Hero image */}
+      {recipe.image_url && (
+        <div className="rounded-xl overflow-hidden mb-6 aspect-video">
+          <img
+            src={recipe.image_url}
+            alt={recipe.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-start justify-between gap-2">
