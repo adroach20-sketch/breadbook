@@ -36,6 +36,7 @@ export function Explore() {
       .then(({ data }) => {
         setIsStarterActive(!!data && data.length > 0)
       })
+    return () => { setIsStarterActive(false) }
   }, [user])
 
   // Load recipes (same merge logic as Recipes page)
