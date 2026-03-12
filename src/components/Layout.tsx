@@ -8,6 +8,7 @@ const themeNext = { system: 'light', light: 'dark', dark: 'system' } as const
 const navItems = [
   { path: '/', label: 'Home', icon: '🏠' },
   { path: '/recipes', label: 'Explore', icon: '🔍' },
+  { path: '/starters', label: 'Starters', icon: '🫙' },
   { path: '/schedule', label: 'Schedule', icon: '📅' },
   { path: '/journal', label: 'Journal', icon: '📔' },
   { path: '/community', label: 'Community', icon: '🤝' },

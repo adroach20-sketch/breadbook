@@ -205,6 +205,24 @@ export function useBakeSession(recipeId: string | undefined) {
     }
   }, [recipe, sessionId, clearEvents])
 
+  // Abandon bake — clears local session and marks Supabase session inactive
+  const handleAbandon = useCallback(async () => {
+    localStorage.removeItem(BAKE_SESSION_KEY)
+    if (recipe) {
+      for (let i = 0; i < recipe.steps.length; i++) {
+        localStorage.removeItem(`breadbook-timer-${recipe.id}-${i}`)
+      }
+    }
+    clearEvents()
+
+    if (sessionId) {
+      await supabase
+        .from('bake_sessions')
+        .update({ is_active: false })
+        .eq('id', sessionId)
+    }
+  }, [recipe, sessionId, clearEvents])
+
   return {
     // State
     recipe,
@@ -238,5 +256,6 @@ export function useBakeSession(recipeId: string | undefined) {
     handleOffPlan,
     handleAdvanceStep,
     handleComplete,
+    handleAbandon,
   }
 }

@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { StepView } from './StepView'
 import { BakeComplete } from './BakeComplete'
 import { useWakeLock } from '../../hooks/useWakeLock'
@@ -12,6 +12,8 @@ export function BakeMode() {
   const navigate = useNavigate()
   const { user } = useAuth()
   const [isFirstBake, setIsFirstBake] = useState(false)
+  const [showExitMenu, setShowExitMenu] = useState(false)
+  const exitMenuRef = useRef<HTMLDivElement>(null)
 
   const wakeLock = useWakeLock()
   const {
@@ -20,7 +22,8 @@ export function BakeMode() {
     shapingMethodLog, shapingFeelLog, fridgeLog, pokeLog,
     handleFoldDone, handleRiseCheck, handleRoomTemp,
     handleDoughFeel, handleDoughSmell, handleShapingMethod, handleShapingFeel,
-    handleFridgeIn, handlePokeTest, handleOffPlan, handleAdvanceStep, handleComplete: completeSession,
+    handleFridgeIn, handlePokeTest, handleOffPlan, handleAdvanceStep,
+    handleComplete: completeSession, handleAbandon: abandonSession,
   } = useBakeSession(id)
 
   // Check if this is the user's first completed bake
@@ -46,6 +49,12 @@ export function BakeMode() {
   const handleComplete = async () => {
     await completeSession()
     wakeLock.release()
+  }
+
+  const handleAbandon = async () => {
+    await abandonSession()
+    wakeLock.release()
+    navigate('/recipes')
   }
 
   if (loading) {
@@ -103,16 +112,37 @@ export function BakeMode() {
     <div className="min-h-screen bg-crumb flex flex-col">
       {/* Top bar */}
       <header className="bg-crust text-steam px-4 py-3 flex items-center justify-between flex-shrink-0">
-        <button
-          onClick={() => {
-            if (confirm('Exit bake mode? Your progress is saved.')) {
-              navigate(`/recipes/${recipe.id}`)
-            }
-          }}
-          className="text-sm text-steam/70 hover:text-steam transition-colors"
-        >
-          ← Exit
-        </button>
+        <div className="relative" ref={exitMenuRef}>
+          <button
+            onClick={() => setShowExitMenu((v) => !v)}
+            className="text-sm text-steam/70 hover:text-steam transition-colors"
+          >
+            ← Exit
+          </button>
+          {showExitMenu && (
+            <div className="absolute left-0 top-8 bg-steam text-char rounded-xl shadow-lg border border-dough w-52 z-50 overflow-hidden">
+              <button
+                onClick={() => { setShowExitMenu(false); navigate(`/recipes/${recipe.id}`) }}
+                className="w-full text-left px-4 py-3 text-sm hover:bg-dough/50 transition-colors border-b border-dough"
+              >
+                <span className="font-medium block">Save & exit</span>
+                <span className="text-xs text-ash">Resume where you left off</span>
+              </button>
+              <button
+                onClick={() => {
+                  setShowExitMenu(false)
+                  if (confirm('Stop this bake? This cannot be undone.')) {
+                    handleAbandon()
+                  }
+                }}
+                className="w-full text-left px-4 py-3 text-sm hover:bg-red-50 transition-colors"
+              >
+                <span className="font-medium block text-red-600">Stop bake</span>
+                <span className="text-xs text-ash">Clears session, starts fresh next time</span>
+              </button>
+            </div>
+          )}
+        </div>
         <span className="font-heading font-semibold text-sm truncate mx-4">
           {recipe.title}
         </span>
