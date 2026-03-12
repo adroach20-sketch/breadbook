@@ -15,6 +15,8 @@ export function RecipeDetail() {
   const navigate = useNavigate()
   const [recipe, setRecipe] = useState<Recipe | null>(null)
   const [loading, setLoading] = useState(true)
+  const [bakeCount, setBakeCount] = useState<number | null>(null)
+  const [avgRating, setAvgRating] = useState<number | null>(null)
   const { requireAuth, modal } = useAuthGate()
 
   useEffect(() => {
@@ -34,6 +36,21 @@ export function RecipeDetail() {
         setRecipe(local || null)
       }
       setLoading(false)
+
+      // Load bake stats separately (non-blocking)
+      supabase
+        .from('bake_logs')
+        .select('rating')
+        .eq('recipe_id', id)
+        .then(({ data }) => {
+          if (!data || data.length === 0) return
+          setBakeCount(data.length)
+          const rated = data.filter((b) => b.rating > 0)
+          if (rated.length > 0) {
+            const avg = rated.reduce((sum, b) => sum + b.rating, 0) / rated.length
+            setAvgRating(Math.round(avg * 10) / 10)
+          }
+        })
     }
     loadRecipe()
   }, [id])
@@ -117,6 +134,12 @@ export function RecipeDetail() {
           </span>
           <LikeButton recipeId={recipe.id} />
         </div>
+        {bakeCount !== null && bakeCount > 0 && (
+          <p className="text-xs text-ash-muted mb-2">
+            {bakeCount === 1 ? '1 baker has made this' : `${bakeCount} bakers have made this`}
+            {avgRating !== null && ` · ★ ${avgRating}`}
+          </p>
+        )}
         <p className="text-ash leading-relaxed">{recipe.description}</p>
         {recipe.source_credit && (
           <p className="text-xs text-ash-muted mt-2">Inspired by {recipe.source_credit}</p>

@@ -1,4 +1,6 @@
 import { useParams, Link, useSearchParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { supabase } from '../lib/supabase'
 import { symptoms, categoryLabels } from '../data/troubleshooter'
 
 const confidenceLabels: Record<string, { label: string; className: string }> = {
@@ -15,10 +17,26 @@ export function TroubleshootDetail() {
   // Preserve context for back navigation
   const recipeId = searchParams.get('recipe')
   const sessionId = searchParams.get('session')
+  const logId = searchParams.get('logId')
   const backParams = [
     recipeId ? `recipe=${recipeId}` : '',
     sessionId ? `session=${sessionId}` : '',
   ].filter(Boolean).join('&')
+
+  // Load journal entry title if launched from a bake log
+  const [journalRecipeTitle, setJournalRecipeTitle] = useState<string | null>(null)
+  useEffect(() => {
+    if (!logId) return
+    supabase
+      .from('bake_logs')
+      .select('recipes(title)')
+      .eq('id', logId)
+      .single()
+      .then(({ data }) => {
+        const title = (data as { recipes?: { title?: string } } | null)?.recipes?.title
+        if (title) setJournalRecipeTitle(title)
+      })
+  }, [logId])
 
   if (!symptom) {
     return (
@@ -114,10 +132,20 @@ export function TroubleshootDetail() {
       )}
 
       {/* CTAs */}
+      {logId && symptom && (
+        <Link
+          to={`/journal/${logId}/edit?appendNote=${encodeURIComponent(
+            `${symptom.title}: ${symptom.cause} To fix: ${symptom.fixes.map((f) => f.title).join(', ')}.`
+          )}`}
+          className="block w-full text-center bg-crust text-steam py-3 rounded-xl font-medium hover:bg-crust/90 transition-colors mb-3"
+        >
+          Apply this fix to {journalRecipeTitle ? `your ${journalRecipeTitle} notes` : 'your bake notes'}
+        </Link>
+      )}
       {recipeId && (
         <Link
           to={`/bake/${recipeId}`}
-          className="block w-full text-center bg-crust text-steam py-3 rounded-xl font-medium hover:bg-crust/90 transition-colors mb-3"
+          className="block w-full text-center bg-steam border border-dough text-char py-3 rounded-xl font-medium hover:bg-dough/40 transition-colors mb-3"
         >
           Bake This Again
         </Link>

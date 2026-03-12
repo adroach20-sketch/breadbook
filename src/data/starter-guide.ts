@@ -149,7 +149,7 @@ export const starterGuide: GuideDay[] = [
     title: 'Day 13: Prep Day',
     emoji: '📋',
     instruction: 'Feed normally. Today, pick a recipe for your first bake! Browse the BreadBook recipes and look for something tagged "beginner." Make sure you have all the ingredients.',
-    tip: 'The Classic Artisan Sourdough is a great first bake — it\'s forgiving and teaches fundamental techniques. Plan to mix tomorrow when your starter peaks.',
+    tip: 'Artisan Sourdough Made Simple is a great first bake — it\'s forgiving and teaches fundamental techniques. Plan to mix tomorrow when your starter peaks.',
     expectation: 'Your starter is ready. Take a moment to feel proud — you created a living culture from just flour and water. That\'s genuinely amazing.',
     feedingRatio: '1:1:1',
     feedingNote: '50g starter + 50g flour + 50g water',

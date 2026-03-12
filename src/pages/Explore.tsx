@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import { SearchBar } from '../components/SearchBar'
 import { FilterPanel } from '../components/FilterPanel'
 import { RecipeSection } from '../components/RecipeSection'
@@ -20,6 +21,22 @@ export function Explore() {
   const [recipes, setRecipes] = useState<Recipe[]>(breadbookOriginals)
   const [loading, setLoading] = useState(true)
   const { savedRecipeIds, loaded: favoritesLoaded } = useFavorites()
+  const [isStarterActive, setIsStarterActive] = useState(false)
+
+  // Check if user has an active starter (fed within last 6 hours)
+  useEffect(() => {
+    if (!user) return
+    const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString()
+    supabase
+      .from('starter_logs')
+      .select('fed_at, starter_id')
+      .eq('user_id', user.id)
+      .gte('fed_at', sixHoursAgo)
+      .limit(1)
+      .then(({ data }) => {
+        setIsStarterActive(!!data && data.length > 0)
+      })
+  }, [user])
 
   // Load recipes (same merge logic as Recipes page)
   useEffect(() => {
@@ -200,13 +217,34 @@ export function Explore() {
             />
           )}
 
-          {/* Starter-aware suggestion stub — will connect when feature 2.1 ships */}
-          {user && (
-            <div className="mx-4 md:mx-0 mb-8 bg-dough/50 rounded-xl p-4 border border-wheat/30">
-              <p className="text-sm text-ash">
-                <span className="font-heading font-semibold text-char">Coming soon:</span>{' '}
-                Personalized suggestions based on your starter's schedule and activity.
+          {/* Starter-aware suggestion — show when starter was fed in last 6 hours */}
+          {isStarterActive && weekendProjects.length > 0 && (
+            <div className="mx-4 md:mx-0 mb-8 bg-wheat/10 border border-wheat/40 rounded-xl p-4">
+              <p className="font-heading font-semibold text-char text-sm mb-1">
+                🌾 Your starter is active — ready to bake!
               </p>
+              <p className="text-sm text-ash mb-3">
+                You fed recently. Now's a great time to start a long-ferment bake.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {weekendProjects.slice(0, 3).map((r) => (
+                  <Link
+                    key={r.id}
+                    to={`/recipes/${r.id}`}
+                    className="text-xs bg-steam border border-dough rounded-full px-3 py-1.5 text-char hover:border-wheat/60 transition-colors"
+                  >
+                    {r.title}
+                  </Link>
+                ))}
+                {weekendProjects.length > 3 && (
+                  <Link
+                    to="/recipes"
+                    className="text-xs text-crust font-medium px-3 py-1.5 hover:underline"
+                  >
+                    See all →
+                  </Link>
+                )}
+              </div>
             </div>
           )}
 

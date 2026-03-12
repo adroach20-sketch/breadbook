@@ -184,6 +184,16 @@ export function StarterGuide() {
               </p>
             </div>
 
+            {/* Day 13 — direct first bake CTA */}
+            {currentDay === 13 && (
+              <Link
+                to="/schedule/new?recipe=bb-artisan-simple"
+                className="block w-full text-center bg-crust text-steam py-3 rounded-xl font-medium hover:bg-crust/90 transition-colors text-sm"
+              >
+                You're ready — let's plan your first loaf →
+              </Link>
+            )}
+
             {/* Readiness callout — Day 7+ */}
             {today.canBakeEarly && !showReadyConfirm && (
               <div className="border border-dough rounded-lg px-4 py-3">

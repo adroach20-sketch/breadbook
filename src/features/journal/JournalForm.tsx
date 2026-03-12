@@ -15,6 +15,7 @@ export function JournalForm() {
   const isEdit = !!id
   const recipeId = searchParams.get('recipe')
   const sessionId = searchParams.get('session')
+  const appendNote = searchParams.get('appendNote')
 
   const [recipeTitle, setRecipeTitle] = useState('')
   const [bakeEvents, setBakeEvents] = useState<Array<{ event_type: string; event_value: string | null }>>([])
@@ -52,7 +53,11 @@ export function JournalForm() {
         setCrustNotes(log.crust_notes || '')
         setFlavorNotes(log.flavor_notes || '')
         setWhatWentWell(log.what_went_well || '')
-        setWhatToChange(log.what_to_change || '')
+        const existing = log.what_to_change || ''
+        setWhatToChange(appendNote
+          ? existing ? `${existing}\n\n${appendNote}` : appendNote
+          : existing
+        )
         setPhotoUrls(log.photo_urls || [])
       } else if (recipeId) {
         const { data } = await supabase
