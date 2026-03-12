@@ -79,9 +79,9 @@ export function WelcomeFlow({ onComplete }: WelcomeFlowProps) {
   }
 
   const LAST_FED_OPTIONS = [
-    { label: 'Just now / today',  hoursAgo: 2  },
-    { label: 'Yesterday',         hoursAgo: 26 },
-    { label: '2–3 days ago',      hoursAgo: 60 },
+    { label: 'Earlier today',  hoursAgo: 2  },
+    { label: 'Yesterday',      hoursAgo: 26 },
+    { label: '2–3 days ago',   hoursAgo: 60 },
   ]
 
   const handleLastFed = async (hoursAgo: number | null) => {
@@ -273,12 +273,6 @@ export function WelcomeFlow({ onComplete }: WelcomeFlowProps) {
       {/* ── Step 5: Last fed (has_starter only) ── */}
       {step === 5 && (
         <div className="py-8 max-w-sm mx-auto">
-          <button
-            onClick={() => setStep(3)}
-            className="text-sm text-ash hover:text-char transition-colors mb-6 flex items-center gap-1"
-          >
-            ← Back
-          </button>
           <div className="text-center mb-8">
             <span className="text-5xl block mb-3" aria-hidden="true">🍽️</span>
             <h2 className="font-heading text-2xl font-bold text-char mb-2">
@@ -289,7 +283,7 @@ export function WelcomeFlow({ onComplete }: WelcomeFlowProps) {
             </p>
           </div>
 
-          <div className="space-y-3 mb-6">
+          <div className="space-y-3 mb-3">
             {LAST_FED_OPTIONS.map((opt) => (
               <button
                 key={opt.hoursAgo}
@@ -301,6 +295,10 @@ export function WelcomeFlow({ onComplete }: WelcomeFlowProps) {
               </button>
             ))}
           </div>
+
+          <p className="text-xs text-ash text-center mb-5">
+            Don't worry — we'll help you get it back on track.
+          </p>
 
           <button
             onClick={() => handleLastFed(null)}

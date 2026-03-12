@@ -10,9 +10,9 @@ interface Props {
 }
 
 const NUDGE_OPTIONS = [
-  { label: 'Just now / today',  hoursAgo: 2  },
-  { label: 'Yesterday',         hoursAgo: 26 },
-  { label: '2–3 days ago',      hoursAgo: 60 },
+  { label: 'Earlier today',  hoursAgo: 2  },
+  { label: 'Yesterday',      hoursAgo: 26 },
+  { label: '2–3 days ago',   hoursAgo: 60 },
 ]
 
 function StarterSetupNudge({ card, onRefresh }: { card: DashboardCard; onRefresh?: () => void }) {
@@ -35,7 +35,7 @@ function StarterSetupNudge({ card, onRefresh }: { card: DashboardCard; onRefresh
   }
 
   return (
-    <div className="bg-steam border border-dough rounded-xl p-4">
+    <div className="bg-wheat/10 border border-wheat/30 rounded-xl p-4">
       <div className="flex items-start justify-between mb-3">
         <div>
           <p className="text-sm font-medium text-char">When did you last feed {card?.starterName}?</p>
