@@ -258,7 +258,7 @@ export function WelcomeFlow({ onComplete }: WelcomeFlowProps) {
 
           <div className="grid gap-4 sm:grid-cols-2 mb-6">
             {recipesToShow.map((recipe) => (
-              <div key={recipe.id} onClick={() => { saveAndFinish(path!); navigate(`/recipes/${recipe.id}`) }}>
+              <div key={recipe.id} onClick={async () => { await saveAndFinish(path!); navigate(`/recipes/${recipe.id}`) }}>
                 <RecipeCard recipe={recipe} />
               </div>
             ))}
@@ -266,13 +266,13 @@ export function WelcomeFlow({ onComplete }: WelcomeFlowProps) {
 
           <div className="text-center space-y-3">
             <button
-              onClick={() => { saveAndFinish(path!); navigate('/recipes') }}
+              onClick={async () => { await saveAndFinish(path!); navigate('/recipes') }}
               className="text-crust font-medium text-sm hover:text-crust-light transition-colors"
             >
               Browse All Recipes
             </button>
             <button
-              onClick={() => saveAndFinish(path!)}
+              onClick={async () => saveAndFinish(path!)}
               className="block mx-auto text-ash text-sm hover:text-char transition-colors"
             >
               Go to Home

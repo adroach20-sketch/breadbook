@@ -50,10 +50,11 @@ export function StarterGuide() {
     if (starter) {
       const completedAt = new Date()
       completedAt.setDate(completedAt.getDate() - (GUIDE_TOTAL_DAYS - 1))
-      await supabase
+      const { error } = await supabase
         .from('starters')
         .update({ created_at: completedAt.toISOString() })
         .eq('id', starter.id)
+      if (error) console.error('Failed to mark starter complete:', error)
     }
     navigate('/recipes')
   }
