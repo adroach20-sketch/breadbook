@@ -68,7 +68,7 @@ export function JournalForm() {
     load()
   }, [id, isEdit, recipeId])
 
-  // Fetch bake event data for session summary card
+  // Fetch bake event data for session summary card + pre-fill what to change
   useEffect(() => {
     if (!sessionId || isEdit) return
     supabase
@@ -76,7 +76,10 @@ export function JournalForm() {
       .select('event_type, event_value')
       .eq('bake_session_id', sessionId)
       .then(({ data }) => {
-        if (data) setBakeEvents(data)
+        if (!data) return
+        setBakeEvents(data)
+        const signals = deriveNegativeSignals(data)
+        if (signals.length > 0) setWhatToChange(signals.join('. ') + '.')
       })
   }, [sessionId, isEdit])
 
@@ -166,7 +169,7 @@ export function JournalForm() {
       <div className="space-y-5">
         <Field
           label="Crumb"
-          placeholder="How was the inside? Open, tight, gummy, airy..."
+          placeholder={deriveCrumbPlaceholder(bakeEvents)}
           value={crumbNotes}
           onChange={setCrumbNotes}
         />
@@ -178,7 +181,7 @@ export function JournalForm() {
         />
         <Field
           label="Flavor"
-          placeholder="Sour, mild, wheaty, sweet, salty..."
+          placeholder={deriveFlavorPlaceholder(bakeEvents)}
           value={flavorNotes}
           onChange={setFlavorNotes}
         />
@@ -222,6 +225,56 @@ export function JournalForm() {
   )
 }
 
+function deriveCrumbPlaceholder(events: Array<{ event_type: string; event_value: string | null }>): string {
+  const foldCount = events.filter((e) => e.event_type === 'fold_done').length
+  const finalRise = events.filter((e) => e.event_type === 'rise_check').map((e) => e.event_value).filter(Boolean).pop()
+  const foldLabel = `${foldCount} fold ${foldCount === 1 ? 'set' : 'sets'}`
+  if (foldCount > 0 && finalRise) return `You logged ${foldLabel} and a ${finalRise} rise — how did the crumb turn out?`
+  if (finalRise) return `Bulk rise reached ${finalRise} — how did the crumb look?`
+  if (foldCount > 0) return `You logged ${foldLabel} — how was the crumb structure?`
+  return 'How was the inside? Open, tight, gummy, airy...'
+}
+
+function deriveFlavorPlaceholder(events: Array<{ event_type: string; event_value: string | null }>): string {
+  const smells = events.filter((e) => e.event_type === 'dough_smell').map((e) => e.event_value).filter(Boolean)
+  if (smells.length > 0) {
+    const unique = [...new Set(smells)].join(', ').toLowerCase()
+    return `Dough smelled ${unique} before baking — how did the flavor land?`
+  }
+  return 'Sour, mild, wheaty, sweet, salty...'
+}
+
+// Derives factual diagnostic signals from bake events for pre-filling "what to change"
+function deriveNegativeSignals(events: Array<{ event_type: string; event_value: string | null }>): string[] {
+  const signals: string[] = []
+
+  const pokeTest = events.find((e) => e.event_type === 'poke_test')?.event_value
+  if (pokeTest === "Didn't spring back") signals.push('Poke test showed no spring-back — may have overproofed')
+  else if (pokeTest === 'Sprang back fast') signals.push('Poke test sprang back fast — may need longer proof time')
+
+  const shapingFeel = events.find((e) => e.event_type === 'shaping_feel')?.event_value
+  if (shapingFeel && shapingFeel !== 'Good tension') signals.push(`Shaping: ${shapingFeel.toLowerCase()}`)
+
+  const riseChecks = events.filter((e) => e.event_type === 'rise_check').map((e) => e.event_value).filter(Boolean)
+  const finalRise = riseChecks[riseChecks.length - 1]
+  if (finalRise === '25%' || finalRise === '50%') signals.push(`Bulk rise only reached ${finalRise} — may need more fermentation time`)
+
+  const offPlanEvents = events.filter((e) => e.event_type === 'off_plan').map((e) => e.event_value).filter(Boolean) as string[]
+  offPlanEvents.forEach((raw) => {
+    try {
+      const parsed = JSON.parse(raw) as { reason?: string; note?: string }
+      const text = parsed.reason
+        ? parsed.note ? `${parsed.reason}: ${parsed.note}` : parsed.reason
+        : raw
+      signals.push(text)
+    } catch {
+      signals.push(raw)
+    }
+  })
+
+  return signals
+}
+
 // Read-only summary of bake session data for reference while journaling
 function BakeSessionSummary({ events }: { events: Array<{ event_type: string; event_value: string | null }> }) {
   const roomTemp = events.find((e) => e.event_type === 'room_temp')?.event_value
@@ -245,7 +298,7 @@ function BakeSessionSummary({ events }: { events: Array<{ event_type: string; ev
 
   return (
     <div className="mb-6 bg-wheat/10 border border-wheat/30 rounded-xl p-4">
-      <h3 className="text-sm font-medium text-char mb-2">Your Bake</h3>
+      <h3 className="text-sm font-medium text-char mb-2">From Your Bake</h3>
       <ul className="text-sm text-ash space-y-1">
         {items.map((item, i) => (
           <li key={i}>{item}</li>
