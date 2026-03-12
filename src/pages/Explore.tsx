@@ -80,11 +80,13 @@ export function Explore() {
       .select('*')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
-      .then(({ data }) => {
-        setMyVersions((data as Recipe[]) ?? [])
-        setMyVersionsLoading(false)
-      })
-      .catch(() => setMyVersionsLoading(false))
+      .then(
+        ({ data }) => {
+          setMyVersions((data as Recipe[]) ?? [])
+          setMyVersionsLoading(false)
+        },
+        () => setMyVersionsLoading(false)
+      )
   }, [user, activeTab])
 
   // Search + filter hook
