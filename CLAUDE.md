@@ -68,15 +68,26 @@ Live at **breadbook.app** and **breadbook.onrender.com**. See `ROADMAP.md` for t
 - **v0.3:** Stop Bake (abandon session, clears localStorage + Supabase)
 - **v0.3:** Starters added to nav; mobile nav icons-only (6 items, all screen sizes)
 
-### What's Next (v0.4 — "Make It Yours")
-1. Recipe Fork & Customize
-2. Shareable bake results (photo share card for Instagram/link sharing)
-3. Interactive Loaf Troubleshooter (decision-tree diagnostic)
-4. Full filter panel + Explore tab editorial sections
-5. Baking dashboard / analytics (history timeline, improvement trends)
-6. DB migrations (expand profiles + recipes tables)
-7. Capacitor shell (native iOS + Android with timer notifications)
-8. 5-8 more Originals (target 30+)
+### What's Built (v0.4 — "Make It Yours") — IN PROGRESS
+- **v0.4:** Guest access + auth gate — open-tier routing, ghost nav with contextual modals, redirectTo intent preservation, open redirect hardened
+- **v0.4:** Shareable bake result card (ShareCard + ShareCardModal, html2canvas PNG, available from BakeComplete + JournalDetail)
+
+### What's Next (v0.4 — continued, priority order)
+Fast wins:
+1. Recipe photography — `image_url` on recipes table, 19+ bread photos, render on cards + detail hero
+2. Bake session → journal pre-fill — read `bake_event_logs` by session_id at JournalForm load, pre-populate room temp + observations
+3. Starter-aware Explore suggestion — replace "Coming soon" stub with real conditional (activity level already calculated)
+
+Content + flow fixes:
+4. 8–10 new Originals batch (same-day discard + enriched, target 27–29 total)
+5. Recipe social proof (bake count + avg rating on detail page)
+6. Starter guide Day 13 → first bake CTA deep-link
+7. Troubleshooter → journal link (append diagnosis to what_to_change)
+
+Personalization:
+8. Lightweight Recipe Fork (copy + edit title/desc/ingredients, lineage preserved, step editing deferred)
+9. Interactive Troubleshooter — diagnosis cards (symptom → questions → diagnosis, no amendment step yet)
+10. Capacitor shell (native iOS + Android with timer notifications)
 
 ### Product Strategy
 - **App is 100% free.** No paywalls, no IAP, no premium tiers.

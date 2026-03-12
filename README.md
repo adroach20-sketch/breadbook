@@ -6,10 +6,15 @@ Your sourdough starter's best friend. Browse tested recipes, follow guided bakes
 
 BreadBook is a sourdough lifestyle app built around the one thing that connects it all: your starter.
 
-- **BreadBook Originals** — A curated library of tested recipes across every category: loaves, focaccia, pizza, pancakes, crackers, bagels, cinnamon rolls, and more.
+- **BreadBook Originals** — A curated library of 19+ tested recipes across every category: loaves, focaccia, pizza, pancakes, crackers, bagels, cinnamon rolls, and more.
 - **Guided Bake Mode** — Follow your recipe step by step with countdown timers, browser notifications, screen wake lock, per-step ingredient checklists, and in-bake logging (fold tracking, rise check-ins, room temp capture).
 - **BreadBook Academy** — Inline knowledge cards that explain what each step does, when to skip it, and how it interacts with other steps. Learn while you bake.
-- **Bake Journal** — Log your bakes with star ratings, crumb/crust/flavor notes, photos, and reflections. Track your progress over time.
+- **Bake Journal** — Log your bakes with star ratings, crumb/crust/flavor notes, photos, and reflections. Share your results as a downloadable card.
+- **Starter Tracker** — Track your starter's health, feeding schedule, activity chart, and 14-day guided startup path.
+- **Smart Schedule Planner** — Plan your bake backwards from when you want to eat. Handles feeding timing, room temp adjustments, and quiet hours.
+- **Loaf Troubleshooter** — 20+ searchable symptoms with plain-language explanations and fixes.
+- **Community** — Share bake photos, browse other bakers' recipes, and comment on the feed.
+- **Guest Access** — Browse recipes and community without an account. Soft gates prompt sign-up only when needed.
 - **Baker's Percentage Toggle** — View ingredients in grams or baker's percentages with one tap.
 - **Dark Mode** — System, light, or dark theme toggle.
 

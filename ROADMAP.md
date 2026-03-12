@@ -376,24 +376,46 @@ Goal: Convert signups into active bakers. Make the first session magical.
 - ⏭ 10+ new Originals — deferred to v0.4
 
 ### v0.4 — "Make It Yours"
-Goal: Let bakers personalize. Deepen engagement.
+Goal: Let bakers personalize. Deepen engagement. Fix the core learning loop.
 
-1. Recipe Fork & Customize
-2. Shareable bake results (photo share card for Instagram/link sharing)
-3. Interactive Loaf Troubleshooter (decision-tree diagnostic)
-4. Full filter panel + Explore tab editorial sections
-5. Baking dashboard / analytics (history timeline, improvement trends)
-6. **Parallel:** 5-8 more Originals (target 30+)
+Reordered 2026-03-11 after full product audit. Priority: fast wins that close broken flows first, then personalization features, then new capabilities.
+
+**Already shipped:**
+- [x] Guest access + auth gate — open routing, ghost nav, contextual modals, redirectTo
+- [x] Shareable bake results — downloadable PNG share card, available from BakeComplete + JournalDetail
+
+**Fast wins — close broken flows (each ~half session):**
+- [ ] **Recipe photography** — add `image_url` column to `recipes` table; source 19+ bread photos (Unsplash free license or AI-generated); render on recipe cards and detail page hero. No new features, transforms the browse experience for guests. *Engineering: 1 afternoon. Content: the real work.*
+- [ ] **Bake session → journal pre-fill** — at JournalForm load, read `bake_event_logs` by `session_id` param; pre-populate room temp, rise estimate from check-ins, crumb/feel observations. Add a collapsible "From your bake" summary section. Closes the learning loop that justifies all of in-bake logging. *Currently: 12 hours of data silently discarded when journal opens blank.*
+- [ ] **Starter-aware Explore suggestion** — replace "Coming soon" stub with real conditional: if latest starter log is <6hrs old, show "Your starter is active — ready to bake!" banner surfacing long-ferment recipes. Starter activity level is already calculated; just needs wiring to Explore. *2 hours. Removes embarrassing stub.*
+
+**Content (parallel, batch):**
+- [ ] **8–10 new Originals** — target 27–29 total. Priority: same-day discard (waffles, pancakes, tortillas, banana bread) for high-frequency return visits; enriched (brioche, dinner rolls) for weekend projects. Must include beginner tag, academy keys, accurate timers.
+
+**Flow fixes (medium, ~1 session each):**
+- [ ] **Recipe social proof** — add bake count + avg community rating to recipe detail page. Show "X bakers have made this" below the recipe title. Lifts guest→signup conversion. Needs a bake count query against `bake_sessions`.
+- [ ] **Starter guide Day 13 → first bake CTA** — on Day 13 card, add a direct "You're ready — let's bake your first loaf →" button that deep-links to Classic Artisan Sourdough with the schedule planner pre-filled. Currently the guide ends without a clear next action.
+- [ ] **Troubleshooter → journal link** — from any TroubleshootDetail page, if launched with `?logId=`, show "Apply this fix to your [Recipe Name] notes" that appends the diagnosis to the journal entry's `what_to_change` field. Closes the troubleshooter dead-end.
+
+**Personalization features:**
+- [ ] **Lightweight Recipe Fork** — "Copy & Make It Mine" button on recipe detail. Copies recipe to user's account with editable title, description, and ingredients. Preserves "Based on [Original] by [Baker]" lineage. Defers step editing (full Builder) to v1.0. *70% of fork value, 30% of cost. DB migration required: add `forked_from`, `version` columns.*
+- [ ] **Interactive Troubleshooter — diagnosis cards** — symptom → 3–5 follow-up questions → plain-language diagnosis with specific amendments ("reduce bulk by 30 min," "add 2% more salt"). Skip the "apply to recipe" amendment step for now (requires fork). Stand-alone diagnosis is high SEO value + baker retention.
+
+**Deferred within v0.4 (if time):**
+- [ ] Baking dashboard / analytics (history timeline, improvement trends) — needs 50+ journal entries to tell a meaningful story; revisit at v1.0 prep
 
 ### v1.0 — "Ready for the World"
-Goal: Polish, stability, App Store launch.
+Goal: Polish, stability, App Store launch. Establish retention infrastructure.
 
-1. Modular Recipe Builder (scoped: no drag-to-reorder, use move up/down for mobile)
-2. Push notifications for feeding reminders (Capacitor + Supabase Edge Function)
-3. App Store + Play Store submission (icons, screenshots, privacy policy, review)
-4. Auto-deploy CI/CD
-5. Affiliate link infrastructure (product recommendations in Academy + recipes)
-6. Community quality pass (if 50+ MAU gate met: better empty states, journal→feed bridge)
+1. **Email notifications** (Resend + Supabase Edge Functions) — post-bake nudge ("Log your results!"), weekly digest ("what the community baked"), feeding reminder fallback for non-push users. *Not on roadmap until now — critical for weekly-habit product like sourdough.*
+2. **Journal per-recipe history view** — "you've baked this 5 times, here's your arc." Timeline of bakes for a single recipe, side-by-side rating comparison, trend line. High retention value for established bakers.
+3. **Home page personalization** — dynamic content: recent bakes, saved-but-never-baked recipes, community activity. Currently static 4 hardcoded recipes every visit — engagement cliff after onboarding.
+4. **Modular Recipe Builder** (scoped: no drag-to-reorder, use move up/down for mobile)
+5. **Push notifications for feeding reminders** (Capacitor + Supabase Edge Function)
+6. **App Store + Play Store submission** (icons, screenshots, privacy policy, review)
+7. Auto-deploy CI/CD
+8. Affiliate link infrastructure (product recommendations in Academy + recipes)
+9. Community quality pass (if 50+ MAU gate met: better empty states, journal→feed bridge)
 
 ### Post-v1 — Growth & Monetization
 Build order depends on user data and growth trajectory.
@@ -413,7 +435,8 @@ Build order depends on user data and growth trajectory.
 - ~~PWA-only mobile~~ — Replaced by Capacitor. iOS PWA push/timers too unreliable.
 - ~~Realtime on bake_event_logs~~ — No use case until collaborative features exist.
 - ~~Two-panel bake mode~~ — Power user / tablet feature. Low priority.
-- ~~Starter-aware recipe suggestions~~ — Requires modeling starter readiness reliably. Simpler: show prep time on recipes.
+- ~~Starter-aware recipe suggestions~~ — **UNPARKED 2026-03-11.** Originally parked as "requires modeling starter readiness reliably" but activity level is already calculated in StarterCard/StarterDashboard. Simple conditional in Explore: if latest starter log <6hrs, surface long-ferment recipes. Moving to v0.4 fast wins.
+- ~~Explore editorial sections~~ — **DONE (not yet checked off).** beginnerFriendly, quickBakes, weekendProjects, savedByYou sections all exist in Explore.tsx. Gap is recipe tagging completeness and "Trending This Week" (needs bake count data). Tagging addressed with new Originals batch; Trending deferred to v1.0.
 
 ---
 
@@ -428,3 +451,5 @@ Build order depends on user data and growth trajectory.
 | 2026-03-10 | Monetization strategy: free app + brand partnerships | Full team debate (roadmap, monetization, baker interviews). Decision: app is 100% free, no paywalls, no IAP. Revenue from brand partnerships/affiliate, optional Baker's Circle ($5/yr voluntary support), and creator tip jar (15% cut). React Native cut. Roadmap reordered: onboarding/retention before new features, community frozen until 50+ MAU. See `plans/monetization-strategy.md`. |
 | 2026-03-10 | Mobile strategy: Capacitor (not RN, not PWA-only) | PWA timers unreliable when backgrounded on iOS. React Native = full rewrite. Capacitor wraps existing React app with ~95% code reuse, adds native local notifications (timers), push notifications (feeding reminders), and App Store/Play Store presence. Phase 1 (shell + timer notifications) targets v0.4. Push notifications + store submission targets v1.0. See `plans/mobile-app-capacitor.md`. |
 | 2026-03-11 | v0.3 feature batch shipped | A1–A6 + fixes: cross-feature nav, home dashboard slot, 14-day starter guide, feeding reminders wired (useStarterReminderSync), troubleshooter, profile stats, stop-bake flow, Starters in nav, mobile nav icons-only. DB migrations + Capacitor + new Originals deferred to v0.4. |
+| 2026-03-11 | v0.4 start: guest access + auth gate + share card | Auth gate: open-tier routing (recipes, community, troubleshoot, baker profiles) with soft gate modals instead of hard redirects. Ghost nav for guests — all tabs visible, locked ones show contextual modals on tap. redirectTo param preserved through sign-up/login. Open redirect hardened. Share card: 600×600 PNG via html2canvas, downloadable from BakeComplete (post-bake, no rating yet) and JournalDetail (full card with rating + date). First-bake milestone variant. |
+| 2026-03-11 | v0.4 roadmap reorder after full product audit | 6-expert team review (Growth, Baker, UX, Engineer, Retention, Food Media) identified gaps not on roadmap: (1) No recipe photos — single biggest visual gap, trivial engineering, transforms guest browse. (2) Bake session data never reaches journal form — 12hrs of in-bake logging silently discarded, breaks core learning loop. (3) "Coming soon" stub on Explore despite starter activity level already calculated — easy to wire. Also surfaced: email notifications (critical for weekly-habit product, now in v1.0), journal per-recipe history view (v1.0), home page personalization (v1.0). Explore editorial sections confirmed as already built — removed from to-do. Starter-aware suggestions unparked. v0.4 reordered: fast wins (photos + bake→journal + starter suggestions) first, then content batch, then flow fixes, then new features. |
